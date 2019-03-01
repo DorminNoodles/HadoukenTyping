@@ -1,5 +1,20 @@
 
+// import dep1 from './dep-1.js';
+import Animation from './animation.js';
+
+
+let ryu = new Animation();
+
+ryu.sayHello();
+
+setInterval(() => {
+	ryu.drawImage();
+}, 100);
+
+
 const alpha = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u']
+
+let nbLetters = 8;
 
 let current = {
 	letters: [],
@@ -8,21 +23,21 @@ let current = {
 
 document.addEventListener('keydown', (event) => {
 	console.log(event.key);
-	// if (event.key == "m") {
-	// 	console.log("BABAR");
-	// }
 
 	let i = 0;
 	while (i < current.letters.length) {
 		if (!current.letters[i].valid)
 			break;
-		console.log("HELLOOOOOOO");
 		i++;
 	}
 	if (i == current.letters.length)
 		return;
 	if (event.key == current.letters[i].char)
 		current.letters[i].valid = true;
+
+	if (current && checkValid(current.letters)) {
+		current.letters = getLetters(nbLetters);
+	}
 	render();
 });
 
@@ -39,40 +54,51 @@ function getLetters(nb) {
 			valid: false
 		});
 	}
-
 	return arr;
 }
 
-current.letters = getLetters(5);
+function checkValid(arr) {
+	let valid = true;
+	arr.forEach((elm) => {
+		if (!elm.valid)
+			valid = false
+	})
+	console.log("return " + valid);
+	return valid;
+}
 
-// current.letters[0].valid = true;
+current.letters = getLetters(nbLetters);
 
 
+function cleanLetters() {
+	let myElements = document.body.getElementsByClassName('Letters');
+	if (myElements) {
+		let arr = [...myElements];//convert htmlCollection to array
+		console.log(arr);
+		arr.forEach((elem) => {
+			elem.parentNode.removeChild(elem);
+		});
+	}
 
-// current.letters.forEach((elem) => {
-//
-// 	//create element
-// 	var newDiv = document.createElement("div");
-//
-// 	var newContent = document.createTextNode(elem.char);
-// 	// ajoute le noeud texte au nouveau div créé
-// 	newDiv.appendChild(newContent);
-// 	newDiv.className += "Letters";
-// 	document.body.appendChild(newDiv);
-//
-// })
+	let myElements2 = document.body.getElementsByClassName('LettersOK');
+	if (myElements2) {
+		let arr = [...myElements2];//convert htmlCollection to array
+		console.log(arr);
+		arr.forEach((elem) => {
+			elem.parentNode.removeChild(elem);
+		});
+	}
+}
 
 function render() {
-	var myNode = document.body;
-	if (myNode) {
-		while (myNode.firstChild) {
-			myNode.removeChild(myNode.firstChild);
-		}
-	}
+	// var myNode = document.body;
+
+	cleanLetters();
 
 	if (current) {
 		current.letters.forEach((elem) => {
 
+			let content = document.getElementById('LettersContent');
 			//create element
 			var newDiv = document.createElement("div");
 
@@ -83,8 +109,7 @@ function render() {
 				newDiv.className += "LettersOK";
 			else
 				newDiv.className += "Letters";
-			document.body.appendChild(newDiv);
-
+			content.appendChild(newDiv);
 		})
 	}
 }

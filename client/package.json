@@ -4,11 +4,13 @@
   "description": "",
   "main": "client.js",
   "dependencies": {
-    "express": "^4.16.4"
+    "clientside-require": "^4.7.2",
+    "express": "^4.16.4",
+    "nodemon": "^1.18.10"
   },
   "devDependencies": {},
   "scripts": {
-  	"start": "nodemon client.js",
+    "start": "nodemon client.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
