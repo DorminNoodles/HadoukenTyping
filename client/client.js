@@ -1,25 +1,33 @@
-
-// import dep1 from './dep-1.js';
 import Animation from './animation.js';
+import Animation2 from './animation2.js';
 
 
-let ryu = new Animation();
-
-ryu.sayHello();
-
-setInterval(() => {
-	ryu.drawImage();
-}, 100);
+let idle = new Animation();
+let punch = new Animation2();
 
 
-const alpha = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u']
+let animArray = [idle, punch];
 
-let nbLetters = 8;
+
+const alpha = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+
+let nbLetters = 3;
 
 let current = {
 	letters: [],
 	done: false
 }
+
+// setInterval(() => {
+// 	animArray[0].drawAnimation();
+// 	if (checkValid(current.letters)) {
+// 		animArray[1].drawAnimation();
+// 		console.log("punch");
+// 	}
+// }, 1);
+
+
+let inter = idle.drawAnimation(2);
 
 document.addEventListener('keydown', (event) => {
 	console.log(event.key);
@@ -36,7 +44,13 @@ document.addEventListener('keydown', (event) => {
 		current.letters[i].valid = true;
 
 	if (current && checkValid(current.letters)) {
+		clearInterval(inter);
+		inter = punch.drawAnimation();
 		current.letters = getLetters(nbLetters);
+
+		setTimeout(() => {
+			inter = idle.drawAnimation();
+		}, 300);
 	}
 	render();
 });
@@ -50,7 +64,7 @@ function getLetters(nb) {
 
 	for(var i = 0; i < nb; i++){
 		arr.push({
-			char: alpha[getRandomInt(20)],
+			char: alpha[getRandomInt(26)],
 			valid: false
 		});
 	}

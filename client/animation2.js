@@ -6,7 +6,7 @@
 // module.exports = cols;
 
 
-class Animation {
+class Animation2 {
 
 	//the position where the frame will be drawn
 
@@ -43,7 +43,7 @@ class Animation {
 	updateFrame(){
 		this.currentFrame = ++this.currentFrame % this.cols;
 		this.srcX = this.currentFrame * this.width;
-		this.srcY = 0;
+		this.srcY = this.height;
 	}
 
 	drawImage(){
@@ -61,14 +61,20 @@ class Animation {
 	// 	}
 	// }
 	//
-	drawAnimation(test){
-		return setInterval(() => {
-			console.log(test);
+	drawAnimation(next){
+		let i = 0;
+		let inter = setInterval(() => {
+			i++;
+			// console.log(test);
 			this.drawImage();
+
+			if (i == 4)
+				clearInterval(inter);
 		}, 100)
+		return inter;
 	}
 }
 
 
 
-export default Animation;
+export default Animation2;
