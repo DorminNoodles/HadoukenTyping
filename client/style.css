@@ -7,15 +7,21 @@ body {
 }
 
 .Letters {
+	font-family: "Gill Sans", sans-serif;
 	background-color: #FF0011;
 	width: 30px;
-	font-size: 18px;
+	font-size: 22px;
+	margin: 2px;
+	padding: 5px;
 	border: 1px solid #000;
 }
 
 .LettersOK {
+	font-family: "Gill Sans", sans-serif;
 	background-color: #00FF11;
 	width: 30px;
-	font-size: 18px;
+	font-size: 22px;
+	margin: 2px;
+	padding: 5px;
 	border: 1px solid #000;
 }

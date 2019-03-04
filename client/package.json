@@ -6,7 +6,8 @@
   "dependencies": {
     "clientside-require": "^4.7.2",
     "express": "^4.16.4",
-    "nodemon": "^1.18.10"
+    "nodemon": "^1.18.10",
+    "socket.io-client": "^2.2.0"
   },
   "devDependencies": {},
   "scripts": {

@@ -23,18 +23,14 @@ class Character {
 		this.inter = setInterval(()=> {
 			this.update();
 		}, 100);
-// #####################
-		// forEach(jsonAnim)
-		//  this.animList[elem.name] = elem;
-//######################
 	}
 
 	call() {
-		console.log("calling");
+
 	}
 
 	update() {
-		console.log("Update Object");
+		// console.log("Update Object");
 
 		this.playAnim();
 	}
@@ -43,7 +39,6 @@ class Character {
 		this.currentFrame = ++this.currentFrame % this.currentAnim.frame;
 		this.srcX = this.currentFrame * this.currentAnim.width;
 		this.srcY = this.currentAnim.height * this.currentAnim.rows;
-		console.log(this.currentFrame, this.currentAnim.frame);
 		if (!this.currentAnim.loop && this.currentAnim.frame - 1 == this.currentFrame)
 			return true;
 		return false;
@@ -81,9 +76,7 @@ class Character {
 		if (this.currentAnim) {
 			let finish = this.updateFrame();
 			if (finish) {
-				console.log("HEY@@@@@@@@@@@@@");
 				this.currentAnim = this.anim['idle'];
-
 			}
 			this.render();
 		}

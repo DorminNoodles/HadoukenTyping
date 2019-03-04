@@ -5,15 +5,17 @@ import Character from './character.js';//test
 import AnimationManager from './animationManager.js';
 import ryuAnim from './ryuAnim.js';
 // const animJSON = require('animJSON.js');
+import  from './node_modules/socket.io-client/dist/socket.io.js';
+// const socket = io('http://localhost');
 
 
 // let idle = new Animation();
 // let punch = new Animation2();
 
 // let gameRender = new Render();
+// var exampleSocket = new WebSocket("ws://e2r12p13:8000/", "protocolOne");
 
-
-
+let gameState = 'normal';
 
 const alpha = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
 
@@ -32,13 +34,28 @@ let ctx = canvas.getContext('2d');
 ctx.scale(4,4);
 
 
+let gameLoop = setInterval(() => {
+
+	console.log(gameState);
+	if (current && checkValid(current.letters) && gameState == 'normal') {
+		gameState = 'validation';
+		console.log("OK @@@@@@@@@@@@@@@@@@@@@@");
+		setTimeout(() => {
+			current.letters = getLetters(nbLetters);
+			gameState = 'normal';
+			render();
+		}, 500);
+	}
+
+}, 16);
+
+
+
 // let inter = idle.drawAnimation(2);
 
 document.addEventListener('keydown', (event) => {
 	console.log(event.key);
 
-	if (ryu)
-		ryu.changeAnim('punch');
 
 	let i = 0;
 	while (i < current.letters.length) {
@@ -50,19 +67,13 @@ document.addEventListener('keydown', (event) => {
 		return;
 	if (event.key == current.letters[i].char) {
 		current.letters[i].valid = true;
-
 	}
 
-	// if (current && checkValid(current.letters)) {
-	// 	clearInterval(inter);
-	// 	inter = punch.drawAnimation();
-	// 	current.letters = getLetters(nbLetters);
-	//
-	// 	setTimeout(() => {
-	// 		inter = idle.drawAnimation();
-	// 	}, 300);
-	// }
-	// render();
+	if (current && checkValid(current.letters)) {
+		if (ryu)
+			ryu.changeAnim('punch');
+	}
+	render();
 });
 
 function getRandomInt(max) {
@@ -87,12 +98,11 @@ function checkValid(arr) {
 		if (!elm.valid)
 			valid = false
 	})
-	console.log("return " + valid);
+	// console.log("return " + valid);
 	return valid;
 }
 
 current.letters = getLetters(nbLetters);
-
 
 function cleanLetters() {
 	let myElements = document.body.getElementsByClassName('Letters');
@@ -137,15 +147,6 @@ function render() {
 		})
 	}
 }
-
-
-// Render.getObj();
-
-
-// console.log(window);
-
-
-// let arrayOfObject = [];
 
 let ryu = new Character();
 

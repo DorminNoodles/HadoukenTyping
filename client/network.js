@@ -1,0 +1,15 @@
+
+class Network {
+
+	constructor() {
+
+	}
+
+	sendMessage() {
+		
+
+	}
+
+
+
+}
