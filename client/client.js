@@ -1,36 +1,44 @@
 import Animation from './animation.js';
 import Animation2 from './animation2.js';
+import Render from './render.js';
+import Character from './character.js';//test
+import AnimationManager from './animationManager.js';
+import ryuAnim from './ryuAnim.js';
+// const animJSON = require('animJSON.js');
 
 
-let idle = new Animation();
-let punch = new Animation2();
+// let idle = new Animation();
+// let punch = new Animation2();
+
+// let gameRender = new Render();
 
 
-let animArray = [idle, punch];
 
 
 const alpha = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
 
-let nbLetters = 3;
+let nbLetters = 5;
 
 let current = {
 	letters: [],
 	done: false
 }
 
-// setInterval(() => {
-// 	animArray[0].drawAnimation();
-// 	if (checkValid(current.letters)) {
-// 		animArray[1].drawAnimation();
-// 		console.log("punch");
-// 	}
-// }, 1);
+let canvas = document.getElementById('canvas');
+canvas.width = 1024;
+canvas.height = 512;
+
+let ctx = canvas.getContext('2d');
+ctx.scale(4,4);
 
 
-let inter = idle.drawAnimation(2);
+// let inter = idle.drawAnimation(2);
 
 document.addEventListener('keydown', (event) => {
 	console.log(event.key);
+
+	if (ryu)
+		ryu.changeAnim('punch');
 
 	let i = 0;
 	while (i < current.letters.length) {
@@ -40,19 +48,21 @@ document.addEventListener('keydown', (event) => {
 	}
 	if (i == current.letters.length)
 		return;
-	if (event.key == current.letters[i].char)
+	if (event.key == current.letters[i].char) {
 		current.letters[i].valid = true;
 
-	if (current && checkValid(current.letters)) {
-		clearInterval(inter);
-		inter = punch.drawAnimation();
-		current.letters = getLetters(nbLetters);
-
-		setTimeout(() => {
-			inter = idle.drawAnimation();
-		}, 300);
 	}
-	render();
+
+	// if (current && checkValid(current.letters)) {
+	// 	clearInterval(inter);
+	// 	inter = punch.drawAnimation();
+	// 	current.letters = getLetters(nbLetters);
+	//
+	// 	setTimeout(() => {
+	// 		inter = idle.drawAnimation();
+	// 	}, 300);
+	// }
+	// render();
 });
 
 function getRandomInt(max) {
@@ -127,6 +137,44 @@ function render() {
 		})
 	}
 }
+
+
+// Render.getObj();
+
+
+// console.log(window);
+
+
+// let arrayOfObject = [];
+
+let ryu = new Character();
+
+console.log(ryuAnim);
+
+ryu.addAnimation(ryuAnim);
+
+// Object.assign(ryu, new AnimationManager());
+
+console.log(ryu);
+
+// obj = undefined;
+// arrayOfObject.push(obj);
+
+
+// console.log(arrayOfObject, "hehe");
+
+
+// obj.render();
+// arrayOfObject[0].render();
+
+//test
+
+
+
+
+// setInterval(() => {
+//
+// })
 
 // render();
 

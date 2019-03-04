@@ -49,7 +49,7 @@ class Animation {
 	drawImage(){
 		this.updateFrame();
 		this.ctx.imageSmoothingEnabled = false;
-		this.ctx.drawImage(this.image, this.srcX, this.srcY, 64*2, 128*2, this.x, this.y, 64*2, 128*2);
+		this.ctx.drawImage(this.image, this.srcX, this.srcY, 64, 128, this.x, this.y, 64*2, 128*2);
 	}
 
 	// sleep(milliseconds) {
