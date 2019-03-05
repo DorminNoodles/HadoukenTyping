@@ -3,12 +3,12 @@
 
   ### ADD Webpack
 
-``
+```
   npm init -y
   npm install webpack webpack-cli --save-dev
-``
+```
 
-``
+```
   mkdir src //for sources
   mkdir dist //for distribution
   
@@ -17,7 +17,7 @@
   touch webpack.config.js
   
   const path = require('path');
-``
+```
 
   ```
     module.exports = {
