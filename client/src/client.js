@@ -3,7 +3,18 @@ import Character from './character.js';//test
 // import AnimationManager from './animationManager.js';
 import ryuAnim from './ryuAnim.js';
 // import  from './node_modules/socket.io-client/dist/socket.io.js';
-// const socket = io('http://localhost');
+const io = require('socket.io-client');
+
+
+let socket = io('http://localhost:8000');
+
+socket.on('connection', () => {
+	console.log("SOCKET IO");
+});
+
+socket.emit('ferret', 'tobi', (data) => {
+  console.log(data); // data will be 'woot'
+});
 
 
 // let idle = new Animation();
