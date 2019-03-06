@@ -12,9 +12,9 @@ socket.on('connection', () => {
 	console.log("SOCKET IO");
 });
 
-socket.emit('ferret', 'tobi', (data) => {
-  console.log(data); // data will be 'woot'
-});
+
+console.log(socket, "bordel");
+
 
 
 // let idle = new Animation();
@@ -84,6 +84,9 @@ const run = () => {
 		if (current && checkValid(current.letters)) {
 			if (ryu)
 				ryu.changeAnim('punch');
+			socket.emit('lettersValid', (data) => {
+			  console.log(data); // data will be 'woot'
+			});
 		}
 		render();
 	});
