@@ -45,7 +45,7 @@ class Character {
 	}
 
 	render() {
-		console.log("render me !");
+		// console.log("render me !");
 		let canvas = document.getElementById('canvas');
 		let ctx = canvas.getContext('2d');
 

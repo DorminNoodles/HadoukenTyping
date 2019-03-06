@@ -12,21 +12,51 @@ socket.on('connection', () => {
 	console.log("SOCKET IO");
 });
 
+socket.on('allPlayersId', (data) => {
+	console.log(data, "HIHIHIHIHHI");
+	displayPlayersId(data);
+});
+
+function displayPlayersId(list) {
+	let myElements = document.body.getElementsByClassName('playerChoiceButton');
+	if (myElements) {
+		let arr = [...myElements];//convert htmlCollection to array
+		console.log(arr);
+		arr.forEach((elem) => {
+			elem.parentNode.removeChild(elem);
+		});
+	}
+	console.log(list, "hello5555");
+	let div = document.getElementById('playersList');
+
+	for (let elem in list) {
+		if (elem != socket.id) {
+			console.log(elem);
+			let newDiv = document.createElement("div");
+			newDiv.innerHTML = elem;
+			newDiv.className += "playerChoiceButton";
+			newDiv.onclick = () => {
+				requestPlayer(elem);
+			}
+			div.appendChild(newDiv);
+		}
+	}
+}
+
+function requestPlayer(id) {
+	console.log(id);
+	socket.emit('playerRequest', id);
+}
 
 console.log(socket, "bordel");
 
-
-
 // let idle = new Animation();
 // let punch = new Animation2();
-
 // let gameRender = new Render();
 // var exampleSocket = new WebSocket("ws://e2r12p13:8000/", "protocolOne");
 
-
 const run = () => {
 
-	console.log("hello");
 	let gameState = 'normal';
 
 	const alpha = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
@@ -48,7 +78,7 @@ const run = () => {
 
 	let gameLoop = setInterval(() => {
 
-		console.log(gameState);
+		// console.log(gameState);
 		if (current && checkValid(current.letters) && gameState == 'normal') {
 			gameState = 'validation';
 			console.log("OK @@@@@@@@@@@@@@@@@@@@@@");
@@ -139,8 +169,21 @@ const run = () => {
 		}
 	}
 
+	function displaySocketId() {
+		let newDiv = document.createElement("div");
+
+		let newContent = document.createTextNode("My id: " + socket.id);
+
+		newDiv.appendChild(newContent);
+		document.getElementById("myId").appendChild(newDiv);
+
+		console.log(socket.id);
+	}
+
+
+	displaySocketId();
+
 	function render() {
-		// var myNode = document.body;
 
 		cleanLetters();
 
@@ -181,9 +224,6 @@ const run = () => {
 
 	// obj.render();
 	// arrayOfObject[0].render();
-
-	//test
-
 }
 
 // window.DOMContentLoaded = run();
@@ -199,6 +239,7 @@ window.onload = run;
 // })
 
 // render();
+
 
 
 //test_1
