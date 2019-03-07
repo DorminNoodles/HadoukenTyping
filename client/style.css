@@ -1,4 +1,5 @@
 body {
+	font-family: "Gill Sans", sans-serif;
 	/* display: flex; */
 }
 
@@ -28,4 +29,27 @@ body {
 
 .playerChoiceButton {
 	cursor: pointer;
+}
+
+#playerLife {
+	margin-right: 600px;
+	color: #F00;
+}
+
+#enemyLife {
+	color: #F00;
+}
+
+#lifes {
+	display: flex;
+}
+
+#gameWin {
+	margin-left: 120px;
+	color: #0F0
+}
+
+#gameLose {
+	margin-left: 120px;
+	color: #F00
 }

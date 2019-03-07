@@ -7,10 +7,11 @@
 
 class Character {
 
-	constructor(){
+	constructor(x, y, reverse){
 		this.inter;
-		this.x = 0;
-		this.y = 0;
+		this.x = x;
+		this.y = y;
+		this.reverse = reverse;
 
 		this.anim = [];
 		console.log("Class object");
@@ -53,7 +54,13 @@ class Character {
 		// console.log(this.currentAnim.image, this.srcX, this.srcY, 64*2, 128*2, this.x, this.y, 64*2, 128*2);
 		let image = new Image();
 		image.src = "picture.jpeg";
-		ctx.drawImage(this.currentAnim.image, this.srcX, this.srcY, 64, 128, 0, 0, 64, 128);
+
+		if (this.reverse) {
+			ctx.save()
+			ctx.scale(-1,1);
+		}
+		ctx.drawImage(this.currentAnim.image, this.srcX, this.srcY, 64, 128, this.x, this.y, 64, 128);
+		ctx.restore();
 	}
 
 	addAnimation(anim) {
