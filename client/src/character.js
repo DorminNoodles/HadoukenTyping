@@ -15,7 +15,6 @@ class Character {
 
 		this.anim = [];
 		console.log("Class object");
-		// arrayOfObject = this;
 		console.log(window, "hehe");
 
 		this.currentAnim;
@@ -78,7 +77,6 @@ class Character {
 
 	playAnim() {
 
-		// console.log(this.currentAnim);
 
 		if (this.currentAnim) {
 			let finish = this.updateFrame();
@@ -87,13 +85,6 @@ class Character {
 			}
 			this.render();
 		}
-
-		// if (this.nextAnim) {
-		// 	let finish = play(this.nextAnim);
-		// 	if (finish)
-		// 		play(this.idleAnim)
-		// }
-		// animManager.update();
 	}
 
 	changeAnim(animName) {

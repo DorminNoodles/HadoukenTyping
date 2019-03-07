@@ -53,3 +53,67 @@ body {
 	margin-left: 120px;
 	color: #F00
 }
+
+@keyframes close {
+  from {top: 350px; display: flex;}
+  to {top: 0px; display: none;}
+}
+
+@keyframes open {
+  from {top: -50px;}
+  to {top: 350px;}
+}
+
+#againMenuClose {
+	display: none;
+	/* display: flex; */
+	flex-direction: column;
+	font-size: 18px;
+	justify-content: center;
+	color: #FFF;
+	width: 300px;
+	position: absolute;
+	top: 350px;
+	left: 350px;
+	animation-name: close;
+	animation-duration: 4s;
+}
+
+#againMenuOpen {
+	/* display: none; */
+	display: flex;
+	flex-direction: column;
+	font-size: 18px;
+	justify-content: center;
+	color: #FFF;
+	width: 300px;
+	position: absolute;
+	top: 350px;
+	left: 350px;
+	animation-name: open;
+	animation-duration: 1s;
+}
+
+.againMenuTitle {
+	display: flex;
+	justify-content: center;
+	background-color: #FF2700;
+	width: 100%;
+	border: 4px solid #FF2700;
+}
+
+.againMenuBtnBox {
+	color: #FF2700;
+	display: flex;
+	justify-content: center;
+}
+
+.againMenuBtn {
+	margin: 0px 15px 0px 15px;
+	font-size: 28px;
+}
+
+.againMenuBtn a{
+	text-decoration: none;
+	color: #FF2700;
+}

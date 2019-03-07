@@ -22,14 +22,34 @@ let playersChoice;
 
 let playerChoiceChrono = false;
 
+let ctx;
+
+let pageLoad = false;
+
+let shakePattern = [
+	{x: 4, y: 2},
+	{x: -10, y: -10},
+	{x:	10, y: 12},
+	{x: -4, y: -4}
+]
+
+let nbLetters = 5;
+
+let current = {
+	letters: [],
+	done: false
+}
+
+// 2. -8 . 0 . -4
 
 // let idle = new Animation();
 // let punch = new Animation2();
 // let gameRender = new Render();
 // var exampleSocket = new WebSocket("ws://e2r12p13:8000/", "protocolOne");
-let socket = io('http://localhost:8000');
+let socket = io('http://e2r12p13:8000/');
 
 setInterval(() => {
+	window.moveBy(5,5);
 	console.log(gameState);
 }, 100);
 
@@ -39,8 +59,9 @@ socket.on('connection', () => {
 });
 
 socket.on('allPlayersId', (data) => {
-	console.log(data, "HIHIHIHIHHI");
-	displayPlayersId(data);
+	if (gameState != "fight") {
+		displayPlayersId(data);
+	}
 	playersChoice = data;
 });
 
@@ -56,7 +77,10 @@ socket.on('win', () => {
 	gameState = 'finish';
 	cleanLetters();
 	displayWin();
+	displayAgainMenu();
 });
+
+
 
 socket.on('fightBegin', () => {
 	console.log("FIGHT BEGIN !");
@@ -73,8 +97,29 @@ socket.on('takeDamage', (playerLife) => {
 	if (ryu2)
 		ryu2.changeAnim('punch');
 	displayPlayerLife(life);
+	shake();
+	takeDamageFeedback();
 });
 
+function restartMatch() {
+	console.log("restart !!!!!");
+	let menu = document.getElementById("againMenuOpen");
+
+	// menu.removeAttribute("id");
+	menu.id = "againMenuClose";
+}
+
+function quitMatch() {
+	console.log("QUIT !!!!!");
+}
+
+function displayAgainMenu() {
+	let menu = document.getElementById("againMenuClose");
+
+	// menu.removeAttribute("id");
+	menu.id = "againMenuOpen";
+	// document.getElementById("againMenu").style.display = "flex";
+}
 
 function displayPlayerLife(playerLife) {
 	let div = document.getElementById('playerLife');
@@ -117,6 +162,8 @@ function displayLose() {
 }
 
 function displayPlayersId(list) {
+
+	console.log("DISPLAY PLAYER CHOICE");
 	let myElements = document.body.getElementsByClassName('playerChoiceButton');
 	if (myElements) {
 		let arr = [...myElements];//convert htmlCollection to array
@@ -163,14 +210,21 @@ function displayChrono() {
 		playerChoiceChrono = true;
 		i -= 1;
 		h3[0].innerHTML = i;
-		if (i == 0) {
+		if (i == 0 || gameState == "fight") {
 			playerChoiceChrono = false;
-			displayPlayersId(playersChoice);
+			if (gameState != "fight")
+				displayPlayersId(playersChoice);
 			chron.removeChild(h3[0]);
 			clearInterval(inter);
 		}
 	}, 1000);
 }
+
+// function clearChrono() {
+// 	let chron = document.getElementById('chrono');
+// 	let h3 = chron.getElementsByTagName("h3");
+// 	h3[0].innerHTML = '';
+// }
 
 function cleanPlayersId() {
 	let playersList = document.getElementById('playersList');
@@ -193,19 +247,46 @@ console.log(socket, "bordel");
 
 
 
-let nbLetters = 5;
 
-let current = {
-	letters: [],
-	done: false
+
+
+
+let x = 0;
+let y = 0;
+
+function redScreen() {
+	ctx.rect(20, 20, 150, 100);
+	ctx.fillStyle = "red";
+	ctx.fill();
 }
 
 
-
+function shake() {
+	let shakeIterator = 0;
+	let inter = setInterval(() => {
+		ctx.translate(shakePattern[shakeIterator].x, shakePattern[shakeIterator].y)
+		shakeIterator += 1;
+		if (shakeIterator == 4) {
+			clearInterval(inter);
+		}
+	}, 80);
+}
 
 let gameLoop = setInterval(() => {
 	// console.log(Date.now());
 	// console.log(gameState);
+
+	// if (pageLoad) {
+	// 	if (shake) {
+	// 		console.log("shake shake");
+	// 		ctx.translate(shakePattern[shakeIterator].x, shakePattern[shakeIterator].y)
+	// 		shakeIterator += 1;
+	// 		if (shakeIterator == 4) {
+	// 			shakeIterator = 0;
+	// 			shake = false;
+	// 		}
+	// 	}
+	// }
 
 	if (current && checkValid(current.letters) && gameState == 'fight') {
 		gameState = 'validation';
@@ -313,10 +394,14 @@ function displaySocketId() {
 	console.log(socket.id);
 }
 
+function takeDamageFeedback() {
+	ctx.rect(0, 0, 400, 400);
+	ctx.fillStyle = "white";
+	ctx.fill();
+}
 
 
 function render() {
-
 	displayEnemyLife(enemyLife);
 	displayPlayerLife(life);
 	cleanLetters();
@@ -353,12 +438,18 @@ console.log(ryu1);
 function init() {
 	let canvas = document.getElementById('canvas');
 	canvas.width = 1024;
-	canvas.height = 512;
+	canvas.height = 480;
 
-	let ctx = canvas.getContext('2d');
+	ctx = canvas.getContext('2d');
 	ctx.scale(4,4);
 
 	displaySocketId();
+
+	let againBtn = document.getElementsByClassName("againMenuBtn");
+	againBtn[1].onclick = quitMatch;
+	againBtn[0].onclick = restartMatch;
+
+	pageLoad = true;
 }
 
 window.onload = init;
