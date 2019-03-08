@@ -47,7 +47,8 @@ let current = {
 // let punch = new Animation2();
 // let gameRender = new Render();
 // var exampleSocket = new WebSocket("ws://e2r12p13:8000/", "protocolOne");
-let socket = io('http://localhost:8000/');
+// let socket = io('http://localhost:8000/');
+let socket = io('http://e2r12p13:8000/');
 
 setInterval(() => {
 	window.moveBy(5,5);
