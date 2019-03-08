@@ -55,43 +55,29 @@ body {
 }
 
 @keyframes close {
-  from {top: 350px; display: flex;}
-  to {top: 0px; display: none;}
+  from {top: 300px; display: flex;}
+  to {top: -300px; display: none;}
 }
 
 @keyframes open {
-  from {top: -50px;}
+  from {top: -300px;}
   to {top: 350px;}
 }
 
-#againMenuClose {
-	display: none;
-	/* display: flex; */
-	flex-direction: column;
-	font-size: 18px;
-	justify-content: center;
-	color: #FFF;
-	width: 300px;
-	position: absolute;
-	top: 350px;
-	left: 350px;
-	animation-name: close;
-	animation-duration: 4s;
-}
-
-#againMenuOpen {
+#againMenu {
 	/* display: none; */
 	display: flex;
 	flex-direction: column;
-	font-size: 18px;
+	font-size: 30px;
 	justify-content: center;
 	color: #FFF;
-	width: 300px;
+	width: 400px;
+	height: 250px;
 	position: absolute;
-	top: 350px;
-	left: 350px;
-	animation-name: open;
-	animation-duration: 1s;
+	top: -300px;
+	/* top: 200px; */
+	left: 250px;
+	animation-duration: 1.0s;
 }
 
 .againMenuTitle {
@@ -109,8 +95,8 @@ body {
 }
 
 .againMenuBtn {
-	margin: 0px 15px 0px 15px;
-	font-size: 28px;
+	margin: 0px 20px 0px 20px;
+	font-size: 46px;
 }
 
 .againMenuBtn a{

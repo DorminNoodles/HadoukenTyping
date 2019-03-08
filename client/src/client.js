@@ -37,6 +37,7 @@ let nbLetters = 5;
 
 let current = {
 	letters: [],
+	start: 0,
 	done: false
 }
 
@@ -46,7 +47,7 @@ let current = {
 // let punch = new Animation2();
 // let gameRender = new Render();
 // var exampleSocket = new WebSocket("ws://e2r12p13:8000/", "protocolOne");
-let socket = io('http://e2r12p13:8000/');
+let socket = io('http://localhost:8000/');
 
 setInterval(() => {
 	window.moveBy(5,5);
@@ -70,6 +71,7 @@ socket.on('lose', () => {
 	gameState = 'finish';
 	cleanLetters();
 	displayLose();
+	displayAgainMenu();
 });
 
 socket.on('win', () => {
@@ -80,15 +82,13 @@ socket.on('win', () => {
 	displayAgainMenu();
 });
 
-
-
 socket.on('fightBegin', () => {
 	console.log("FIGHT BEGIN !");
 	ryu2 = new Character(-200,0, true);
 	ryu2.addAnimation(ryuAnim);
 	gameState = "fight";
+	current.start = Date.now();
 	render();
-
 });
 
 socket.on('takeDamage', (playerLife) => {
@@ -103,22 +103,26 @@ socket.on('takeDamage', (playerLife) => {
 
 function restartMatch() {
 	console.log("restart !!!!!");
-	let menu = document.getElementById("againMenuOpen");
+	// let menu = document.getElementById("againMenuOpen");
 
 	// menu.removeAttribute("id");
-	menu.id = "againMenuClose";
+	// menu.id = "againMenuClose";
 }
 
 function quitMatch() {
+	let menu = document.getElementById("againMenu");
+
+	menu.style.top = "-300px";
+	menu.style.animationName = "close";
 	console.log("QUIT !!!!!");
 }
 
 function displayAgainMenu() {
-	let menu = document.getElementById("againMenuClose");
+	let menu = document.getElementById("againMenu");
 
-	// menu.removeAttribute("id");
-	menu.id = "againMenuOpen";
-	// document.getElementById("againMenu").style.display = "flex";
+	menu.style.top = "350px";
+	menu.style.animationName = "open";
+
 }
 
 function displayPlayerLife(playerLife) {
@@ -275,18 +279,6 @@ function shake() {
 let gameLoop = setInterval(() => {
 	// console.log(Date.now());
 	// console.log(gameState);
-
-	// if (pageLoad) {
-	// 	if (shake) {
-	// 		console.log("shake shake");
-	// 		ctx.translate(shakePattern[shakeIterator].x, shakePattern[shakeIterator].y)
-	// 		shakeIterator += 1;
-	// 		if (shakeIterator == 4) {
-	// 			shakeIterator = 0;
-	// 			shake = false;
-	// 		}
-	// 	}
-	// }
 
 	if (current && checkValid(current.letters) && gameState == 'fight') {
 		gameState = 'validation';
