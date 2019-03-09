@@ -50,9 +50,6 @@ class Character {
 		let ctx = canvas.getContext('2d');
 
 		ctx.imageSmoothingEnabled = false;
-		// console.log(this.currentAnim.image, this.srcX, this.srcY, 64*2, 128*2, this.x, this.y, 64*2, 128*2);
-		let image = new Image();
-		image.src = "picture.jpeg";
 
 		if (this.reverse) {
 			ctx.save()

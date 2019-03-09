@@ -1,6 +1,7 @@
 body {
 	font-family: "Gill Sans", sans-serif;
 	/* display: flex; */
+	background-image: url("HadoukenTypingBackground.png");
 }
 
 #LettersContent {

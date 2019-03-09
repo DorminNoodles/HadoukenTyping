@@ -5,6 +5,8 @@ import ryuAnim from './ryuAnim.js';
 // import  from './node_modules/socket.io-client/dist/socket.io.js';
 const io = require('socket.io-client');
 
+import renderManager from './render';
+
 
 
 const alpha = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
@@ -445,6 +447,16 @@ function init() {
 }
 
 window.onload = init;
+
+let objet1 = {"hello": 2};
+let objet2 = {"hello": 2};
+
+
+renderManager.addObject(objet1);
+renderManager.addObject(objet2);
+renderManager.addObject({"souci": "billy"});
+
+renderManager.sayHello();
 
 // obj = undefined;
 // arrayOfObject.push(obj);
