@@ -65,7 +65,7 @@ io.on('connection', (socket) => {
 	socket.on('attack', () => {
 		console.log("ATTACK !!!");
 		let enemy = players[socket.id].enemy;
-		players[enemy].life -= 100;
+		players[enemy].life -= 10;
 		console.log(enemy);
 		io.to(`${enemy}`).emit('takeDamage', players[enemy].life);
 		if (players[enemy].life <= 0) {
