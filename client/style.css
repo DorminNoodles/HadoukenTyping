@@ -81,6 +81,10 @@ body {
 	animation-duration: 1.0s;
 }
 
+#opp {
+	font-family: "Impact", sans-serif;
+}
+
 .againMenuTitle {
 	display: flex;
 	justify-content: center;
@@ -105,12 +109,54 @@ body {
 	color: #FF2700;
 }
 
+#modal {
+	width: 100%;
+	/* border: 2px solid #180; */
+	display: flex;
+	justify-content: center;
+}
+
 #usernameForm {
+	display: flex;
+	flex-direction: column;
+	/* justify-content: center; */
+	align-items: center;
+	position: absolute;
 	border: 10px solid transparent;
 	background-color: #af47a7;
 	width: 250px;
-	height: 250px;
+	height: 150px;
 	margin: 15px;
+	top: 120px;
 	/* border-image-source: url("HadoukenTypingBackground.png"); */
-	border-image: url("hadmenu border violet.png") 30 / 18px / 12px round;
+	border-image: url("hadmenu border violet.png") 30 / 10px / 10px round;
+}
+
+#userInfo {
+	display: flex;
+	flex-direction: column;
+	/* justify-content: center; */
+	align-items: center;
+	border: 10px solid transparent;
+	background-color: #f5d3b3;
+	width: 250px;
+	height: 150px;
+	margin: 15px;
+	top: 120px;
+	/* border-image-source: url("HadoukenTypingBackground.png"); */
+	border-image: url("hadMenuBorderBeige.gif") 30 / 18px / 10px round;
+}
+
+#clickPlayBtn {
+	margin-top: 20px;
+	height: 50px;
+	width: 140px;
+	cursor: pointer;
+	/* border: 1px solid #FFF; */
+	background-image: url("btnPlay.gif");
+}
+
+#clickPlayBtn:active{
+	cursor: pointer;
+	background-image: url("btnPlayPressed.gif");
 }

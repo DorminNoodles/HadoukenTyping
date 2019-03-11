@@ -44,11 +44,15 @@ let shakePattern = [
 
 let nbLetters = 5;
 
+let username;
+
 let current = {
 	letters: [],
 	start: 0,
 	done: false
 }
+
+let scores;
 
 // 2. -8 . 0 . -4
 
@@ -69,6 +73,7 @@ socket.on('connection', () => {
 });
 
 socket.on('allPlayersId', (data) => {
+	console.log(data);
 	if (gameState != "fight") {
 		displayPlayersId(data);
 	}
@@ -110,10 +115,13 @@ socket.on('takeDamage', (playerLife) => {
 	takeDamageFeedback();
 });
 
+socket.on('getScore', (data) => {
+	scores = data;
+})
+
 function restartMatch() {
 	console.log("restart !!!!!");
 	// let menu = document.getElementById("againMenuOpen");
-
 	// menu.removeAttribute("id");
 	// menu.id = "againMenuClose";
 }
@@ -177,6 +185,7 @@ function displayLose() {
 function displayPlayersId(list) {
 
 	console.log("DISPLAY PLAYER CHOICE");
+	console.log(list);
 	let myElements = document.body.getElementsByClassName('playerChoiceButton');
 	if (myElements) {
 		let arr = [...myElements];//convert htmlCollection to array
@@ -257,10 +266,6 @@ function cleanPlayersId() {
 
 
 console.log(socket, "bordel");
-
-
-
-
 
 
 
@@ -426,15 +431,15 @@ function render() {
 	}
 }
 
-let ryu1 = new Character(0,0, false);
+// let ryu1 = new Character(0,0, false);
 
-console.log(ryuAnim);
+// console.log(ryuAnim);
 
-ryu1.addAnimation(ryuAnim);
+// ryu1.addAnimation(ryuAnim);
 
 // Object.assign(ryu, new AnimationManager());
 
-console.log(ryu1);
+// console.log(ryu1);
 
 function init() {
 	let canvas = document.getElementById('canvas');
@@ -450,17 +455,28 @@ function init() {
 	againBtn[1].onclick = quitMatch;
 	againBtn[0].onclick = restartMatch;
 
+	document.getElementById("clickPlayBtn").onclick = saveUsername;
+
 	pageLoad = true;
 }
 
+function saveUsername() {
+
+	let input = document.getElementById("inputUsername");
+	let form = document.getElementById("usernameForm");
+
+	if (input.value.length > 2) {
+		console.log("CLICKAGE PLAY !");
+		socket.emit('saveUsername', input.value);
+		form.style.display = 'none';
+	}
+
+	username = input.value;
+}
 
 
 window.onload = init;
 
-
-// let party = new Game();
-
-//
 let objet1 = {"hello": 2};
 let objet2 = {"hello": 2};
 
@@ -477,10 +493,6 @@ renderManager.addObject(objet2);
 //
 // renderTest.sayHello();
 renderManager.sayHello();
-
-
-let bordel = new GameObject("bite");
-let mushroom = new GameObject("mange");
 
 console.log(GameObject.listOfAll());
 

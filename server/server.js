@@ -9,12 +9,10 @@ let playerRequest = [];
 let matchs = [];
 
 let players = [];
-// playerRequest[userID]
-// {
-// 	id1: {
-// 		id2: false
-// 	}
-// }
+
+let playersList = {}
+
+let scores = [];
 
 setInterval(() => {
 	console.log(matchs);
@@ -28,8 +26,9 @@ function checkMatch(player1, player2) {
 	return false;
 }
 
-
 io.on('connection', (socket) => {
+
+	let savedUsername;
 
 	console.log("connection: " + socket.id);
 	usersID[socket.id] = true;
@@ -45,7 +44,6 @@ io.on('connection', (socket) => {
 
 		if (checkMatch(data, socket.id)) {
 			console.log("MATCH !!!!!!");
-
 			players[socket.id] = {
 				life: 100,
 				enemy: data
@@ -58,8 +56,6 @@ io.on('connection', (socket) => {
 			io.to(`${socket.id}`).emit('fightBegin');
 			io.to(`${data}`).emit('fightBegin');
 		}
-		//if match launch game
-
 	})
 
 	socket.on('attack', () => {
@@ -72,11 +68,10 @@ io.on('connection', (socket) => {
 			io.to(`${enemy}`).emit('lose');
 			io.to(`${socket.id}`).emit('win');
 		}
-
 	})
 
-	io.emit('allPlayersId', usersID);
-	socket.emit('allPlayersId', usersID);
+	io.emit('allPlayersId', playersList);
+	// socket.emit('allPlayersId', players);
 
 	socket.on('disconnect', () => {
 		if (usersID[socket.id]) {
@@ -85,12 +80,24 @@ io.on('connection', (socket) => {
 		}
 		if (playerRequest[socket.id])
 			delete playerRequest[socket.id];
+		if (playersList[savedUsername]) {
+			delete playersList[savedUsername];
+			io.emit('allPlayersId', playersList);
+		}
+	})
+
+	socket.on('saveUsername', (username) => {
+		playersList[username] = socket.id;
+		savedUsername = username;
+		console.log(username);
+		console.log(playersList);
+		io.emit('allPlayersId', playersList);
+		socket.emit('getScores', scores);
 	})
 });
 
 io.on('disconnect', (socket) => {
 	console.log("hello");
-
 });
 
 
