@@ -5,7 +5,14 @@ import ryuAnim from './ryuAnim.js';
 // import  from './node_modules/socket.io-client/dist/socket.io.js';
 const io = require('socket.io-client');
 
-import renderManager from './render';
+import renderManager from './renderManager';
+// const renderManager = require('./render');
+
+import Game from './game';
+
+import GameObject from './gameObject';
+
+import Render from './render';
 
 
 
@@ -48,9 +55,8 @@ let current = {
 // let idle = new Animation();
 // let punch = new Animation2();
 // let gameRender = new Render();
-// var exampleSocket = new WebSocket("ws://e2r12p13:8000/", "protocolOne");
-// let socket = io('http://localhost:8000/');
-let socket = io('http://e2r12p13:8000/');
+let socket = io('http://localhost:8000/');
+// let socket = io('http://e2r12p13:8000/');
 
 setInterval(() => {
 	window.moveBy(5,5);
@@ -447,24 +453,44 @@ function init() {
 	pageLoad = true;
 }
 
+
+
 window.onload = init;
 
+
+// let party = new Game();
+
+//
 let objet1 = {"hello": 2};
 let objet2 = {"hello": 2};
 
 
 renderManager.addObject(objet1);
 renderManager.addObject(objet2);
-renderManager.addObject({"souci": "billy"});
-
+//
+// renderTest.addObject(objet1);
+// renderTest.addObject(objet2);
+// renderTest.addObject({"souci": "billy"});
+// //
+//
+// let koko = new Game();
+//
+// renderTest.sayHello();
 renderManager.sayHello();
+
+
+let bordel = new GameObject("bite");
+let mushroom = new GameObject("mange");
+
+console.log(GameObject.listOfAll());
+
+
+mushroom.render = new Render();
 
 // obj = undefined;
 // arrayOfObject.push(obj);
 
 // console.log(arrayOfObject, "hehe");
-
-
 // obj.render();
 // arrayOfObject[0].render();
 
@@ -473,8 +499,6 @@ renderManager.sayHello();
 // const hello = () => {
 // 	console.log("hello");
 // }
-
-
 // setInterval(() => {
 //
 // })

@@ -104,3 +104,13 @@ body {
 	text-decoration: none;
 	color: #FF2700;
 }
+
+#usernameForm {
+	border: 10px solid transparent;
+	background-color: #af47a7;
+	width: 250px;
+	height: 250px;
+	margin: 15px;
+	/* border-image-source: url("HadoukenTypingBackground.png"); */
+	border-image: url("hadmenu border violet.png") 30 / 18px / 12px round;
+}
