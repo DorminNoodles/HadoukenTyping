@@ -115,7 +115,9 @@ socket.on('takeDamage', (playerLife) => {
 	takeDamageFeedback();
 });
 
-socket.on('getScore', (data) => {
+socket.on('getScores', (data) => {
+	console.log("getScore !");
+	console.log(data);
 	scores = data;
 })
 
@@ -194,24 +196,7 @@ function displayPlayersId(list) {
 			elem.parentNode.removeChild(elem);
 		});
 	}
-	let div = document.getElementById('playersList');
 
-	let h3 = div.getElementsByTagName("h3");
-
-	h3[0].innerHTML = "Choice Player :";
-
-	for (let elem in list) {
-		if (elem != socket.id) {
-			console.log(elem);
-			let newDiv = document.createElement("div");
-			newDiv.innerHTML = elem;
-			newDiv.className += "playerChoiceButton";
-			newDiv.onclick = () => {
-				requestPlayer(elem);
-			}
-			div.appendChild(newDiv);
-		}
-	}
 }
 
 function requestPlayer(id) {
@@ -442,14 +427,14 @@ function render() {
 // console.log(ryu1);
 
 function init() {
-	let canvas = document.getElementById('canvas');
-	canvas.width = 1024;
-	canvas.height = 480;
+	// let canvas = document.getElementById('canvas');
+	// canvas.width = 1024;
+	// canvas.height = 480;
 
-	ctx = canvas.getContext('2d');
-	ctx.scale(4,4);
+	// ctx = canvas.getContext('2d');
+	// ctx.scale(4,4);
 
-	displaySocketId();
+	// displaySocketId();
 
 	let againBtn = document.getElementsByClassName("againMenuBtn");
 	againBtn[1].onclick = quitMatch;
@@ -464,14 +449,24 @@ function saveUsername() {
 
 	let input = document.getElementById("inputUsername");
 	let form = document.getElementById("usernameForm");
+	let myUsername = document.getElementById("myUsername");
+	let myScore = document.getElementById("myScore");
+	let blackDrop = document.getElementById("blackDrop");
 
 	if (input.value.length > 2) {
+		blackDrop.style.display = 'none';
 		console.log("CLICKAGE PLAY !");
 		socket.emit('saveUsername', input.value);
 		form.style.display = 'none';
 	}
 
+	myUsername.appendChild(document.createTextNode(input.value));
 	username = input.value;
+
+	console.log(scores);
+	if (scores[input.value]) {
+		myScore.appendChild(document.createTextNode(scores[input.value]));
+	}
 }
 
 
@@ -497,7 +492,7 @@ renderManager.sayHello();
 console.log(GameObject.listOfAll());
 
 
-mushroom.render = new Render();
+// mushroom.render = new Render();
 
 // obj = undefined;
 // arrayOfObject.push(obj);

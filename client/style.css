@@ -1,7 +1,9 @@
 body {
+	margin: 0px;
 	font-family: "Gill Sans", sans-serif;
 	/* display: flex; */
 	background-image: url("HadoukenTypingBackground.png");
+	background-attachment: fixed;
 }
 
 #LettersContent {
@@ -81,10 +83,6 @@ body {
 	animation-duration: 1.0s;
 }
 
-#opp {
-	font-family: "Impact", sans-serif;
-}
-
 .againMenuTitle {
 	display: flex;
 	justify-content: center;
@@ -110,13 +108,15 @@ body {
 }
 
 #modal {
+	z-index: 200;
 	width: 100%;
-	/* border: 2px solid #180; */
+	border: 2px solid #180;
 	display: flex;
 	justify-content: center;
 }
 
 #usernameForm {
+	z-index: 200;
 	display: flex;
 	flex-direction: column;
 	/* justify-content: center; */
@@ -126,15 +126,16 @@ body {
 	background-color: #af47a7;
 	width: 250px;
 	height: 150px;
-	margin: 15px;
+	/* margin: 15px; */
 	top: 120px;
 	/* border-image-source: url("HadoukenTypingBackground.png"); */
-	border-image: url("hadmenu border violet.png") 30 / 10px / 10px round;
+	border-image: url("hadmenu border violet.png") 30 / 15px / 10px round;
 }
 
 #userInfo {
 	display: flex;
 	flex-direction: column;
+	position: absolute;
 	/* justify-content: center; */
 	align-items: center;
 	border: 10px solid transparent;
@@ -142,7 +143,7 @@ body {
 	width: 250px;
 	height: 150px;
 	margin: 15px;
-	top: 120px;
+	top: 100px;
 	/* border-image-source: url("HadoukenTypingBackground.png"); */
 	border-image: url("hadMenuBorderBeige.gif") 30 / 18px / 10px round;
 }
@@ -159,4 +160,58 @@ body {
 #clickPlayBtn:active{
 	cursor: pointer;
 	background-image: url("btnPlayPressed.gif");
+}
+
+#modes {
+	top: 80px;
+	margin-top: 200px;
+	/* position: absolute; */
+	/* width: 100%; */
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	/* height: 250px; */
+	/* width: 400px; */
+	/* background-image: url("versusCard.gif"); */
+	/* background-repeat: no-repeat; */
+	/* border: 2px solid #fcc; */
+}
+
+#versus {
+	/* border: 2px solid #fcc; */
+	/* height: 250px; */
+	/* width: 380px; */
+	/* background-image: url("versusCard.gif"); */
+	/* background-repeat: no-repeat; */
+}
+
+#blackDrop {
+	z-index: 100;
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+#scores {
+	margin: 20px;
+	width: 420px;
+	/* height: 400px; */
+	border: 10px solid transparent;
+	background-color: #af47a7;
+	border-image: url("hadmenu border violet.png") 30 / 15px / 10px round;
+}
+
+#scoresContent {
+	display: flex;
+	justify-content: center;
+}
+
+#scores {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	font-size: 20px;
+	color: #FFF;
 }

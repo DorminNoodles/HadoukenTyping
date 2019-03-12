@@ -12,7 +12,9 @@ let players = [];
 
 let playersList = {}
 
-let scores = [];
+let scores = {};
+
+scores['maurice'] = 88888;
 
 setInterval(() => {
 	console.log(matchs);
@@ -35,6 +37,8 @@ io.on('connection', (socket) => {
 	socket.on('lettersValid', () => {
 		console.log("Receive msg");
 	})
+
+	socket.emit('getScores', scores);
 
 	socket.on('playerRequest', (data) => {
 		console.log(data);
@@ -71,7 +75,6 @@ io.on('connection', (socket) => {
 	})
 
 	io.emit('allPlayersId', playersList);
-	// socket.emit('allPlayersId', players);
 
 	socket.on('disconnect', () => {
 		if (usersID[socket.id]) {
@@ -92,7 +95,6 @@ io.on('connection', (socket) => {
 		console.log(username);
 		console.log(playersList);
 		io.emit('allPlayersId', playersList);
-		socket.emit('getScores', scores);
 	})
 });
 
