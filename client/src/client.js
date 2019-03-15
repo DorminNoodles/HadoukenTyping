@@ -1,12 +1,11 @@
 // import Render from './render.js';
-import Character from './character.js';//test
+// import Character from './character.js';//test
 // import AnimationManager from './animationManager.js';
-import ryuAnim from './ryuAnim.js';
+// import ryuAnim from './ryuAnim.js';
 // import  from './node_modules/socket.io-client/dist/socket.io.js';
 const io = require('socket.io-client');
 
 import renderManager from './renderManager';
-// const renderManager = require('./render');
 
 import Game from './game';
 
@@ -16,9 +15,13 @@ import Render from './render';
 
 
 
+
+
+
 const alpha = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
 
 let gameState = 'normal';
+
 let life = 100;
 let enemyLife = 100;
 
@@ -427,6 +430,12 @@ function render() {
 // console.log(ryu1);
 
 function init() {
+
+	let versus = document.getElementById('versus');
+
+	versus.onclick = () => {
+
+	}
 	// let canvas = document.getElementById('canvas');
 	// canvas.width = 1024;
 	// canvas.height = 480;

@@ -13,7 +13,6 @@ class Core {
 	getGameObjectList() {
 		return this.gameObjectList;
 	}
-
 }
 
 export default new Core();
