@@ -13,6 +13,11 @@ class GameObject {
 		return Core.getGameObjectList();
 	}
 
+	setPosition(x, y) {
+		this.x = x;
+		this.y = y;
+	}
+
 }
 
 export default GameObject;

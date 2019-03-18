@@ -6,6 +6,7 @@ class Render {
 	}
 
 	addObject(obj) {
+		
 	}
 
 	sayHello() {
