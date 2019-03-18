@@ -4,6 +4,9 @@ body {
 	/* display: flex; */
 	background-image: url("HadoukenTypingBackground.png");
 	background-attachment: fixed;
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
 }
 
 #LettersContent {
@@ -108,7 +111,7 @@ body {
 }
 
 #modal {
-	z-index: 200;
+	z-index: 500;
 	width: 100%;
 	border: 2px solid #180;
 	display: flex;
@@ -116,7 +119,7 @@ body {
 }
 
 #usernameForm {
-	z-index: 200;
+	z-index: 401;
 	display: flex;
 	flex-direction: column;
 	/* justify-content: center; */
@@ -165,6 +168,7 @@ body {
 #modes {
 	top: 80px;
 	margin-top: 200px;
+	height: 350px;
 	/* position: absolute; */
 	/* width: 100%; */
 	display: flex;
@@ -175,19 +179,37 @@ body {
 	/* width: 400px; */
 	/* background-image: url("versusCard.gif"); */
 	/* background-repeat: no-repeat; */
-	/* border: 2px solid #fcc; */
+	border: 2px solid #fcc;
+}
+
+@keyframes versusClose {
+  from {top: 200px;}
+  to {top: -350px;}
 }
 
 #versus {
+	z-index: 100;
+	position: absolute;
+	top: 200px;
 	/* border: 2px solid #fcc; */
-	/* height: 250px; */
-	/* width: 380px; */
-	/* background-image: url("versusCard.gif"); */
-	/* background-repeat: no-repeat; */
+	/* left: -200px; */
+	/* height: 35px; */
+	animation-duration: 1.2s;
+}
+
+@keyframes practiceClose {
+	from {top: 400px; display: block}
+	to {top: 1000px; display: block}
+}
+
+#practice {
+	position: absolute;
+	top: 400px;
+	animation-duration: 1.6s;
 }
 
 #blackDrop {
-	z-index: 100;
+	z-index: 400;
 	position: absolute;
 	height: 100%;
 	width: 100%;
@@ -214,4 +236,30 @@ body {
 	align-items: center;
 	font-size: 20px;
 	color: #FFF;
+}
+
+
+@keyframes gameCanvasOpen {
+	from {top: -400px;}
+	to {top: 0px;}
+}
+
+
+#gameCanvas {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: -400px;
+	display: none;
+	animation-duration: 1.2s;
+	z-index: 10;
+}
+
+#canvas {
+
+}
+
+#canvasBack {
+	position: absolute;
+	left: -2000px;
 }

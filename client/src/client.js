@@ -15,8 +15,10 @@ import GameObject from './gameObject';
 import Render from './render';
 
 
-
 const alpha = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
+
+
+let gameStateEvent = new Event("gameState", {bubbles: true, cancelable: false});
 
 let gameState = 'normal';
 let life = 100;
@@ -31,7 +33,6 @@ let playersChoice;
 
 let playerChoiceChrono = false;
 
-let ctx;
 
 let pageLoad = false;
 
@@ -54,18 +55,16 @@ let current = {
 
 let scores;
 
-// 2. -8 . 0 . -4
-
 // let idle = new Animation();
 // let punch = new Animation2();
 // let gameRender = new Render();
 let socket = io('http://localhost:8000/');
 // let socket = io('http://e2r12p13:8000/');
-
-setInterval(() => {
-	window.moveBy(5,5);
-	console.log(gameState);
-}, 100);
+//
+// setInterval(() => {
+// 	window.moveBy(5,5);
+// 	console.log(gameState);
+// }, 100);
 
 
 socket.on('connection', () => {
@@ -299,8 +298,8 @@ let gameLoop = setInterval(() => {
 
 // let inter = idle.drawAnimation(2);
 
-document.addEventListener('keydown', (event) => {
-	console.log(event.key);
+document.addEventListener('keydown', (e) => {
+	console.log(e.key);
 
 	if (gameState == "fight") {
 		let i = 0;
@@ -311,7 +310,7 @@ document.addEventListener('keydown', (event) => {
 		}
 		if (i == current.letters.length)
 			return;
-		if (event.key == current.letters[i].char) {
+		if (e.key == current.letters[i].char) {
 			current.letters[i].valid = true;
 		}
 
@@ -416,25 +415,76 @@ function render() {
 	}
 }
 
-// let ryu1 = new Character(0,0, false);
+window.addEventListener('resize', () => {
 
-// console.log(ryuAnim);
+	// // console.log("RESIZE");
+	// let canvas = document.getElementById('canvas');
+	// let ctx = canvas.getContext("2d");
+	// // console.log(canvas.width);
+	// // console.log(canvas.height);
+	// // canvas.style.width = window.innerWidth;
+	// // canvas.width = window.innerWidth;
+	// // canvas.style.height = 600;
+	// // gameCanvas.height = window.innerHeight;
+	//
+	// canvas.width = window.innerWidth;
+	// let img = new Image();   // Crée un nouvel élément Image
+	// img.src = './backgroundGame.gif';
+	// img.onload = () => {
+	// 	var ptrn = ctx.createPattern(img, 'repeat'); // Create a pattern with this image, and set it to "repeat".
+	// 	ctx.fillStyle = ptrn;
+	// 	ctx.fillRect(0, 0, canvas.width, canvas.height); // context.fillRect(x, y, width, height);
+	// }
+})
 
-// ryu1.addAnimation(ryuAnim);
+document.addEventListener("gameState", (e) => {
 
-// Object.assign(ryu, new AnimationManager());
+	console.log("GAME !!!!!!");
+	console.log(gameState);
+	let game;
 
-// console.log(ryu1);
+	console.log(gameState, "pute");
+	if (gameState == 'versus') {
+		console.log("gameVERSUS");
+		game = new Game('versus');
+	}
+})
+
+document.addEventListener("gameState", (e) => {
+
+	console.log("bordel de merde mais pk ca marche pas ?");
+	let gameCanvas = document.getElementById('gameCanvas');
+	let versus = document.getElementById('versus');
+	let practice = document.getElementById('practice');
+
+	console.log("launch gameState Event");
+	gameCanvas.style.display = 'block';
+
+	versus.style.top = '-200px';
+	versus.style.animationName = 'versusClose';
+
+	practice.style.top = '1000px';
+	// setTimeout(() => {
+	// 	practice.style.display = 'none';
+	// }, 1200);
+	practice.style.animationName = 'practiceClose';
+
+	gameCanvas.style.top = '0px';
+	gameCanvas.width = window.innerWidth;
+	gameCanvas.height = window.innerHeight;
+	gameCanvas.style.animationName = 'gameCanvasOpen';
+})
+
 
 function init() {
-	// let canvas = document.getElementById('canvas');
-	// canvas.width = 1024;
-	// canvas.height = 480;
 
-	// ctx = canvas.getContext('2d');
-	// ctx.scale(4,4);
+	let versus = document.getElementById('versus');
 
-	// displaySocketId();
+	versus.onclick = () => {
+		console.log("onClickVersus");
+		gameState = 'versus';
+		document.dispatchEvent(gameStateEvent);
+	}
 
 	let againBtn = document.getElementsByClassName("againMenuBtn");
 	againBtn[1].onclick = quitMatch;
@@ -443,6 +493,17 @@ function init() {
 	document.getElementById("clickPlayBtn").onclick = saveUsername;
 
 	pageLoad = true;
+
+	// let canvas = document.getElementById('canvas');
+	// let ctx = canvas.getContext("2d");
+	//
+	// let img = new Image();   // Crée un nouvel élément Image
+	// img.src = './backgroundGame.gif';
+	// img.onload = () => {
+	// 	var ptrn = ctx.createPattern(img, 'repeat'); // Create a pattern with this image, and set it to "repeat".
+	// 	ctx.fillStyle = ptrn;
+	// 	ctx.fillRect(0, 0, canvas.width, canvas.height); // context.fillRect(x, y, width, height);
+	// }
 }
 
 function saveUsername() {
@@ -491,6 +552,16 @@ renderManager.sayHello();
 
 console.log(GameObject.listOfAll());
 
+
+// let i = 0;
+// function anim(e) {
+// 	i++;
+// 	i = i % 5555555555;
+// 	console.log(e);
+// 	requestAnimationFrame(anim);
+// }
+
+// requestAnimationFrame(anim);
 
 // mushroom.render = new Render();
 
