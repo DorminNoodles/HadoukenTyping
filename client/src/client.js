@@ -5,7 +5,8 @@
 // import  from './node_modules/socket.io-client/dist/socket.io.js';
 const io = require('socket.io-client');
 
-import renderManager from './renderManager';
+import RenderManager from './renderManager';
+import Core from './core';
 
 import Game from './game';
 
@@ -295,39 +296,38 @@ let gameLoop = setInterval(() => {
 		gameState = 'fight';
 		render();
 	}
-
 }, 16);
 
 
 
 // let inter = idle.drawAnimation(2);
 
-document.addEventListener('keydown', (e) => {
-	console.log(e.key);
-
-	if (gameState == "fight") {
-		let i = 0;
-		while (i < current.letters.length) {
-			if (!current.letters[i].valid)
-				break;
-			i++;
-		}
-		if (i == current.letters.length)
-			return;
-		if (e.key == current.letters[i].char) {
-			current.letters[i].valid = true;
-		}
-
-		if (current && checkValid(current.letters)) {
-			if (ryu1)
-				ryu1.changeAnim('punch');
-			socket.emit('lettersValid', (data) => {
-			  console.log(data);
-			});
-		}
-		render();
-	}
-});
+// document.addEventListener('keydown', (e) => {
+// 	console.log(e.key);
+//
+// 	if (gameState == "fight") {
+// 		let i = 0;
+// 		while (i < current.letters.length) {
+// 			if (!current.letters[i].valid)
+// 				break;
+// 			i++;
+// 		}
+// 		if (i == current.letters.length)
+// 			return;
+// 		if (e.key == current.letters[i].char) {
+// 			current.letters[i].valid = true;
+// 		}
+//
+// 		if (current && checkValid(current.letters)) {
+// 			if (ryu1)
+// 				ryu1.changeAnim('punch');
+// 			socket.emit('lettersValid', (data) => {
+// 			  console.log(data);
+// 			});
+// 		}
+// 		render();
+// 	}
+// });
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
@@ -481,12 +481,6 @@ document.addEventListener("gameState", (e) => {
 
 
 function init() {
-
-	let versus = document.getElementById('versus');
-
-	versus.onclick = () => {
-
-	}
 	// let canvas = document.getElementById('canvas');
 	// canvas.width = 1024;
 	// canvas.height = 480;
@@ -550,18 +544,8 @@ let objet1 = {"hello": 2};
 let objet2 = {"hello": 2};
 
 
-renderManager.addObject(objet1);
-renderManager.addObject(objet2);
-//
-// renderTest.addObject(objet1);
-// renderTest.addObject(objet2);
-// renderTest.addObject({"souci": "billy"});
-// //
-//
-// let koko = new Game();
-//
-// renderTest.sayHello();
-renderManager.sayHello();
+Core.addObject(objet1);
+Core.addObject(objet2);
 
 console.log(GameObject.listOfAll());
 

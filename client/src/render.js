@@ -1,12 +1,10 @@
 
 class Render {
 
-	constructor() {
+	constructor(src) {
+		this.img = new Image();
+		this.img.src = src;
 		console.log("hello in render it's a component");
-	}
-
-	addObject(obj) {
-		
 	}
 
 	sayHello() {
