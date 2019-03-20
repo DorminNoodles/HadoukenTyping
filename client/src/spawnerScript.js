@@ -7,7 +7,7 @@ class SpawnerScript {
 	constructor() {
 		this.begin = Date.now();
 		this.nextSpawn = Date.now() + 2000;
-		this.spawnSpeed = 800;
+		this.spawnSpeed = 400;
 		this.boardArray = [];
 		this.letterQuantity = 0;
 		this.alpha = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
