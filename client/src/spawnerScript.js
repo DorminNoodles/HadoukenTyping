@@ -7,16 +7,18 @@ class SpawnerScript {
 	constructor() {
 		this.begin = Date.now();
 		this.nextSpawn = Date.now() + 2000;
-		this.spawnSpeed = 400;
+		this.spawnSpeed = 500;
 		this.boardArray = [];
 		this.letterQuantity = 0;
 		this.alpha = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
 		this.nextChangeSpeed = Date.now() + 10000;
-		this.changeSpeedDelay = 10000;
-		this.speedReduce = 25;
+		this.changeSpeedDelay = 8000;
+		this.speedReduce = 2;
 	}
 
 	update() {
+
+		console.log((500 - this.spawnSpeed) / this.speedReduce);
 
 		if (this.nextChangeSpeed < Date.now()) {
 			this.spawnSpeed -= this.speedReduce;
@@ -26,7 +28,7 @@ class SpawnerScript {
 		if (this.nextSpawn < Date.now()) {
 
 			let letter = new GameObject('letter');
-			let randomLetter = this.alpha[this.getRandomInt(4)];
+			let randomLetter = this.alpha[this.getRandomInt(6)];
 
 			this.boardArray[this.letterQuantity] = letter;
 			// console.log("###################################",letter.id);
