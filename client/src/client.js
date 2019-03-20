@@ -298,8 +298,6 @@ let gameLoop = setInterval(() => {
 	}
 }, 16);
 
-
-
 // let inter = idle.drawAnimation(2);
 
 // document.addEventListener('keydown', (e) => {

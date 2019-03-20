@@ -256,7 +256,7 @@ body {
 }
 
 #canvas {
-
+	width: 100%;
 }
 
 #canvasBack {

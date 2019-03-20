@@ -46,6 +46,10 @@ class LetterScript {
 			this.object.x = destination;
 		}
 	}
+
+	changePosition() {
+		this.position--;
+	}
 }
 
 export default LetterScript;
