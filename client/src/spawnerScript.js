@@ -66,11 +66,15 @@ class SpawnerScript {
 	}
 
 	deleteLetter(key) {
-
 		if (this.boardArray[0] && key == this.boardArray[0].script.letter) {
 			if (this.boardArray[0].script.isVulnerable()) {
+				// let del = this.boardArray[0];
+				// setTimeout(() => {
+				// 	GameObject.deleteGameObject(del);
+				// }, 2000);
 
-				GameObject.deleteGameObject(this.boardArray[0]);
+				this.boardArray[0].script.deleteLetter(this.boardArray[0]);
+
 				this.boardArray[0] = undefined;
 				this.letterQuantity--;
 
@@ -79,7 +83,7 @@ class SpawnerScript {
 					console.log("for : ", this.boardArray[i]);
 					if (this.boardArray[i]) {
 						this.boardArray[i].script.changePosition();
-						this.boardArray[i-1] = this.boardArray[i];
+						this.boardArray[i - 1] = this.boardArray[i];
 						this.boardArray[i] = undefined;
 					}
 				}

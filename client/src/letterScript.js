@@ -14,6 +14,8 @@ class LetterScript {
 		this.letter = letter;
 		// this.spaceAvailable = spaceAvailable;
 		// console.log(position);
+		this.deadMove = -20;
+
 	}
 
 	update() {
@@ -31,7 +33,6 @@ class LetterScript {
 		}
 		if (this.object.y > 500 ) {
 			this.object.setPosition(this.object.x, 500);
-			// this.state = 'onBoard';
 			this.state = this.onBoard;
 		}
 	}
@@ -47,6 +48,28 @@ class LetterScript {
 		if (this.object.x < destination) {
 			this.object.x = destination;
 		}
+	}
+
+	dead() {
+		this.object.move(0, this.deadMove);
+		this.deadMove += 5;
+		// console.log("DEAD !!!!");
+	}
+
+	deleteLetter(objet) {
+		let obj = GameObject.getGameObject(this.gameObjectId);
+		console.log(objet);
+		console.log("this => ", this.gameObjectId);
+		console.log("deleteLetter : ", obj);
+
+		this.state = this.dead;
+
+
+		setTimeout(() => {
+			console.log("DELETE ########################");
+			console.log(this);
+			// GameObject.deleteGameObject();
+		}, 200);
 	}
 
 	isVulnerable() {
