@@ -7,9 +7,10 @@ class SpawnerScript {
 	constructor() {
 		this.begin = Date.now();
 		this.nextSpawn = Date.now() + 2000;
-		this.spawnSpeed = 500;
+		this.spawnSpeed = 1200;
 		this.boardArray = [];
 		this.letterQuantity = 0;
+		this.alpha = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
 	}
 
 	update() {
@@ -17,13 +18,14 @@ class SpawnerScript {
 		if (this.nextSpawn < Date.now()) {
 
 			let letter = new GameObject('letter');
+			let randomLetter = this.alpha[this.getRandomInt(3)];
 
 			this.boardArray[this.letterQuantity] = letter;
 			// console.log("###################################",letter.id);
 
-			letter.render = new Render('./boutonLettersA.gif');
+			letter.render = new Render('./boutonLetters' + randomLetter.toUpperCase() + '.gif');
 			letter.setPosition(1340, 252);
-			letter.addScript(new LetterScript(this.letterQuantity, 'a'));
+			letter.addScript(new LetterScript(this.letterQuantity, randomLetter));
 
 			this.letterQuantity++;
 			this.nextSpawn = Date.now() + this.spawnSpeed;
@@ -31,6 +33,10 @@ class SpawnerScript {
 			// this.boardArray
 		}
 		// console.log("update from script");
+	}
+
+	getRandomInt(max) {
+	  return Math.floor(Math.random() * Math.floor(max));
 	}
 
 	spaceAvailable(position) {
@@ -52,25 +58,23 @@ class SpawnerScript {
 	deleteLetter(key) {
 
 		if (this.boardArray[0] && key == this.boardArray[0].script.letter) {
-			GameObject.deleteGameObject(this.boardArray[0]);
-			this.boardArray[0] = undefined;
-			this.letterQuantity--;
+			if (this.boardArray[0].script.isVulnerable()) {
+
+				GameObject.deleteGameObject(this.boardArray[0]);
+				this.boardArray[0] = undefined;
+				this.letterQuantity--;
 
 
-
-
-			for(let i = 0; i < this.boardArray.length; i++) {
-				console.log("for : ", this.boardArray[i]);
-				if (this.boardArray[i]) {
-					this.boardArray[i].script.changePosition();
-					this.boardArray[i-1] = this.boardArray[i];
-					this.boardArray[i] = undefined;
-					// console.log("FUCK YOU");
+				for(let i = 0; i < this.boardArray.length; i++) {
+					console.log("for : ", this.boardArray[i]);
+					if (this.boardArray[i]) {
+						this.boardArray[i].script.changePosition();
+						this.boardArray[i-1] = this.boardArray[i];
+						this.boardArray[i] = undefined;
+					}
 				}
+				console.log(this.boardArray);
 			}
-
-			console.log(this.boardArray);
-
 		}
 	}
 }

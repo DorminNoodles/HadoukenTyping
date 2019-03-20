@@ -25,6 +25,7 @@ class LetterScript {
 	}
 
 	drop() {
+		this.vulnerable = false;
 		if (this.object.y < 500) {
 			this.object.move(0, 15);
 		}
@@ -36,6 +37,7 @@ class LetterScript {
 	}
 
 	onBoard() {
+		this.vulnerable = true;
 		let destination = (this.position * 82) + 200;
 		// console.log("id : ", this.gameObjectId, "   position : ", this.position, "     destination : ", destination);
 		if (this.object.x > destination) {
@@ -45,6 +47,10 @@ class LetterScript {
 		if (this.object.x < destination) {
 			this.object.x = destination;
 		}
+	}
+
+	isVulnerable() {
+		return this.vulnerable;
 	}
 
 	changePosition() {

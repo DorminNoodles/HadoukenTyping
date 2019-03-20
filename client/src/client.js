@@ -460,7 +460,7 @@ document.addEventListener("gameState", (e) => {
 	let practice = document.getElementById('practice');
 
 	console.log("launch gameState Event");
-	gameCanvas.style.display = 'block';
+	gameCanvas.style.display = 'flex';
 
 	versus.style.top = '-200px';
 	versus.style.animationName = 'versusClose';
