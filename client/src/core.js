@@ -29,7 +29,6 @@ class Core {
 	}
 
 	deleteObject(id) {
-		// console.log("##### ", id);
 		delete this.gameObjectList[id];
 	}
 }

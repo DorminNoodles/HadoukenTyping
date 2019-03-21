@@ -18,7 +18,7 @@ class SpawnerScript {
 
 	update() {
 
-		console.log((500 - this.spawnSpeed) / this.speedReduce);
+		// console.log((500 - this.spawnSpeed) / this.speedReduce);
 
 		if (this.nextChangeSpeed < Date.now()) {
 			this.spawnSpeed -= this.speedReduce;
@@ -28,14 +28,15 @@ class SpawnerScript {
 		if (this.nextSpawn < Date.now()) {
 
 			let letter = new GameObject('letter');
-			let randomLetter = this.alpha[this.getRandomInt(6)];
+			let rand = this.getRandomInt(6);
+			let randomLetter = this.alpha[rand];
 
 			this.boardArray[this.letterQuantity] = letter;
 			// console.log("###################################",letter.id);
 
-			letter.render = new Render('./boutonLetters' + randomLetter.toUpperCase() + '.gif');
+			letter.render = new Render('./boutonLetters.png', 80, 80, 7, rand, 100);
 			letter.setPosition(1340, 252);
-			letter.addScript(new LetterScript(this.letterQuantity, randomLetter));
+			letter.addScript(new LetterScript(this.letterQuantity, randomLetter, letter));
 
 			this.letterQuantity++;
 			this.nextSpawn = Date.now() + this.spawnSpeed;
@@ -68,16 +69,10 @@ class SpawnerScript {
 	deleteLetter(key) {
 		if (this.boardArray[0] && key == this.boardArray[0].script.letter) {
 			if (this.boardArray[0].script.isVulnerable()) {
-				// let del = this.boardArray[0];
-				// setTimeout(() => {
-				// 	GameObject.deleteGameObject(del);
-				// }, 2000);
 
-				this.boardArray[0].script.deleteLetter(this.boardArray[0]);
-
+				this.boardArray[0].script.deleteLetter();
 				this.boardArray[0] = undefined;
 				this.letterQuantity--;
-
 
 				for(let i = 0; i < this.boardArray.length; i++) {
 					console.log("for : ", this.boardArray[i]);

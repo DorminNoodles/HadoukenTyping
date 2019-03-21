@@ -35,12 +35,15 @@ class GameObject {
 	static getGameObject(id) {
 		let list = Core.getGameObjectList();
 
-		console.log(list[4], "pouet");
+
+		for (let i = 0; i < list.length; i++) {
+			if (list[i] && list[i].id === id) {
+				return list[i];
+			}
+		}
 	}
 
 	static deleteGameObject(objet) {
-
-		// console.log(obj);
 
 		Core.deleteObject(objet.id);
 	}

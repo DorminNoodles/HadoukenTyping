@@ -2,8 +2,8 @@ import GameObject from './gameObject';
 
 class LetterScript {
 
-	constructor(position, letter) {
-		this.gameObjectId;
+	constructor(position, letter, gameObject) {
+		this.gameObjectId = gameObject.id;
 		this.begin = Date.now();
 		this.speedRefresh = 1000/60;
 		this.nextRefresh = 0;
@@ -15,6 +15,7 @@ class LetterScript {
 		// this.spaceAvailable = spaceAvailable;
 		// console.log(position);
 		this.deadMove = -20;
+		this.gameObject = gameObject;
 
 	}
 
@@ -56,20 +57,15 @@ class LetterScript {
 		// console.log("DEAD !!!!");
 	}
 
-	deleteLetter(objet) {
-		let obj = GameObject.getGameObject(this.gameObjectId);
-		console.log(objet);
-		console.log("this => ", this.gameObjectId);
-		console.log("deleteLetter : ", obj);
+	deleteLetter() {
+		// let obj = GameObject.getGameObject(this.gameObjectId);
+
 
 		this.state = this.dead;
 
-
 		setTimeout(() => {
-			console.log("DELETE ########################");
-			console.log(this);
-			// GameObject.deleteGameObject();
-		}, 200);
+			GameObject.deleteGameObject(this.gameObject);
+		}, 1200);
 	}
 
 	isVulnerable() {
