@@ -416,24 +416,6 @@ function render() {
 
 window.addEventListener('resize', () => {
 
-	// // console.log("RESIZE");
-	// let canvas = document.getElementById('canvas');
-	// let ctx = canvas.getContext("2d");
-	// // console.log(canvas.width);
-	// // console.log(canvas.height);
-	// // canvas.style.width = window.innerWidth;
-	// // canvas.width = window.innerWidth;
-	// // canvas.style.height = 600;
-	// // gameCanvas.height = window.innerHeight;
-	//
-	// canvas.width = window.innerWidth;
-	// let img = new Image();   // Crée un nouvel élément Image
-	// img.src = './backgroundGame.gif';
-	// img.onload = () => {
-	// 	var ptrn = ctx.createPattern(img, 'repeat'); // Create a pattern with this image, and set it to "repeat".
-	// 	ctx.fillStyle = ptrn;
-	// 	ctx.fillRect(0, 0, canvas.width, canvas.height); // context.fillRect(x, y, width, height);
-	// }
 })
 
 document.addEventListener("gameState", (e) => {

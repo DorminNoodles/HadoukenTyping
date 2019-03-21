@@ -18,8 +18,6 @@ class SpawnerScript {
 
 	update() {
 
-		// console.log((500 - this.spawnSpeed) / this.speedReduce);
-
 		if (this.nextChangeSpeed < Date.now()) {
 			this.spawnSpeed -= this.speedReduce;
 			this.nextChangeSpeed = Date.now() + this.changeSpeedDelay;
@@ -32,34 +30,17 @@ class SpawnerScript {
 			let randomLetter = this.alpha[rand];
 
 			this.boardArray[this.letterQuantity] = letter;
-			// console.log("###################################",letter.id);
-
 			letter.render = new Render('./boutonLetters.png', 80, 80, 7, rand, 100);
 			letter.setPosition(1340, 252);
 			letter.addScript(new LetterScript(this.letterQuantity, randomLetter, letter));
 
 			this.letterQuantity++;
 			this.nextSpawn = Date.now() + this.spawnSpeed;
-			// spaceAvailable()
-			// this.boardArray
 		}
-		// console.log("update from script");
 	}
 
 	getRandomInt(max) {
 	  return Math.floor(Math.random() * Math.floor(max));
-	}
-
-	spaceAvailable(position) {
-
-		// if (position == 0) {
-		// 	return 0;
-		// }
-		// if (!this.boardArray[position - 1]) {
-		// 	this.boardArray[position] = undefined;
-		// 	this.boardArray[position - 1] = true;
-		// 	return position - 1;
-		// }
 	}
 
 	getBoardArray() {
