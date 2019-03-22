@@ -8,7 +8,6 @@ class LetterScript {
 		this.speedRefresh = 1000/60;
 		this.nextRefresh = 0;
 		this.moveSpeed = 10;
-		// this.state = 'drop';
 		this.state = this.drop;
 		this.position = position;
 		this.letter = letter;
@@ -58,9 +57,6 @@ class LetterScript {
 	}
 
 	deleteLetter() {
-		// let obj = GameObject.getGameObject(this.gameObjectId);
-
-
 		this.state = this.dead;
 
 		setTimeout(() => {

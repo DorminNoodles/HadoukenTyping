@@ -1,6 +1,7 @@
 import GameObject from './gameObject';
 import Render from './render';
 import LetterScript from './letterScript.js';
+import AnimLetterA from '../anim/animLetterA';
 
 class SpawnerScript {
 
@@ -31,6 +32,7 @@ class SpawnerScript {
 
 			this.boardArray[this.letterQuantity] = letter;
 			letter.render = new Render('./boutonLetters.png', 80, 80, 7, rand, 100);
+			letter.render.addAnim(AnimLetterA);
 			letter.setPosition(1340, 252);
 			letter.addScript(new LetterScript(this.letterQuantity, randomLetter, letter));
 

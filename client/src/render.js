@@ -16,11 +16,14 @@ class Render {
 		// 	this.nextFrameTime = 0;
 		// 	this.anim[anim.name] = anim
 		// }
+		this.currentAnim;
 		this.currentFrame = 0;
 	}
 
 	addAnim(anim) {
 		this.anim[anim.name] = anim;
+		if (!this.currentAnim)
+			this.currentAnim = anim;
 	}
 
 	draw(ctx, x, y) {
@@ -31,7 +34,6 @@ class Render {
 		let width = anim.width;
 		let height = anim.height;
 		let speed = anim.speed;
-
 
 
 		ctx.drawImage(anim.img,
@@ -51,8 +53,8 @@ class Render {
 		}
 	}
 
-	changeAnim(currentAnim) {
-		this.currentAnim = currentAnim;
+	changeAnim(anim) {
+		this.currentAnim = this.anim[anim];
 	}
 
 }
