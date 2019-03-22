@@ -30,7 +30,7 @@ class Controller {
 	handler(e) {
 		console.log(e.key);
 
-		this.spawner.script.deleteLetter(e.key.toLowerCase());
+		this.spawner.script.deleteLetter(e.key);
 		// console.log(e);
 		// console.log("in handler", this.boardArray[0]);
 		// console.log("undefined ? connard :", this.boardArray[0]);

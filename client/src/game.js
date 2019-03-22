@@ -55,8 +55,6 @@ class Game {
 		boardBar.render = new Render('./gameBoardBar.gif', 1438, 168, 1, 0);
 		spawner.script = new SpawnerScript();
 		inputController.script = new ControllerScript(spawner);
-
-		spawner.render.addAnim()
 	}
 
 	gameLoop() {
