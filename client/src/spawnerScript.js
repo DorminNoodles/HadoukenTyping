@@ -9,7 +9,7 @@ class SpawnerScript {
 	constructor() {
 		this.begin = Date.now();
 		this.nextSpawn = Date.now() + 2000;
-		this.spawnSpeed = 500;
+		this.spawnSpeed = 1200;
 		this.boardArray = [];
 		this.letterQuantity = 0;
 		this.alpha = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
@@ -28,12 +28,13 @@ class SpawnerScript {
 		if (this.nextSpawn < Date.now()) {
 
 			let letter = new GameObject('letter');
-			let rand = this.getRandomInt(4);
+			let rand = this.getRandomInt(2);
 			let randomLetter = this.alpha[rand];
 
 			this.boardArray[this.letterQuantity] = letter;
 			letter.render = new Render('./boutonLetters.png');
 			letter.render.addAnim(anim['anim' + randomLetter.toUpperCase()]);
+			letter.render.addAnim(anim['anim' + randomLetter.toUpperCase() + 'Flash']);
 			letter.setPosition(1340, 252);
 			letter.addScript(new LetterScript(this.letterQuantity, randomLetter, letter));
 
@@ -59,7 +60,7 @@ class SpawnerScript {
 				this.letterQuantity--;
 
 				for(let i = 0; i < this.boardArray.length; i++) {
-					console.log("for : ", this.boardArray[i]);
+					// console.log("for : ", this.boardArray[i]);
 					if (this.boardArray[i]) {
 						this.boardArray[i].script.changePosition();
 						this.boardArray[i - 1] = this.boardArray[i];

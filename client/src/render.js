@@ -25,6 +25,7 @@ class Render {
 	}
 
 	addAnim(anim) {
+		console.log(anim);
 		this.isAnimated = true;
 		this.anim[anim.name] = anim;
 		if (!this.currentAnim)
@@ -42,13 +43,14 @@ class Render {
 	}
 
 	drawAnim(ctx, x, y) {
-
+		console.log(this.currentAnim);
 		if (!this.anim['idle']) {
 			console.log('error idle animation missing');
 			return;
 		}
 		if (this.currentAnim) {
 
+			console.log(anim)
 			let anim = this.anim[this.currentAnim]
 			let sX = anim.width * this.currentFrame;
 			let sY = anim.height * anim.row;
@@ -69,16 +71,19 @@ class Render {
 			);
 
 			if (this.nextFrameTime < Date.now()) {
-				console.log("current frame ++");
 				this.currentFrame = (this.currentFrame + 1) % frameNb;
-				// this.currentFrame += 1;
 				this.nextFrameTime = Date.now() + this.speed;
 			}
 		}
 	}
 
 	changeAnim(currentAnim, nextAnim) {
-		this.currentAnim = this.anim[currentAnim];
+		console.log("change Anim !!!")
+		if (this.anim[currentAnim])
+			this.currentAnim = currentAnim;
+		else
+			this.current
+
 		if (nextAnim)
 			this.nextAnim = nextAnim;
 		else

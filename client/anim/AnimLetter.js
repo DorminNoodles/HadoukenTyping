@@ -21,7 +21,7 @@ export const animAFlash = {
 	row: 0,
 	speed: 100,
 	loop: true,
-	duration: 0,
+	duration: 15,
 	nextAnim: ''
 }
 

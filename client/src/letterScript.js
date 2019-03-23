@@ -12,8 +12,6 @@ class LetterScript {
 		this.state = this.drop;
 		this.position = position;
 		this.letter = letter;
-		// this.spaceAvailable = spaceAvailable;
-		// console.log(position);
 		this.deadMove = -20;
 		this.gameObject = gameObject;
 
@@ -58,8 +56,8 @@ class LetterScript {
 	}
 
 	deleteLetter() {
-		// let obj = GameObject.getGameObject(this.gameObjectId);
 
+		this.gameObject.render.changeAnim('flash');
 
 		this.state = this.dead;
 
