@@ -2,6 +2,8 @@ import GameObject from './gameObject';
 import Render from './render';
 import LetterScript from './letterScript.js';
 
+import * as anim from '../anim/animLetter';
+
 class SpawnerScript {
 
 	constructor() {
@@ -26,12 +28,12 @@ class SpawnerScript {
 		if (this.nextSpawn < Date.now()) {
 
 			let letter = new GameObject('letter');
-			let rand = this.getRandomInt(6);
+			let rand = this.getRandomInt(4);
 			let randomLetter = this.alpha[rand];
 
 			this.boardArray[this.letterQuantity] = letter;
 			letter.render = new Render('./boutonLetters.png');
-			letter.render.addAnim('../anim/animLetterA');
+			letter.render.addAnim(anim['anim' + randomLetter.toUpperCase()]);
 			letter.setPosition(1340, 252);
 			letter.addScript(new LetterScript(this.letterQuantity, randomLetter, letter));
 

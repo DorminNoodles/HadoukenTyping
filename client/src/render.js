@@ -3,7 +3,7 @@ class Render {
 
 	constructor(src) {
 		this.anim = [];
-		this.currentAnim;
+		this.currentAnim = "idle";
 		this.img = new Image();
 		this.img.src = src;
 
@@ -20,21 +20,21 @@ class Render {
 		// }
 		this.isAnimated = false;
 		this.currentFrame = 0;
+		this.speed = 80;
+		this.nextFrameTime = 0;
 	}
 
-	addAnim(path) {
-		let anim = require(path).default;
-		console.log(anim);
+	addAnim(anim) {
 		this.isAnimated = true;
-		this.currentAnim
 		this.anim[anim.name] = anim;
+		if (!this.currentAnim)
+			this.currentAnim = anim.name;
 	}
-
 
 	draw(ctx, x, y) {
 		if (this.img) {
 			if (this.isAnimated)
-				this.drawAnim(this.img, x, y);
+				this.drawAnim(ctx, x, y);
 			else
 				ctx.drawImage(this.img, x, y);
 		}
@@ -43,35 +43,46 @@ class Render {
 
 	drawAnim(ctx, x, y) {
 
-		// console.log("HELLO >> ", this.anim);
+		if (!this.anim['idle']) {
+			console.log('error idle animation missing');
+			return;
+		}
+		if (this.currentAnim) {
 
-		let anim = this.anim[this.currentAnim]
-		let sX = anim.width * this.currentFrame;
-		let sY = anim.height * anim.row;
-		let width = anim.width;
-		let height = anim.height;
-		let speed = anim.speed;
+			let anim = this.anim[this.currentAnim]
+			let sX = anim.width * this.currentFrame;
+			let sY = anim.height * anim.row;
+			let width = anim.width;
+			let height = anim.height;
+			let speed = anim.speed;
+			let frameNb = this.anim[this.currentAnim].frameNb;
 
-		ctx.drawImage(anim.img,
-			sX,
-			sY,
-			width,
-			height,
-			x,
-			y,
-			width,
-			height
-		);
+			ctx.drawImage(this.img,
+				sX,
+				sY,
+				width,
+				height,
+				x,
+				y,
+				width,
+				height
+			);
 
-		// if (this.nextFrameTime < Date.now()) {
-		// 	this.currentFrame = (this.currentFrame + 1) % this.frameNb;
-		// 	this.nextFrameTime = Date.now() + this.speed;
-		// }
+			if (this.nextFrameTime < Date.now()) {
+				console.log("current frame ++");
+				this.currentFrame = (this.currentFrame + 1) % frameNb;
+				// this.currentFrame += 1;
+				this.nextFrameTime = Date.now() + this.speed;
+			}
+		}
 	}
 
-
-	changeAnim(currentAnim) {
-		this.currentAnim = currentAnim;
+	changeAnim(currentAnim, nextAnim) {
+		this.currentAnim = this.anim[currentAnim];
+		if (nextAnim)
+			this.nextAnim = nextAnim;
+		else
+			this.nextAnim = undefined;
 	}
 
 }
