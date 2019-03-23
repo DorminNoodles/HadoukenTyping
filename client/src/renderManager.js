@@ -14,7 +14,6 @@ class RenderManager {
 		objets.forEach((objet) => {
 			if (objet.render) {
 				objet.render.draw(this.ctx, objet.x, objet.y)
-				// this.ctx.drawImage(objet.render.img, objet.x, objet.y);
 			}
 		})
 	}

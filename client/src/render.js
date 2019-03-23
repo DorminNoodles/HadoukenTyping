@@ -1,11 +1,13 @@
 
 class Render {
 
-	constructor(anim) {
+	constructor(src) {
 		this.anim = [];
+		this.currentAnim;
+		this.img = new Image();
+		this.img.src = src;
+
 		// if (anim) {
-		// 	this.img = new Image();
-		// 	this.img.src = src;
 		// 	console.log("hello in render it's a component");
 		// 	this.frameNb = frameNb;
 		// 	this.currentFrame = 0;
@@ -16,14 +18,32 @@ class Render {
 		// 	this.nextFrameTime = 0;
 		// 	this.anim[anim.name] = anim
 		// }
+		this.isAnimated = false;
 		this.currentFrame = 0;
 	}
 
-	addAnim(anim) {
+	addAnim(path) {
+		let anim = require(path).default;
+		console.log(anim);
+		this.isAnimated = true;
+		this.currentAnim
 		this.anim[anim.name] = anim;
 	}
 
+
 	draw(ctx, x, y) {
+		if (this.img) {
+			if (this.isAnimated)
+				this.drawAnim(this.img, x, y);
+			else
+				ctx.drawImage(this.img, x, y);
+		}
+
+	}
+
+	drawAnim(ctx, x, y) {
+
+		// console.log("HELLO >> ", this.anim);
 
 		let anim = this.anim[this.currentAnim]
 		let sX = anim.width * this.currentFrame;
@@ -31,8 +51,6 @@ class Render {
 		let width = anim.width;
 		let height = anim.height;
 		let speed = anim.speed;
-
-
 
 		ctx.drawImage(anim.img,
 			sX,
@@ -45,11 +63,12 @@ class Render {
 			height
 		);
 
-		if (this.nextFrameTime < Date.now()) {
-			this.currentFrame = (this.currentFrame + 1) % this.frameNb;
-			this.nextFrameTime = Date.now() + this.speed;
-		}
+		// if (this.nextFrameTime < Date.now()) {
+		// 	this.currentFrame = (this.currentFrame + 1) % this.frameNb;
+		// 	this.nextFrameTime = Date.now() + this.speed;
+		// }
 	}
+
 
 	changeAnim(currentAnim) {
 		this.currentAnim = currentAnim;

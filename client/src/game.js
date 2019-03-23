@@ -51,8 +51,8 @@ class Game {
 		boardBar.setPosition(50, 454);
 
 
-		spawner.render = new Render('./spawner.gif', 100, 86, 1, 0);
-		boardBar.render = new Render('./gameBoardBar.gif', 1438, 168, 1, 0);
+		spawner.render = new Render('./spawner.gif');
+		boardBar.render = new Render('./gameBoardBar.gif');
 		spawner.script = new SpawnerScript();
 		inputController.script = new ControllerScript(spawner);
 	}
