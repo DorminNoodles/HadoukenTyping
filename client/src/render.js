@@ -25,7 +25,10 @@ class Render {
 	}
 
 	addAnim(anim) {
-		console.log(anim);
+		console.log("anim : ", anim);
+		if (!anim) {
+			console.log("No anim !");
+		}
 		this.isAnimated = true;
 		this.anim[anim.name] = anim;
 		if (!this.currentAnim)
@@ -50,9 +53,9 @@ class Render {
 		}
 		if (this.currentAnim) {
 
-			console.log(anim)
+			console.log(this.currentFrame + this.anim[this.currentAnim].col);
 			let anim = this.anim[this.currentAnim]
-			let sX = anim.width * this.currentFrame;
+			let sX = anim.width * (this.currentFrame + this.anim[this.currentAnim].col) ;
 			let sY = anim.height * anim.row;
 			let width = anim.width;
 			let height = anim.height;
@@ -79,10 +82,9 @@ class Render {
 
 	changeAnim(currentAnim, nextAnim) {
 		console.log("change Anim !!!")
+		this.currentFrame = 0;
 		if (this.anim[currentAnim])
 			this.currentAnim = currentAnim;
-		else
-			this.current
 
 		if (nextAnim)
 			this.nextAnim = nextAnim;
