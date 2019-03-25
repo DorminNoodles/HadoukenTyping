@@ -1,11 +1,10 @@
+import RenderManager from './renderManager.js';
+import { animFlash } from '../anim/animFlash';
+import LetterScript from './letterScript.js';
+import * as anim from '../anim/animLetter';
 import GameObject from './gameObject';
 import Render from './render';
-import LetterScript from './letterScript.js';
 
-import RenderManager from './renderManager.js';
-
-import * as anim from '../anim/animLetter';
-import * as animFlash from '../anim/animFlash';
 
 class SpawnerScript {
 
@@ -31,7 +30,7 @@ class SpawnerScript {
 		if (this.nextSpawn < Date.now()) {
 
 			let letter = new GameObject('letter');
-			let rand = this.getRandomInt(6);
+			let rand = this.getRandomInt(5);
 			let randomLetter = this.alpha[rand];
 
 			this.boardArray[this.letterQuantity] = letter;
@@ -71,16 +70,14 @@ class SpawnerScript {
 						this.boardArray[i] = undefined;
 					}
 				}
-				// RenderManager.shake();
-				console.log("x : " + this.boardArray[0].x + "y : " + this.boardArray[0].y);
-				let flashKill = new GameObject('animFlash');
-				flashKill.render = new Render('./flashAnim.png');
+				// console.log("x : " + this.boardArray[0].x + "y : " + this.boardArray[0].y);
 
 
-				setTimeout(() => {
-					console.log("KILL GAME OBJECT");
-					GameObject.delete(flashKill);
-				}, 200);
+
+				// setTimeout(() => {
+				// 	console.log("KILL GAME OBJECT");
+				// 	GameObject.delete(flashKill);
+				// }, 200);
 			}
 		}
 	}

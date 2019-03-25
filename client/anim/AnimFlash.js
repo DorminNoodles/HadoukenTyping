@@ -1,13 +1,13 @@
-export const animD = {
-	name: "idle",
-	img: './boutonLetters.png',
-	width: 202,
-	height: 202,
+export const animFlash = {
+	name: "deleteFx",
+	img: './flashAnim.png',
+	width: 404,
+	height: 404,
 	frameNb: 4,
 	row: 0,
 	col: 0,
-	speed: 100,
+	speed: 80,
 	loop: false,
 	duration: 0,
-	nextAnim: ''
+	nextAnim: 'idle'
 }

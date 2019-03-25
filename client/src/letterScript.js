@@ -1,4 +1,7 @@
+import { animFlash } from '../anim/animFlash';
 import GameObject from './gameObject';
+import Render from './render';
+
 
 class LetterScript {
 
@@ -14,7 +17,8 @@ class LetterScript {
 		this.letter = letter;
 		this.deadMove = -20;
 		this.gameObject = gameObject;
-
+		this.onBoardSpeed = -50;
+		this.dropSpeed = 40;
 	}
 
 	update() {
@@ -28,20 +32,20 @@ class LetterScript {
 	drop() {
 		this.vulnerable = false;
 		if (this.object.y < 500) {
-			this.object.move(0, 15);
+			this.object.move(0, this.dropSpeed);
 		}
 		if (this.object.y > 500 ) {
 			this.object.setPosition(this.object.x, 500);
 			this.state = this.onBoard;
+			this.vulnerable = true;
 		}
 	}
 
 	onBoard() {
-		this.vulnerable = true;
 		let destination = (this.position * 82) + 200;
 		// console.log("id : ", this.gameObjectId, "   position : ", this.position, "     destination : ", destination);
 		if (this.object.x > destination) {
-			this.object.move(-10, 0);
+			this.object.move(this.onBoardSpeed, 0);
 		}
 
 		if (this.object.x < destination) {
@@ -52,6 +56,7 @@ class LetterScript {
 	dead() {
 		this.object.move(0, this.deadMove);
 		this.deadMove += 5;
+
 		// console.log("DEAD !!!!");
 	}
 
@@ -60,6 +65,12 @@ class LetterScript {
 		this.gameObject.render.changeAnim('flash');
 
 		this.state = this.dead;
+
+		let flashKill = new GameObject('animFlash');
+		flashKill.setPosition(this.object.x - 160, this.object.y - 180);
+		flashKill.render = new Render('./flashAnim.png');
+		flashKill.render.addAnim(animFlash);
+
 
 		setTimeout(() => {
 			GameObject.delete(this.gameObject);

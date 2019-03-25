@@ -3,7 +3,7 @@ class Render {
 
 	constructor(src) {
 		this.anim = [];
-		this.currentAnim = "idle";
+		// this.currentAnim = "idle";
 		this.img = new Image();
 		this.img.src = src;
 
@@ -20,18 +20,20 @@ class Render {
 		// }
 		this.isAnimated = false;
 		this.currentFrame = 0;
-		this.speed = 80;
 		this.nextFrameTime = 0;
 	}
 
 	addAnim(anim) {
+		// console.log(anim);
 		if (!anim) {
 			console.log("No anim !");
 		}
 		this.isAnimated = true;
 		this.anim[anim.name] = anim;
-		if (!this.currentAnim)
+		if (!this.currentAnim) {
+			this.nextFrameTime = Date.now() + anim.speed;
 			this.currentAnim = anim.name;
+		}
 	}
 
 	draw(ctx, x, y) {
@@ -45,12 +47,8 @@ class Render {
 	}
 
 	drawAnim(ctx, x, y) {
-		if (!this.anim['idle']) {
-			console.log('error idle animation missing');
-			return;
-		}
-		if (this.currentAnim) {
-			let anim = this.anim[this.currentAnim]
+		if (this.currentAnim && this.anim[this.currentAnim]) {
+			let anim = this.anim[this.currentAnim];
 			let sX = anim.width * (this.currentFrame + this.anim[this.currentAnim].col) ;
 			let sY = anim.height * anim.row;
 			let width = anim.width;
@@ -70,8 +68,11 @@ class Render {
 			);
 
 			if (this.nextFrameTime < Date.now()) {
+				if (!this.anim[this.currentAnim].loop && this.currentFrame == frameNb - 1)
+					this.currentAnim = this.anim[this.currentAnim].nextAnim;
 				this.currentFrame = (this.currentFrame + 1) % frameNb;
-				this.nextFrameTime = Date.now() + this.speed;
+				// console.log("name : " + this.currentAnim + "   speed : " + speed);
+				this.nextFrameTime = Date.now() + speed;
 			}
 		}
 	}
