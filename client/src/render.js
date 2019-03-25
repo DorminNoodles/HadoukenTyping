@@ -25,7 +25,6 @@ class Render {
 	}
 
 	addAnim(anim) {
-		console.log("anim : ", anim);
 		if (!anim) {
 			console.log("No anim !");
 		}
@@ -46,14 +45,11 @@ class Render {
 	}
 
 	drawAnim(ctx, x, y) {
-		console.log(this.currentAnim);
 		if (!this.anim['idle']) {
 			console.log('error idle animation missing');
 			return;
 		}
 		if (this.currentAnim) {
-
-			console.log(this.currentFrame + this.anim[this.currentAnim].col);
 			let anim = this.anim[this.currentAnim]
 			let sX = anim.width * (this.currentFrame + this.anim[this.currentAnim].col) ;
 			let sY = anim.height * anim.row;
@@ -81,7 +77,6 @@ class Render {
 	}
 
 	changeAnim(currentAnim, nextAnim) {
-		console.log("change Anim !!!")
 		this.currentFrame = 0;
 		if (this.anim[currentAnim])
 			this.currentAnim = currentAnim;

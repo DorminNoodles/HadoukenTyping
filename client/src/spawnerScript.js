@@ -2,6 +2,8 @@ import GameObject from './gameObject';
 import Render from './render';
 import LetterScript from './letterScript.js';
 
+import RenderManager from './renderManager.js';
+
 import * as anim from '../anim/animLetter';
 
 class SpawnerScript {
@@ -9,13 +11,13 @@ class SpawnerScript {
 	constructor() {
 		this.begin = Date.now();
 		this.nextSpawn = Date.now() + 2000;
-		this.spawnSpeed = 1200;
+		this.spawnSpeed = 800;
 		this.boardArray = [];
 		this.letterQuantity = 0;
 		this.alpha = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
 		this.nextChangeSpeed = Date.now() + 10000;
 		this.changeSpeedDelay = 8000;
-		this.speedReduce = 2;
+		this.speedReduce = 8;
 	}
 
 	update() {
@@ -28,13 +30,12 @@ class SpawnerScript {
 		if (this.nextSpawn < Date.now()) {
 
 			let letter = new GameObject('letter');
-			let rand = this.getRandomInt(4);
+			let rand = this.getRandomInt(6);
 			let randomLetter = this.alpha[rand];
 
 			this.boardArray[this.letterQuantity] = letter;
 			letter.render = new Render('./boutonLetters.png');
 
-			console.log("spawnerScript anim : ", anim);
 
 			letter.render.addAnim(anim['anim' + randomLetter.toUpperCase()]);
 			letter.render.addAnim(anim['anim' + randomLetter.toUpperCase() + 'Flash']);
@@ -63,14 +64,13 @@ class SpawnerScript {
 				this.letterQuantity--;
 
 				for(let i = 0; i < this.boardArray.length; i++) {
-					// console.log("for : ", this.boardArray[i]);
 					if (this.boardArray[i]) {
 						this.boardArray[i].script.changePosition();
 						this.boardArray[i - 1] = this.boardArray[i];
 						this.boardArray[i] = undefined;
 					}
 				}
-				console.log(this.boardArray);
+				RenderManager.shake();
 			}
 		}
 	}

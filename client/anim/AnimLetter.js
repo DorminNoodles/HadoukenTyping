@@ -48,7 +48,7 @@ export const animBFlash = {
 	height: 80,
 	frameNb: 1,
 	row: 1,
-	col: 14,
+	col: 13,
 	speed: 100,
 	loop: true,
 	duration: 15,
@@ -76,7 +76,7 @@ export const animCFlash = {
 	height: 80,
 	frameNb: 1,
 	row: 2,
-	col: 14,
+	col: 13,
 	speed: 100,
 	loop: true,
 	duration: 15,
@@ -104,6 +104,90 @@ export const animDFlash = {
 	height: 80,
 	frameNb: 1,
 	row: 3,
+	col: 13,
+	speed: 100,
+	loop: true,
+	duration: 15,
+	nextAnim: ''
+}
+
+export const animE = {
+	name: "idle",
+	img: './boutonLetters.png',
+	width: 80,
+	height: 80,
+	frameNb: 7,
+	row: 4,
+	col: 0,
+	speed: 100,
+	loop: true,
+	duration: 0,
+	nextAnim: ''
+}
+
+export const animEFlash = {
+	name: "flash",
+	img: './boutonLetters.png',
+	width: 80,
+	height: 80,
+	frameNb: 1,
+	row: 4,
+	col: 13,
+	speed: 100,
+	loop: true,
+	duration: 15,
+	nextAnim: ''
+}
+
+export const animF = {
+	name: "idle",
+	img: './boutonLetters.png',
+	width: 80,
+	height: 80,
+	frameNb: 7,
+	row: 5,
+	col: 0,
+	speed: 100,
+	loop: true,
+	duration: 0,
+	nextAnim: ''
+}
+
+export const animFFlash = {
+	name: "flash",
+	img: './boutonLetters.png',
+	width: 80,
+	height: 80,
+	frameNb: 1,
+	row: 5,
+	col: 13,
+	speed: 100,
+	loop: true,
+	duration: 15,
+	nextAnim: ''
+}
+
+export const animG = {
+	name: "idle",
+	img: './boutonLetters.png',
+	width: 80,
+	height: 80,
+	frameNb: 7,
+	row: 6,
+	col: 0,
+	speed: 100,
+	loop: true,
+	duration: 0,
+	nextAnim: ''
+}
+
+export const animGFlash = {
+	name: "flash",
+	img: './boutonLetters.png',
+	width: 80,
+	height: 80,
+	frameNb: 1,
+	row: 6,
 	col: 13,
 	speed: 100,
 	loop: true,
