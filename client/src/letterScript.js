@@ -62,7 +62,7 @@ class LetterScript {
 		this.state = this.dead;
 
 		setTimeout(() => {
-			GameObject.deleteGameObject(this.gameObject);
+			GameObject.delete(this.gameObject);
 		}, 1200);
 	}
 

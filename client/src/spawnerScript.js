@@ -5,6 +5,7 @@ import LetterScript from './letterScript.js';
 import RenderManager from './renderManager.js';
 
 import * as anim from '../anim/animLetter';
+import * as animFlash from '../anim/animFlash';
 
 class SpawnerScript {
 
@@ -70,7 +71,16 @@ class SpawnerScript {
 						this.boardArray[i] = undefined;
 					}
 				}
-				RenderManager.shake();
+				// RenderManager.shake();
+				console.log("x : " + this.boardArray[0].x + "y : " + this.boardArray[0].y);
+				let flashKill = new GameObject('animFlash');
+				flashKill.render = new Render('./flashAnim.png');
+
+
+				setTimeout(() => {
+					console.log("KILL GAME OBJECT");
+					GameObject.delete(flashKill);
+				}, 200);
 			}
 		}
 	}

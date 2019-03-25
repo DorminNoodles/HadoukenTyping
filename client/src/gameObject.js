@@ -43,7 +43,7 @@ class GameObject {
 		}
 	}
 
-	static deleteGameObject(objet) {
+	static delete(objet) {
 
 		Core.deleteObject(objet.id);
 	}
