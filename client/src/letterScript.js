@@ -71,6 +71,10 @@ class LetterScript {
 		flashKill.render = new Render('./flashAnim.png');
 		flashKill.render.addAnim(animFlash);
 
+		setTimeout(() => {
+			GameObject.delete(flashKill);
+		}, 400);
+
 
 		setTimeout(() => {
 			GameObject.delete(this.gameObject);

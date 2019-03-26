@@ -44,6 +44,8 @@ class SpawnerScript {
 
 			this.letterQuantity++;
 			this.nextSpawn = Date.now() + this.spawnSpeed;
+
+			console.log(this.letterQuantity);
 		}
 	}
 
@@ -70,14 +72,6 @@ class SpawnerScript {
 						this.boardArray[i] = undefined;
 					}
 				}
-				// console.log("x : " + this.boardArray[0].x + "y : " + this.boardArray[0].y);
-
-
-
-				// setTimeout(() => {
-				// 	console.log("KILL GAME OBJECT");
-				// 	GameObject.delete(flashKill);
-				// }, 200);
 			}
 		}
 	}
