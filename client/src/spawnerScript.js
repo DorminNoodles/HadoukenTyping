@@ -18,6 +18,7 @@ class SpawnerScript {
 		this.nextChangeSpeed = Date.now() + 10000;
 		this.changeSpeedDelay = 4000;
 		this.speedReduce = 20;
+		this.deadTime = false; //additional time before realy dead
 	}
 
 	update() {
@@ -46,6 +47,18 @@ class SpawnerScript {
 			this.nextSpawn = Date.now() + this.spawnSpeed;
 
 			console.log(this.letterQuantity);
+
+			if (this.letterQuantity > 15 && this.deadTime == false) {
+				this.deadTime = true;
+				console.log("DEAD TIME !");
+				setTimeout(() => {
+					if (this.letterQuantity > 15) {
+						let evt = new Event("finish", {"bubbles":true, "cancelable":false});
+						document.dispatchEvent(evt);
+					}
+					this.deadTime = false;
+				}, 500);
+			}
 		}
 	}
 

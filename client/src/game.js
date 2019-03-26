@@ -17,16 +17,31 @@ class Game {
 		this.canvas = document.getElementById('canvas');
 		this.ctx = canvas.getContext("2d");
 		this.renderManager = new RenderManager();
-
+		this.currentState = "inGame";
+		this.states = {
+			"inGame" : {
+				"init" : this.initVersus,
+				"end" : this.endVersus
+			},
+			"endGame" : {
+				"init" : this.initFinishScreen,
+				"end" : this.endFinishScreen
+			}
+		};
 
 		this.canvasBackground();
 
-		if (type == 'versus')
-			this.initVersus();
+		this.states[this.currentState].init();
 
 		setTimeout(() => {
 			this.gameLoop();
 		},25)
+
+		document.addEventListener("finish", () => {
+			// GameObject.delete(this.spawner);
+			this.changeState("endGame");
+			console.log("FINISH +++++++++++++++++");
+		})
 	}
 
 	canvasBackground() {
@@ -36,25 +51,31 @@ class Game {
 		let img = new Image();   // Crée un nouvel élément Image
 		img.src = './backgroundGame.gif';
 		img.onload = () => {
-			var ptrn = ctx.createPattern(img, 'repeat'); // Create a pattern with this image, and set it to "repeat".
-			ctx.fillStyle = ptrn;
+			var pattern = ctx.createPattern(img, 'repeat'); // Create a pattern with this image, and set it to "repeat".
+			ctx.fillStyle = pattern;
 			ctx.fillRect(0, 0, this.canvasBack.width, this.canvasBack.height); // context.fillRect(x, y, width, height);
 		}
 	}
 
 	initVersus() {
 		let inputController = new GameObject('inputController');
-		let boardBar = new GameObject('boardBar');
-		let spawner = new GameObject('spawner');
+		this.boardBar = new GameObject('boardBar');
+		this.spawner = new GameObject('spawner');
 
-		spawner.setPosition(1330, 250);
-		boardBar.setPosition(50, 454);
+		this.spawner.setPosition(1330, 250);
+		this.boardBar.setPosition(50, 454);
 
 
-		spawner.render = new Render('./spawner.gif');
-		boardBar.render = new Render('./gameBoardBar.gif');
-		spawner.script = new SpawnerScript();
-		inputController.script = new ControllerScript(spawner);
+		this.spawner.render = new Render('./spawner.gif');
+		this.boardBar.render = new Render('./gameBoardBar.gif');
+		this.spawner.script = new SpawnerScript();
+		inputController.script = new ControllerScript(this.spawner);
+	}
+
+	endVersus() {
+		GameObject.delete(this.spawner);
+		GameObject.delete(this.boardBar);
+		console.log("END GAME **********");
 	}
 
 	gameLoop() {
@@ -72,16 +93,27 @@ class Game {
 		requestAnimationFrame(loop);
 	}
 
-	renderBackground() {
-		// canvas.width = window.innerWidth + 400;
-		canvas.width = 1600;
-		// canvas.height = window.innerHeight + 400;
-		canvas.height = 1400;
-		this.ctx.drawImage(this.canvasBack, 0, 0);
-
+	changeState(state) {
+		// console.log(this.states);
+		this.states[this.currentState].end();
+		this.currentState = state;
+		this.states[this.currentState].init();
 	}
 
+	renderBackground() {
+		canvas.width = 1600;
+		canvas.height = 1400;
+		this.ctx.drawImage(this.canvasBack, 0, 0);
+	}
 
+	initFinishScreen() {
+		let scorePanel = new GameObject('scorePanel');
+		scorePanel.render = new Render('./flashAnim.png');
+	}
+
+	endFinishScreen() {
+
+	}
 }
 
 

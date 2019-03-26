@@ -16,8 +16,6 @@ class Controller {
 			if (this.keyList[e.key])
 				delete this.keyList[e.key];
 		})
-		// this.boardArray = boardArray;
-		// console.log("constructor : ", this.boardArray);
 		this.spawner = spawner;
 	}
 
@@ -28,15 +26,8 @@ class Controller {
 	}
 
 	handler(e) {
-		console.log(e.key);
-
+		// console.log(e.key);
 		this.spawner.script.deleteLetter(e.key);
-		// console.log(e);
-		// console.log("in handler", this.boardArray[0]);
-		// console.log("undefined ? connard :", this.boardArray[0]);
-		// this.boardArray[0] = false;
-
-
 	}
 }
 
