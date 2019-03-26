@@ -107,8 +107,8 @@ class Game {
 	}
 
 	initFinishScreen() {
-		let scorePanel = new GameObject('scorePanel');
-		scorePanel.render = new Render('./flashAnim.png');
+		// let scorePanel = new GameObject('scorePanel');
+		// scorePanel.render = new Render('./flashAnim.png');
 	}
 
 	endFinishScreen() {

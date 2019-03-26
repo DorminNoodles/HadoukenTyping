@@ -19,6 +19,10 @@ class SpawnerScript {
 		this.changeSpeedDelay = 4000;
 		this.speedReduce = 20;
 		this.deadTime = false; //additional time before realy dead
+
+		document.addEventListener('finish', () => {
+				this.deleteAllLetter();
+		})
 	}
 
 	update() {
@@ -78,13 +82,22 @@ class SpawnerScript {
 				this.boardArray[0] = undefined;
 				this.letterQuantity--;
 
-				for(let i = 0; i < this.boardArray.length; i++) {
+				for (let i = 0; i < this.boardArray.length; i++) {
 					if (this.boardArray[i]) {
 						this.boardArray[i].script.changePosition();
 						this.boardArray[i - 1] = this.boardArray[i];
 						this.boardArray[i] = undefined;
 					}
 				}
+			}
+		}
+	}
+
+	deleteAllLetter() {
+		console.log("Hello delete all letter");
+		for (let i = 0; i < this.boardArray.length; i++) {
+			if (this.boardArray[i]) {
+				this.boardArray[i].script.deleteLetter();
 			}
 		}
 	}
