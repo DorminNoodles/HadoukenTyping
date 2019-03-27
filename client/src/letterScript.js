@@ -1,7 +1,8 @@
 import { animFlash } from '../anim/animFlash';
+import BoardScoreUI from './boardScoreUI';
 import GameObject from './gameObject';
+import RenderText from './renderText';
 import Render from './render';
-
 
 class LetterScript {
 
@@ -11,7 +12,6 @@ class LetterScript {
 		this.speedRefresh = 1000/60;
 		this.nextRefresh = 0;
 		this.moveSpeed = 10;
-		// this.state = 'drop';
 		this.state = this.drop;
 		this.position = position;
 		this.letter = letter;
@@ -34,6 +34,7 @@ class LetterScript {
 		if (this.object.y < 500) {
 			this.object.move(0, this.dropSpeed);
 		}
+
 		if (this.object.y > 500 ) {
 			this.object.setPosition(this.object.x, 500);
 			this.state = this.onBoard;
@@ -62,6 +63,9 @@ class LetterScript {
 
 	deleteLetter() {
 
+		let scoreEvent = new Event("addScore", {"bubbles":true, "cancelable":false});
+		document.dispatchEvent(scoreEvent);
+
 		this.gameObject.render.changeAnim('flash');
 
 		this.state = this.dead;
@@ -70,6 +74,15 @@ class LetterScript {
 		flashKill.setPosition(this.object.x - 160, this.object.y - 180);
 		flashKill.render = new Render('./flashAnim.png');
 		flashKill.render.addAnim(animFlash);
+
+		let score = new GameObject('score');
+		score.setPosition(this.object.x, this.object.y);
+		score.renderText = new RenderText('./gameFont1.png', "100");
+		score.addScript(new BoardScoreUI());
+
+		setTimeout(() => {
+			GameObject.delete(score);
+		}, 1000);
 
 		setTimeout(() => {
 			GameObject.delete(flashKill);

@@ -72,9 +72,18 @@ class Game {
 		this.spawner.script = new SpawnerScript();
 		inputController.script = new ControllerScript(this.spawner);
 
-		let score = new GameObject('scoreUI');
-		score.renderText = new RenderText();
+		this.scoreUI = new GameObject('scoreUI');
+		this.scoreUIBackground = new GameObject('scoreUIBackground');
+		this.scoreUIBackground.render = new Render('./backgroundScore.png');
+		this.scoreUIBackground.setPosition(600, 10);
+		this.scoreUI.renderText = new RenderText('./gameFont1.png', '00000');
+		this.scoreUI.setPosition(600, 30);
 
+		document.addEventListener("addScore", (score) => {
+			let total = this.scoreUI.renderText.getText();
+			total = (parseInt(total) + 100).toString();
+			this.scoreUI.renderText.changeText(total);
+		})
 	}
 
 	endVersus() {

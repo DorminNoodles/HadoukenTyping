@@ -21,6 +21,12 @@ class RenderManager {
 			}
 		})
 
+		objets.forEach((objet) => {
+			if (objet.renderText) {
+				objet.renderText.draw(this.ctx, objet.x, objet.y);
+			}
+		})
+
 		if (this.shake)
 			this.shake--;
 	}
