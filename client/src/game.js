@@ -6,6 +6,7 @@ import SpawnerScript from './spawnerScript';
 import RenderManager from './renderManager';
 import ControllerScript from './controller';
 import GameObject from './gameObject';
+import RenderText from './renderText';
 import Render from './render';
 import Core from './core';
 
@@ -70,6 +71,10 @@ class Game {
 		this.boardBar.render = new Render('./gameBoardBar.gif');
 		this.spawner.script = new SpawnerScript();
 		inputController.script = new ControllerScript(this.spawner);
+
+		let score = new GameObject('scoreUI');
+		score.renderText = new RenderText();
+
 	}
 
 	endVersus() {
