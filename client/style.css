@@ -168,7 +168,7 @@ body {
 #modes {
 	top: 80px;
 	margin-top: 200px;
-	height: 350px;
+	height: 500px;
 	/* position: absolute; */
 	/* width: 100%; */
 	display: flex;
@@ -183,28 +183,28 @@ body {
 }
 
 @keyframes versusClose {
-  from {top: 200px;}
-  to {top: -350px;}
+  from {top: 450px;}
+  to {top: 2000px;}
 }
 
 #versus {
 	z-index: 100;
 	position: absolute;
-	top: 200px;
+	top: 450px;
 	/* border: 2px solid #fcc; */
 	/* left: -200px; */
 	/* height: 35px; */
 	animation-duration: 1.2s;
 }
 
-@keyframes practiceClose {
-	from {top: 400px; display: block}
-	to {top: 1000px; display: block}
+@keyframes soloClose {
+	from {top: 200px; display: block}
+	to {top: -1200px; display: block}
 }
 
-#practice {
+#solo {
 	position: absolute;
-	top: 400px;
+	top: 200px;
 	animation-duration: 1.6s;
 }
 

@@ -126,7 +126,6 @@ function restartMatch() {
 	console.log("restart !!!!!");
 	// let menu = document.getElementById("againMenuOpen");
 	// menu.removeAttribute("id");
-	// menu.id = "againMenuClose";
 }
 
 function quitMatch() {
@@ -277,8 +276,6 @@ function shake() {
 }
 
 let gameLoop = setInterval(() => {
-	// console.log(Date.now());
-	// console.log(gameState);
 
 	if (current && checkValid(current.letters) && gameState == 'fight') {
 		gameState = 'validation';
@@ -294,35 +291,6 @@ let gameLoop = setInterval(() => {
 		render();
 	}
 }, 16);
-
-// let inter = idle.drawAnimation(2);
-
-// document.addEventListener('keydown', (e) => {
-// 	console.log(e.key);
-//
-// 	if (gameState == "fight") {
-// 		let i = 0;
-// 		while (i < current.letters.length) {
-// 			if (!current.letters[i].valid)
-// 				break;
-// 			i++;
-// 		}
-// 		if (i == current.letters.length)
-// 			return;
-// 		if (e.key == current.letters[i].char) {
-// 			current.letters[i].valid = true;
-// 		}
-//
-// 		if (current && checkValid(current.letters)) {
-// 			if (ryu1)
-// 				ryu1.changeAnim('punch');
-// 			socket.emit('lettersValid', (data) => {
-// 			  console.log(data);
-// 			});
-// 		}
-// 		render();
-// 	}
-// });
 
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
@@ -425,9 +393,8 @@ document.addEventListener("gameState", (e) => {
 	let game;
 
 	console.log(gameState, "pute");
-	if (gameState == 'versus') {
-		console.log("gameVERSUS");
-		game = new Game('versus');
+	if (gameState == 'solo') {
+		game = new Game('solo');
 	}
 })
 
@@ -436,19 +403,19 @@ document.addEventListener("gameState", (e) => {
 	console.log("bordel de merde mais pk ca marche pas ?");
 	let gameCanvas = document.getElementById('gameCanvas');
 	let versus = document.getElementById('versus');
-	let practice = document.getElementById('practice');
+	let solo = document.getElementById('solo');
 
 	console.log("launch gameState Event");
 	gameCanvas.style.display = 'flex';
 
-	versus.style.top = '-200px';
+	versus.style.top = '-400px';
 	versus.style.animationName = 'versusClose';
 
-	practice.style.top = '1000px';
+	solo.style.top = '-1000px';
 	// setTimeout(() => {
 	// 	practice.style.display = 'none';
 	// }, 1200);
-	practice.style.animationName = 'practiceClose';
+	solo.style.animationName = 'soloClose';
 
 	gameCanvas.style.top = '0px';
 	gameCanvas.width = window.innerWidth;
@@ -467,6 +434,14 @@ function init() {
 	versus.onclick = () => {
 		console.log("onClickVersus");
 		gameState = 'versus';
+		document.dispatchEvent(gameStateEvent);
+	}
+
+	let solo = document.getElementById('solo');
+
+	solo.onclick = () => {
+		// console.log("onClickVersus");
+		gameState = 'solo';
 		document.dispatchEvent(gameStateEvent);
 	}
 

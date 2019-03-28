@@ -21,8 +21,8 @@ class Game {
 		this.currentState = "inGame";
 		this.states = {
 			"inGame" : {
-				"init" : this.initVersus,
-				"end" : this.endVersus
+				"init" : this.initSolo,
+				"end" : this.endSolo
 			},
 			"endGame" : {
 				"init" : this.initFinishScreen,
@@ -86,10 +86,44 @@ class Game {
 		})
 	}
 
-	endVersus() {
+	initSolo() {
+		let inputController = new GameObject('inputController');
+		this.boardBar = new GameObject('boardBar');
+		this.spawner = new GameObject('spawner');
+
+		this.spawner.setPosition(1330, 250);
+		this.boardBar.setPosition(50, 454);
+
+
+		this.spawner.render = new Render('./spawner.gif');
+		this.boardBar.render = new Render('./gameBoardBar.gif');
+		this.spawner.script = new SpawnerScript();
+		inputController.script = new ControllerScript(this.spawner);
+
+		this.scoreUI = new GameObject('scoreUI');
+		this.scoreUIBackground = new GameObject('scoreUIBackground');
+		this.scoreUIBackground.render = new Render('./backgroundScore.png');
+		this.scoreUIBackground.setPosition(600, 10);
+		this.scoreUI.renderText = new RenderText('./gameFont1.png', '00000');
+		this.scoreUI.setPosition(600, 30);
+
+		document.addEventListener("addScore", (score) => {
+			let total = this.scoreUI.renderText.getText();
+			total = (parseInt(total) + 100).toString();
+			this.scoreUI.renderText.changeText(total);
+		})
+	}
+
+	endSolo() {
 		GameObject.delete(this.spawner);
 		GameObject.delete(this.boardBar);
 		console.log("END GAME **********");
+
+		this.finishScorePanel = new GameObject('finishScorePanel');
+		this.finishScorePanel.setPosition(50,50);
+		this.finishScorePanel.render = new Render('./finishScore.png');
+
+
 	}
 
 	gameLoop() {
