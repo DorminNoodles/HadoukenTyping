@@ -48,7 +48,7 @@ class SpawnerScript {
 			letter.addScript(new LetterScript(this.letterQuantity, randomLetter, letter));
 
 			this.letterQuantity++;
-			this.nextSpawn = Date.now() + this.spawnSpeed + ((this.letterQuantity * this.letterQuantity) * 10);
+			this.nextSpawn = Date.now() + this.spawnSpeed + ((this.letterQuantity * this.letterQuantity));
 
 			console.log(this.letterQuantity);
 

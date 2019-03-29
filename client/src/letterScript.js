@@ -63,7 +63,14 @@ class LetterScript {
 
 	deleteLetter() {
 
-		let scoreEvent = new Event("addScore", {"bubbles":true, "cancelable":false});
+		// let scoreEvent = new Event("addScore", {"bubbles":true, "cancelable":false});
+		let scoreEvent = new CustomEvent("addScore", {
+			detail : {
+				'score': 100
+			},
+			"bubbles":true,
+			"cancelable":false
+		});
 		document.dispatchEvent(scoreEvent);
 
 		this.gameObject.render.changeAnim('flash');
@@ -77,7 +84,7 @@ class LetterScript {
 
 		let score = new GameObject('score');
 		score.setPosition(this.object.x, this.object.y);
-		score.renderText = new RenderText('./gameFont1.png', "100");
+		score.renderText = new RenderText('./gameFont1.png', "100", 15);
 		score.addScript(new BoardScoreUI());
 
 		setTimeout(() => {
