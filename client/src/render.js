@@ -3,21 +3,9 @@ class Render {
 
 	constructor(src) {
 		this.anim = [];
-		// this.currentAnim = "idle";
 		this.img = new Image();
 		this.img.src = src;
 
-		// if (anim) {
-		// 	console.log("hello in render it's a component");
-		// 	this.frameNb = frameNb;
-		// 	this.currentFrame = 0;
-		// 	this.width = width;
-		// 	this.height = height;
-		// 	this.row = row;
-		// 	this.speed = speed;
-		// 	this.nextFrameTime = 0;
-		// 	this.anim[anim.name] = anim
-		// }
 		this.isAnimated = false;
 		this.currentFrame = 0;
 		this.nextFrameTime = 0;
@@ -37,6 +25,7 @@ class Render {
 	}
 
 	draw(ctx, x, y) {
+		// console.log(this.img.src);
 		if (this.img) {
 			if (this.isAnimated)
 				this.drawAnim(ctx, x, y);
@@ -71,7 +60,6 @@ class Render {
 				if (!this.anim[this.currentAnim].loop && this.currentFrame == frameNb - 1)
 					this.currentAnim = this.anim[this.currentAnim].nextAnim;
 				this.currentFrame = (this.currentFrame + 1) % frameNb;
-				// console.log("name : " + this.currentAnim + "   speed : " + speed);
 				this.nextFrameTime = Date.now() + speed;
 			}
 		}

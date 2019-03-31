@@ -27,7 +27,7 @@ class Controller {
 
 	handler(e) {
 		// console.log(e.key);
-		this.spawner.script.deleteLetter(e.key);
+		this.spawner.script.deleteLetter(e.key.toLowerCase());
 	}
 }
 

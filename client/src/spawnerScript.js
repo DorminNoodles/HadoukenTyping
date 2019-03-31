@@ -1,6 +1,9 @@
+import { animCombo, idleCombo } from '../anim/animCombo';
 import RenderManager from './renderManager.js';
 import { animFlash } from '../anim/animFlash';
+import { animChain } from '../anim/animChain';
 import LetterScript from './letterScript.js';
+import ComboScript from './comboScript.js';
 import * as anim from '../anim/animLetter';
 import GameObject from './gameObject';
 import Render from './render';
@@ -19,6 +22,7 @@ class SpawnerScript {
 		this.changeSpeedDelay = 4000;
 		this.speedReduce = 20;
 		this.deadTime = false; //additional time before realy dead
+		this.combo = 0;
 
 		document.addEventListener('finish', () => {
 				this.deleteAllLetter();
@@ -78,9 +82,16 @@ class SpawnerScript {
 		if (this.boardArray[0] && key == this.boardArray[0].script.letter) {
 			if (this.boardArray[0].script.isVulnerable()) {
 
+				this.combo++;
+				console.log(this.boardArray[0]);
+				if (!(this.combo % 5))
+					this.activeCombo(this.boardArray[0].x, this.boardArray[0].y);
+
+
 				this.boardArray[0].script.deleteLetter();
 				this.boardArray[0] = undefined;
 				this.letterQuantity--;
+
 
 				for (let i = 0; i < this.boardArray.length; i++) {
 					if (this.boardArray[i]) {
@@ -91,6 +102,46 @@ class SpawnerScript {
 				}
 			}
 		}
+		else {
+			this.breakCombo();
+
+			let chain = new GameObject('animChain');
+			chain.setPosition(this.boardArray[0].x - 46, this.boardArray[0].y - 56);
+			chain.render = new Render('./chain.png');
+			chain.render.addAnim(animChain);
+
+			setTimeout(() => {
+				GameObject.delete(chain);
+			}, 1000);
+		}
+	}
+
+	activeCombo(x, y) {
+
+		console.log("ACTIVE COMBO");
+
+		let event = new Event('combo');
+		document.dispatchEvent(event);
+
+		// console.log("combo", this.combo % 5);
+		let comboUI = new GameObject('combo');
+		comboUI.addScript(new ComboScript());
+		comboUI.setPosition(x - 25, y);
+		comboUI.render = new Render('./combo.png');
+		comboUI.render.addAnim(animCombo);
+		comboUI.render.addAnim(idleCombo);
+		setTimeout(() => {
+			GameObject.delete(comboUI);
+		}, 1200);
+	}
+
+	breakCombo() {
+		console.log("BREAK COMBO");
+		this.combo = 0;
+		// document.addEventListener("badLetter", {})
+		let event = new Event('badLetter');
+
+		document.dispatchEvent(event);
 	}
 
 	deleteAllLetter() {

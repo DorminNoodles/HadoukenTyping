@@ -7,7 +7,7 @@ class SoloFinish {
 	}
 
 	update() {
-		if (this.delayBeforeDisplay < Date.now() && this.object.y > 0)
+		if (this.delayBeforeDisplay < Date.now() && this.object.y > -100)
 			this.speed -= 5;
 		if (this.speed < 0)
 				this.speed = 0;

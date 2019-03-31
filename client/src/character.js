@@ -14,8 +14,6 @@ class Character {
 		this.reverse = reverse;
 
 		this.anim = [];
-		console.log("Class object");
-		console.log(window, "hehe");
 
 		this.currentAnim;
 		this.currentFrame = 0;

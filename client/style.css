@@ -118,6 +118,38 @@ body {
 	justify-content: center;
 }
 
+#inputUsername {
+	/* background-color: #660b5f; */
+	/* color: #FFF; */
+	border: none;
+	height: 22px;
+	font-size: 18px;
+}
+
+#inputUsername:active {
+	/* background-color: #660b5f; */
+	/* color: #FFF; */
+	border: none;
+	height: 22px;
+	font-size: 18px;
+}
+
+#inputUsername:focus {
+	/* background-color: #660b5f; */
+	/* color: #FFF; */
+	border: none;
+	height: 22px;
+	font-size: 18px;
+}
+
+#inputUsername:hover {
+	/* background-color: #660b5f; */
+	/* color: #FFF; */
+	border: none;
+	height: 22px;
+	font-size: 18px;
+}
+
 #usernameForm {
 	z-index: 401;
 	display: flex;
@@ -203,6 +235,7 @@ body {
 }
 
 #solo {
+	cursor: pointer;
 	position: absolute;
 	top: 200px;
 	animation-duration: 1.6s;

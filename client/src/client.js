@@ -13,13 +13,13 @@ import Game from './game';
 import GameObject from './gameObject';
 
 import Render from './render';
+import Network from './network';
 
 
 
 const alpha = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
 
 
-let gameStateEvent = new Event("gameState", {bubbles: true, cancelable: false});
 
 let gameState = 'normal';
 
@@ -47,7 +47,6 @@ let shakePattern = [
 
 let nbLetters = 5;
 
-let username;
 
 let current = {
 	letters: [],
@@ -56,11 +55,14 @@ let current = {
 }
 
 let scores;
+let username;
+
+let gameStateEvent = new CustomEvent("gameState", {detail : { 'username': username}, bubbles: true, cancelable: false});
 
 // let idle = new Animation();
 // let punch = new Animation2();
 // let gameRender = new Render();
-let socket = io('http://localhost:8000/');
+
 // let socket = io('http://e2r12p13:8000/');
 //
 // setInterval(() => {
@@ -68,59 +70,59 @@ let socket = io('http://localhost:8000/');
 // 	console.log(gameState);
 // }, 100);
 
-
-socket.on('connection', () => {
-	console.log("SOCKET IO");
-});
-
-socket.on('allPlayersId', (data) => {
-	console.log(data);
-	if (gameState != "fight") {
-		displayPlayersId(data);
-	}
-	playersChoice = data;
-});
-
-socket.on('lose', () => {
-	console.log("YOU LOSE !");
-	gameState = 'finish';
-	cleanLetters();
-	displayLose();
-	displayAgainMenu();
-});
-
-socket.on('win', () => {
-	console.log("YOU WIN !");
-	gameState = 'finish';
-	cleanLetters();
-	displayWin();
-	displayAgainMenu();
-});
-
-socket.on('fightBegin', () => {
-	console.log("FIGHT BEGIN !");
-	ryu2 = new Character(-200,0, true);
-	ryu2.addAnimation(ryuAnim);
-	gameState = "fight";
-	current.start = Date.now();
-	render();
-});
-
-socket.on('takeDamage', (playerLife) => {
-	console.log("TAKE DAMAGE !", playerLife);
-	life = playerLife;
-	if (ryu2)
-		ryu2.changeAnim('punch');
-	displayPlayerLife(life);
-	shake();
-	takeDamageFeedback();
-});
-
-socket.on('getScores', (data) => {
-	console.log("getScore !");
-	console.log(data);
-	scores = data;
-})
+//
+// socket.on('connection', () => {
+// 	console.log("SOCKET IO");
+// });
+//
+// socket.on('allPlayersId', (data) => {
+// 	console.log(data);
+// 	if (gameState != "fight") {
+// 		displayPlayersId(data);
+// 	}
+// 	playersChoice = data;
+// });
+//
+// socket.on('lose', () => {
+// 	console.log("YOU LOSE !");
+// 	gameState = 'finish';
+// 	cleanLetters();
+// 	displayLose();
+// 	displayAgainMenu();
+// });
+//
+// socket.on('win', () => {
+// 	console.log("YOU WIN !");
+// 	gameState = 'finish';
+// 	cleanLetters();
+// 	displayWin();
+// 	displayAgainMenu();
+// });
+//
+// socket.on('fightBegin', () => {
+// 	console.log("FIGHT BEGIN !");
+// 	ryu2 = new Character(-200,0, true);
+// 	ryu2.addAnimation(ryuAnim);
+// 	gameState = "fight";
+// 	current.start = Date.now();
+// 	render();
+// });
+//
+// socket.on('takeDamage', (playerLife) => {
+// 	console.log("TAKE DAMAGE !", playerLife);
+// 	life = playerLife;
+// 	if (ryu2)
+// 		ryu2.changeAnim('punch');
+// 	displayPlayerLife(life);
+// 	shake();
+// 	takeDamageFeedback();
+// });
+//
+// socket.on('getScores', (data) => {
+// 	console.log("getScore !");
+// 	console.log(data);
+// 	scores = data;
+// })
 
 function restartMatch() {
 	console.log("restart !!!!!");
@@ -201,7 +203,7 @@ function displayPlayersId(list) {
 
 function requestPlayer(id) {
 	console.log(id);
-	socket.emit('playerRequest', id);
+	// socket.emit('playerRequest', id);
 	cleanPlayersId();
 	displayChrono();
 }
@@ -250,7 +252,7 @@ function cleanPlayersId() {
 }
 
 
-console.log(socket, "bordel");
+// console.log(socket, "bordel");
 
 
 
@@ -281,7 +283,7 @@ let gameLoop = setInterval(() => {
 		gameState = 'validation';
 		enemyLife -= 10;
 		displayEnemyLife();
-		socket.emit('attack');
+		// socket.emit('attack');
 		nextTime = Date.now() + 500;
 	}
 
@@ -341,14 +343,14 @@ function cleanLetters() {
 }
 
 function displaySocketId() {
-	let newDiv = document.createElement("div");
-
-	let newContent = document.createTextNode("My id: " + socket.id);
-
-	newDiv.appendChild(newContent);
-	document.getElementById("myId").appendChild(newDiv);
-
-	console.log(socket.id);
+	// let newDiv = document.createElement("div");
+	//
+	// let newContent = document.createTextNode("My id: " + socket.id);
+	//
+	// newDiv.appendChild(newContent);
+	// document.getElementById("myId").appendChild(newDiv);
+	//
+	// console.log(socket.id);
 }
 
 function takeDamageFeedback() {
@@ -389,18 +391,18 @@ window.addEventListener('resize', () => {
 document.addEventListener("gameState", (e) => {
 
 	console.log("GAME !!!!!!");
-	console.log(gameState);
+	console.log("GAME STATE >> ", gameState);
+	console.log("USERNAME >> ", username);
 	let game;
 
-	console.log(gameState, "pute");
-	if (gameState == 'solo') {
+
+	if (gameState == 'solo' && username) {
 		game = new Game('solo');
 	}
 })
 
 document.addEventListener("gameState", (e) => {
 
-	console.log("bordel de merde mais pk ca marche pas ?");
 	let gameCanvas = document.getElementById('gameCanvas');
 	let versus = document.getElementById('versus');
 	let solo = document.getElementById('solo');
@@ -469,24 +471,26 @@ function saveUsername() {
 
 	let input = document.getElementById("inputUsername");
 	let form = document.getElementById("usernameForm");
-	let myUsername = document.getElementById("myUsername");
-	let myScore = document.getElementById("myScore");
+	// let myUsername = document.getElementById("myUsername");
+	// let myScore = document.getElementById("myScore");
 	let blackDrop = document.getElementById("blackDrop");
 
-	if (input.value.length > 2) {
+	if (input.value.length > 2 && input.value.length < 30 && input.value.match(/^[A-Za-z]+$/)) {
 		blackDrop.style.display = 'none';
 		console.log("CLICKAGE PLAY !");
-		socket.emit('saveUsername', input.value);
+		// socket.emit('saveUsername', input.value);
 		form.style.display = 'none';
+		username = input.value
+		myUsername.appendChild(document.createTextNode(input.value));
 	}
 
-	myUsername.appendChild(document.createTextNode(input.value));
-	username = input.value;
+	// myUsername.appendChild(document.createTextNode(input.value));
+	// username = input.value;
 
-	console.log(scores);
-	if (scores[input.value]) {
-		myScore.appendChild(document.createTextNode(scores[input.value]));
-	}
+	// console.log(scores);
+	// if (scores[input.value]) {
+		// myScore.appendChild(document.createTextNode(scores[input.value]));
+	// }
 }
 
 

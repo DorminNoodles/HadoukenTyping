@@ -82,10 +82,13 @@ class LetterScript {
 		flashKill.render = new Render('./flashAnim.png');
 		flashKill.render.addAnim(animFlash);
 
+
+
 		let score = new GameObject('score');
 		score.setPosition(this.object.x, this.object.y);
-		score.renderText = new RenderText('./gameFont1.png', "100", 15);
+		score.renderText = new RenderText('./gameFont1.png', "100", 15, 46);
 		score.addScript(new BoardScoreUI());
+
 
 		setTimeout(() => {
 			GameObject.delete(score);
