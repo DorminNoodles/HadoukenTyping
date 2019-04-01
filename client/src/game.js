@@ -9,6 +9,7 @@ import SoloFinish from './soloFinish';
 import GameObject from './gameObject';
 import RenderText from './renderText';
 import Render from './render';
+import Score from './score';
 import Core from './core';
 
 
@@ -35,6 +36,10 @@ class Game {
 			}
 		};
 
+		let scoreManager = new Score();
+		let test = scoreManager.getScore();
+		// this.scores
+
 		this.canvasBackground();
 
 		this.states[this.currentState].init(this);
@@ -47,11 +52,18 @@ class Game {
 			// GameObject.delete(this.spawner);
 			this.changeState("endGame");
 			console.log("FINISH +++++++++++++++++");
-			let eventSaveScore = new CustomEvent("saveScore", { detail: {
-				'score': this.score,
-				'username': this.username
-			}});
-			document.dispatchEvent(eventSaveScore);
+			// let eventSaveScore = new CustomEvent("saveScore", { detail: {
+			// 	'score': this.score,
+			// 	'username': this.username
+			// }});
+			// document.dispatchEvent(eventSaveScore);
+			console.log(this);
+
+			let scoreManager = new Score();
+			scoreManager.saveScore({
+				"score": this.score,
+				"username": this.username
+			});
 		})
 
 		document.addEventListener("addScore", (e) => {

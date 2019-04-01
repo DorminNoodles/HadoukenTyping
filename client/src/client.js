@@ -118,11 +118,32 @@ let gameStateEvent = new CustomEvent("gameState", {detail : { 'username': userna
 // 	takeDamageFeedback();
 // });
 //
-// socket.on('getScores', (data) => {
-// 	console.log("getScore !");
-// 	console.log(data);
-// 	scores = data;
-// })
+Network.socket.on('getScores', (data) => {
+	console.log("getScore !");
+	console.log(data);
+	scores = data;
+	displayScore(data);
+})
+
+function displayScore(scores) {
+	console.log('display score');
+	console.log(scores);
+	// scores.forEach((score) => {
+
+
+	for (let score in scores) {
+		let divScores = document.getElementById('scores');
+		let newDiv = document.createElement('span');
+
+		console.log("score in scores >> ", score);
+		newDiv.innerHTML = scores[score].username + ' ' + scores[score].score;
+		// newDiv.innerHTML =;
+
+		divScores.appendChild(newDiv);
+		// console.log('for >>> ', scores);
+	}
+
+}
 
 function restartMatch() {
 	console.log("restart !!!!!");
@@ -397,7 +418,7 @@ document.addEventListener("gameState", (e) => {
 
 
 	if (gameState == 'solo' && username) {
-		game = new Game('solo');
+		game = new Game('solo', username);
 	}
 })
 
@@ -455,16 +476,6 @@ function init() {
 
 	pageLoad = true;
 
-	// let canvas = document.getElementById('canvas');
-	// let ctx = canvas.getContext("2d");
-	//
-	// let img = new Image();   // Crée un nouvel élément Image
-	// img.src = './backgroundGame.gif';
-	// img.onload = () => {
-	// 	var ptrn = ctx.createPattern(img, 'repeat'); // Create a pattern with this image, and set it to "repeat".
-	// 	ctx.fillStyle = ptrn;
-	// 	ctx.fillRect(0, 0, canvas.width, canvas.height); // context.fillRect(x, y, width, height);
-	// }
 }
 
 function saveUsername() {

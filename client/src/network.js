@@ -15,17 +15,6 @@ class Network {
 		});
 	}
 
-	saveScore(data) {
-		// socket.emit('attack');
-		console.log('SAVE SCORE');
-		console.log("Hello > ", data);
-
-		this.socket.emit('saveScore', {
-			"username" : data.detail.username,
-			"score" : data.detail.score
-		});
-
-	}
 }
 
 export default new Network();

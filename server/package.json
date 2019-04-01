@@ -13,6 +13,7 @@
     "clientside-require": "^4.7.2",
     "express": "^4.16.4",
     "nodemon": "^1.18.10",
-    "socket.io": "^2.2.0"
+    "socket.io": "^2.2.0",
+    "sort-json-array": "^0.1.7"
   }
 }

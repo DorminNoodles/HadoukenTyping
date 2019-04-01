@@ -1,3 +1,4 @@
+const sortJsonArray = require('sort-json-array');
 const express = require('express');
 const app = express();
 const server = require('http').createServer(app);
@@ -12,9 +13,13 @@ let players = [];
 
 let playersList = {}
 
-let scores = {};
+let scores = [];
 
-scores['maurice'] = 88888;
+// scores.push({username: 'maurice', score: 240});
+// scores.push({username: 'pouet', score: 500});
+// scores.push({username: 'cingle', score: 400});
+
+console.log(scores)
 
 setInterval(() => {
 	console.log(matchs);
@@ -29,6 +34,25 @@ function checkMatch(player1, player2) {
 }
 
 io.on('connection', (socket) => {
+
+	const fs = require('fs');
+
+	fs.stat("scores.scores", (err) => {
+		if (!err) {
+			let rawData = fs.readFileSync('scores.scores');
+			let scoresJSON = JSON.parse(rawData);
+			scores = scoresJSON;
+		}
+	})
+
+	// console.log("SORT >> ", scores);
+	// if (fs.stat("scores.scores", ())) {
+	// 	let rawData = fs.readFileSync('scores.scores');
+	// 	let scoresJSON = JSON.parse(rawData);
+	// 	scores = scoresJSON;
+	// }
+
+	// See if the file exists
 
 	let savedUsername;
 
@@ -74,6 +98,47 @@ io.on('connection', (socket) => {
 		}
 	})
 
+	socket.on('saveScore', (data) => {
+		console.log('saveScore => ', data);
+		let save = false;
+
+		for (let i = 0; i < scores.length; i++) {
+			if (scores[i].username == data.username) {
+				save = true;
+				if (scores[i].score < data.score) {
+					scores[i].username = data.username;
+					scores[i].score = data.score;
+				}
+			}
+		}
+
+		if (!save) {
+			scores.push({
+				'username': data.username,
+				'score': data.score
+			});
+		}
+
+		scores.sort(function(a, b) {
+			return b.score - a.score;
+		});
+
+		let fs = require('fs');
+		fs.writeFile("scores.scores", JSON.stringify(scores), function(err) {
+			if (err) {
+	        	console.log(err);
+	    	}
+		});
+		console.log(scores);
+	});
+
+	socket.on('getScore', (data) => {
+		console.log('SERVER GET SCORE', scores);
+
+		// let test = [5,25,47,14];
+		io.emit('getScore', scores);
+	});
+
 	io.emit('allPlayersId', playersList);
 
 	socket.on('disconnect', () => {
@@ -108,3 +173,13 @@ app.use(express.static(__dirname + '/../client'));
 
 
 server.listen(8000);
+
+
+// function sortScore() {
+//
+// 	for(let i = 0; i < scores.length; i++) {
+// 		if(scores[i] > scores[i + 1]) {
+// 			scores
+// 		}
+// 	}
+// }
