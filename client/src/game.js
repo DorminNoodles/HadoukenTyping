@@ -25,6 +25,7 @@ class Game {
 		this.currentState = "inGame";
 		this.score = 0;
 		this.combo = 0;
+		this.scores;
 		this.states = {
 			"inGame" : {
 				"init" : this.initSolo,
@@ -36,9 +37,17 @@ class Game {
 			}
 		};
 
-		let scoreManager = new Score();
-		let test = scoreManager.getScore();
-		// this.scores
+		this.scoreManager = new Score();
+		this.scores;
+		this.scoreManager.getScore((scores) => {
+			console.log("Hello  fuk fuk ", scores);
+			this.scores = scores;
+		})
+
+
+		// this.scores = this.scoreManager.getScore();
+
+		// console.log("THIS > SCORE", this.scores);
 
 		this.canvasBackground();
 
@@ -57,10 +66,7 @@ class Game {
 			// 	'username': this.username
 			// }});
 			// document.dispatchEvent(eventSaveScore);
-			console.log(this);
-
-			let scoreManager = new Score();
-			scoreManager.saveScore({
+			this.scoreManager.saveScore({
 				"score": this.score,
 				"username": this.username
 			});
@@ -218,7 +224,14 @@ class Game {
 					self.scoreText.renderText = new RenderText('./gameFont3.png', stringZero + score.toString(), 22, 46);
 					clearInterval(inter);
 				}
-			}, 20)
+			}, 20);
+
+			// let scoreManager = new Score();
+
+			// this.scores = scoreManager.getScore();
+
+			console.log("LES SCORES >>>>>> ", self.scores);
+
 
 		}, 2500);
 	}

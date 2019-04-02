@@ -79,40 +79,42 @@ class SpawnerScript {
 	}
 
 	deleteLetter(key) {
-		if (this.boardArray[0] && key == this.boardArray[0].script.letter) {
-			if (this.boardArray[0].script.isVulnerable()) {
+		if (this.boardArray[0]) {
+			if (key == this.boardArray[0].script.letter) {
+				if (this.boardArray[0].script.isVulnerable()) {
 
-				this.combo++;
-				console.log(this.boardArray[0]);
-				if (!(this.combo % 5))
-					this.activeCombo(this.boardArray[0].x, this.boardArray[0].y);
-
-
-				this.boardArray[0].script.deleteLetter();
-				this.boardArray[0] = undefined;
-				this.letterQuantity--;
+					this.combo++;
+					console.log(this.boardArray[0]);
+					if (!(this.combo % 5))
+						this.activeCombo(this.boardArray[0].x, this.boardArray[0].y);
 
 
-				for (let i = 0; i < this.boardArray.length; i++) {
-					if (this.boardArray[i]) {
-						this.boardArray[i].script.changePosition();
-						this.boardArray[i - 1] = this.boardArray[i];
-						this.boardArray[i] = undefined;
+					this.boardArray[0].script.deleteLetter();
+					this.boardArray[0] = undefined;
+					this.letterQuantity--;
+
+
+					for (let i = 0; i < this.boardArray.length; i++) {
+						if (this.boardArray[i]) {
+							this.boardArray[i].script.changePosition();
+							this.boardArray[i - 1] = this.boardArray[i];
+							this.boardArray[i] = undefined;
+						}
 					}
 				}
 			}
-		}
-		else {
-			this.breakCombo();
+			else {
+				this.breakCombo();
 
-			let chain = new GameObject('animChain');
-			chain.setPosition(this.boardArray[0].x - 46, this.boardArray[0].y - 56);
-			chain.render = new Render('./chain.png');
-			chain.render.addAnim(animChain);
+				let chain = new GameObject('animChain');
+				chain.setPosition(this.boardArray[0].x - 46, this.boardArray[0].y - 56);
+				chain.render = new Render('./chain.png');
+				chain.render.addAnim(animChain);
 
-			setTimeout(() => {
-				GameObject.delete(chain);
-			}, 1000);
+				setTimeout(() => {
+					GameObject.delete(chain);
+				}, 1000);
+			}
 		}
 	}
 

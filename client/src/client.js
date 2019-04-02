@@ -130,13 +130,13 @@ function displayScore(scores) {
 	console.log(scores);
 	// scores.forEach((score) => {
 
-
-	for (let score in scores) {
+	for (let user in scores) {
 		let divScores = document.getElementById('scores');
 		let newDiv = document.createElement('span');
 
-		console.log("score in scores >> ", score);
-		newDiv.innerHTML = scores[score].username + ' ' + scores[score].score;
+		console.log("score in scores >> ", user);
+
+		newDiv.innerHTML = (parseInt(user) + 1) + ' ' + scores[user].username + ' ' + scores[user].score;
 		// newDiv.innerHTML =;
 
 		divScores.appendChild(newDiv);
