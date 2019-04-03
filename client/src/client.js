@@ -491,8 +491,8 @@ function saveUsername() {
 		console.log("CLICKAGE PLAY !");
 		// socket.emit('saveUsername', input.value);
 		form.style.display = 'none';
-		username = input.value
-		myUsername.appendChild(document.createTextNode(input.value));
+		username = input.value.toLowerCase()
+		myUsername.appendChild(document.createTextNode(input.value.toLowerCase()));
 	}
 
 	// myUsername.appendChild(document.createTextNode(input.value));
