@@ -236,31 +236,72 @@ class Game {
 			// self.endScores[88].setPosition(50, 50);
 			// self.endScores[88].renderText = new RenderText('./gameFont3.png', '88888', 22, 46);
 
-			let myRank = self.getRanking(self.scores, self.score);
+			// let myRank;
+			//
+			// if (self.alreadyRanking(self.scores, self.username)) {
+			// 	for (let i = 0; i < self.scores.length; i++) {
+			// 		if (self.scores[i].username === self.username) {
+			// 			myRank = i;
+			// 		}
+			// 	}
+			// }
+			// else {
+			// }
+			// console.log("MY RANK >>>>>>  ", myRank);
+			// console.log("MY RANK >>>>>>  ", myRank);
 
-			if (self.alreadyRanking(self.scores, self.username)) {
-				for (let i = 0; i < self.scores.length; i++) {
-					if (self.scores[i].username === self.username) {
-						myRank = i;
-					}
-				}
-			}
+
+			//1 savoir si c est une nouvelle entree ou pas
+			//2 utiliser le score de la db ou le nouveau score pour savoir si on est dans les 5 premiers ou pas
+			//je prends + 4 au dessus et + 4 en dessous ou -4 et +4
+			//si ils n existent pas je ne les prend pas dans le nouvel array
+
+			// 4 => 1
+			// 1 => 1
+			// 1 => 1
+			// 1 => 1
+			// 1 => 1
+			// 1 => 0
+			// 1 => 0
+			//
+			//
+			// 0 => 0
+			// 0 => 0
+			// 4 => 1
+			// 1 => 1
+			// 1 => 1
+			// 1 => 1
+			// 1 => 1
+
 
 			// self.getRanking(self.scores, self.score);
-			console.log("MY RANK >>>>>>  ", myRank);
+			let alreadyRanking = self.alreadyRanking(self.scores, self.username);
+
+
+			let myRank = self.getRanking(self.scores, self.score, self.username);
+			console.log("HAHAHAHA >>>> ", myRank);
+			// let myRank = self.getRamking()
+
+
+
+
+
+
 
 			let posX = 500;
 			let posY = 440;
-			let i = myRank - 2;
-			let currentRank = i;
+			let i = 0;
+			let currentRank = myRank - 2;
+			if (currentRank < 0)
+				currentRank = 0;
 
-			let alreadyRanking = self.alreadyRanking(self.scores, self.username);
 
 
 			console.log("+++++++++++++++++   ", i, "   +++", myRank);
 
-			while (i < myRank + 2) {
-				if (self.scores[i]) {
+			while (i < 5) {
+				console.log("hello++++");
+				// if (self.scores[i]) {
 					if (i == myRank && !alreadyRanking) {
 						self.endScores[i] = new GameObject('endScore');
 						self.endScores[i].setPosition(posX, posY);
@@ -268,29 +309,26 @@ class Game {
 						self.endScores[i].name = new GameObject('nameScore');
 						self.endScores[i].name.setPosition(posX + 100, posY);
 						self.endScores[i].name.renderText = new RenderText('./gameFont3Yellow.png', self.username.toLowerCase(), 26, 46);
-						currentRank++;
-						posY += 55
 					}
 
 					// console.log("HERE ***************   >>>  ", i, self.scores[i].username);
-					self.endScores[i] = new GameObject('endScore');
-					self.endScores[i].setPosition(posX, posY);
-					self.endScores[i].renderText = new RenderText('./gameFont3.png', currentRank.toString(), 26, 46);
-					self.endScores[i].name = new GameObject('nameScore');
-					self.endScores[i].name.setPosition(posX + 100, posY);
-					self.endScores[i].name.renderText = new RenderText('./gameFont3.png', self.scores[i].username.toLowerCase(), 26, 46);
+					self.endScores[currentRank] = new GameObject('endScore');
+					self.endScores[currentRank].setPosition(posX, posY);
+					self.endScores[currentRank].renderText = new RenderText('./gameFont3.png', (currentRank + 1).toString(), 26, 46);
+					self.endScores[currentRank].name = new GameObject('nameScore');
+					self.endScores[currentRank].name.setPosition(posX + 100, posY);
+					self.endScores[currentRank].name.renderText = new RenderText('./gameFont3.png', self.scores[currentRank].username.toLowerCase(), 26, 46);
 					// self.endScores[i] = new GameObject('endScore');
 					// self.endScores[i].setPosition(posX, posY);
 					// self.endScores[i].renderText = new RenderText('./gameFont3.png', (i + 1).toString(), 22, 46);
 					// self.endScores[i].name = new GameObject('nameScore');
 					// self.endScores[i].name.setPosition(posX + 100, posY);
 					// self.endScores[i].name.renderText = new RenderText('./gameFont3.png', self.username.toLowerCase(), 24, 46);
-
-					currentRank++;
 					posY += 55
-				}
+				// }
+				currentRank++;
+				i++;
 			}
-			i++;
 		}, 2500);
 	}
 
@@ -303,13 +341,14 @@ class Game {
 		return false;
 	}
 
-	getRanking(scores, score) {
+	getRanking(scores, score, username) {
 		console.log("BORDEL >>>", scores.length);
 		for (let i = 0; i < scores.length; i++) {
-			console.log("BORDEL");
-			if (scores[i].score < score) {
+			console.log("BORDEL  score : ", score, "    scores[i].score : ", scores[i].score);
+			if (scores[i].username == username && score < scores[i].score)
 				return i + 1;
-			}
+			if (scores[i].score < score)
+				return i + 1;
 		}
 		return scores.length
 	}
