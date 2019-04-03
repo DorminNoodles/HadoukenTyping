@@ -292,12 +292,11 @@ class Game {
 
 
 			// self.getRanking(self.scores, self.score);
-			let alreadyRanking = self.alreadyRanking(self.scores, self.username);
+			// let alreadyRanking = self.alreadyRanking(self.scores, self.username);
 
 
-			let myRank = self.getRanking(self.scores, self.score, self.username);
+			let myRank = self.getRanking(self.scores, 200, self.username);
 			console.log("HAHAHAHA >>>> ", myRank);
-
 			let tmpScores = [];
 
 			let i = myRank - 4;
@@ -389,7 +388,7 @@ class Game {
 	getRanking(scores, score, username) {
 		console.log("BORDEL >>>", scores.length);
 		for (let i = 0; i < scores.length; i++) {
-			console.log("BORDEL  score : ", score, "    scores[i].score : ", scores[i].score);
+			// console.log("BORDEL  score : ", score, "    scores[i].score : ", scores[i].score);
 			if (scores[i].username.toLowerCase() == username.toLowerCase() && score < scores[i].score)
 				return i + 1;
 			if (scores[i].score < score)
