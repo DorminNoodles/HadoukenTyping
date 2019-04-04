@@ -283,38 +283,93 @@ class Game {
 			// *
 			// *
 
-
 			// lisa 800
 			// kvin 500
 			// yoan 450
 			// yoan 420
 			// mika 400
 
-
 			// self.getRanking(self.scores, self.score);
 			// let alreadyRanking = self.alreadyRanking(self.scores, self.username);
 
 
-			let myRank = self.getRanking(self.scores, 200, self.username);
+			let myRank = self.getRanking(self.scores, self.score, self.username);
 			console.log("HAHAHAHA >>>> ", myRank);
 			let tmpScores = [];
+			// let i = myRank - 5;
+			// let tmpScore = self.score;
 
-			let i = myRank - 4;
-			let j = 0;
+			// if (self.scores[myRank - 1].username == self.username) {
+			// 	console.log('ALREADY BEST SCORE ', self.scores[myRank - 1].score);
+			// }
+			// else {
+			// 	let i = 0;
+			//
+			// 	while (i < 10) {
+			// 		if (i % 2) {
+			//
+			// 		}
+			// 		else {
+			// 			tmpScores[myRank] = self.scores[myRank]
+			// 		}
+			// 	}
+			// }
 
-			let tmpScore = self.score;
+			// console.log("origin score > ", self.scores)
+			//
 
-			while (i < myRank + 4) {
-				if (self.scores[i]) {
-					if (self.score > self.scores[i])
-						tmpScores.push({'username': self.username, 'score': self.score});
-					if (self.scores[i].username.toLowerCase() != self.username.toLowerCase() && self.scores[i].score > self.score) {
-						console.log("##############  ", self.scores[i].username, '  ', self.username);
-						tmpScores.push(self.scores[i]);
-					}
+			let i = 0;
+
+			while (i < 3) {
+				// console.log("rank : ", (myRank - i) - 1)
+				if (self.scores[(myRank - i) - 1]) {
+
+					console.log("rank score first : ", self.scores[(myRank - i) - 1])
+					tmpScores[myRank - i] = self.scores[(myRank - i) - 1];
+				}
+
+				if (self.scores[(myRank + i) - 1]) {
+					console.log((myRank + i) - 1);
+
+					console.log("rank score second : ", self.scores[(myRank + i) - 1])
+					tmpScores[myRank + i] = self.scores[(myRank + i) - 1];
 				}
 				i++;
 			}
+
+			//
+			// if (self.username != self.scores[myRank - 1].username) {
+			// 	i = myRank - 4;
+			//
+			// 	while (i < tmpScores.length) {
+			// 		if (tmpScores[i])
+			// 			console.log("hello > ", tmpScores[i])
+			// 		i++;
+			// 	}
+			// }
+			//
+
+			//je push le nouveau dans le array et je trie  array comme dans le back..... et voila
+
+
+
+			// while (i < myRank + 4) {
+			// 	let selfInsert = false;
+			// 	if (self.scores[i]) {
+			// 		if (self.username == self.scores[i].username && self.score <= self.scores[i].score && !selfInsert) {
+			// 			tmpScores.push(self.scores[i]);
+			// 			selfInsert = true;
+			// 		}
+			// 		else if (self.scores[i].score < self.score && !selfInsert) {
+			// 			tmpScores.push({'username': self.username, 'score': self.score});
+			// 			selfInsert = true;
+			// 		}
+			// 		else {
+			// 			tmpScores.push(self.scores[i]);
+			// 		}
+			// 	}
+			// 	i++;
+			// }
 
 			console.log("nouvelle >>>   ", tmpScores);
 
@@ -322,10 +377,8 @@ class Game {
 			let posX = 500;
 			let posY = 440;
 			let currentRank = myRank - 2;
-			if (currentRank < 0)
-				currentRank = 0;
-
-
+			if (currentRank < 1)
+				currentRank = 1;
 
 			console.log("+++++++++++++++++   ", i, "   +++", myRank);
 
@@ -335,10 +388,10 @@ class Game {
 				if (tmpScores[i]) {
 					tmpScores[i].rank = new GameObject('rank');
 					tmpScores[i].rank.setPosition(posX, posY);
-					tmpScores[i].rank.renderText = new RenderText('./gameFont3.png', (i + 1).toString(), 26, 46);
-					tmpScores[i].name = new GameObject('nameScore');
-					tmpScores[i].name.setPosition(posX + 100, posY);
-					tmpScores[i].name.renderText = new RenderText('./gameFont3.png', tmpScores[i].username, 26, 46);
+					tmpScores[i].rank.renderText = new RenderText('./gameFont3.png', currentRank.toString(), 26, 46);
+					// tmpScores[i].name = new GameObject('nameScore');
+					// tmpScores[i].name.setPosition(posX + 100, posY);
+					// tmpScores[i].name.renderText = new RenderText('./gameFont3.png', tmpScores[i].username, 26, 46);
 				}
 
 				// self.endScores[i] = new GameObject('endScore');
@@ -368,8 +421,8 @@ class Game {
 					// self.endScores[i].name = new GameObject('nameScore');
 					// self.endScores[i].name.setPosition(posX + 100, posY);
 					// self.endScores[i].name.renderText = new RenderText('./gameFont3.png', self.username.toLowerCase(), 24, 46);
-					posY += 55
 				// }
+				posY += 55
 				currentRank++;
 				i++;
 			}
@@ -389,12 +442,12 @@ class Game {
 		console.log("BORDEL >>>", scores.length);
 		for (let i = 0; i < scores.length; i++) {
 			// console.log("BORDEL  score : ", score, "    scores[i].score : ", scores[i].score);
-			if (scores[i].username.toLowerCase() == username.toLowerCase() && score < scores[i].score)
+			if (scores[i].username.toLowerCase() == username.toLowerCase())
 				return i + 1;
 			if (scores[i].score < score)
 				return i + 1;
 		}
-		return scores.length
+		return scores.length + 1;
 	}
 
 	stringZeros(string, length) {
