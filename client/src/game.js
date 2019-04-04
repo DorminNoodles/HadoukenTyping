@@ -320,12 +320,13 @@ class Game {
 
 			let i = 0;
 
-			while (i < 3) {
-				// console.log("rank : ", (myRank - i) - 1)
+			while (i < 4) {
+				let iTmp = i;
 				if (self.scores[(myRank - i) - 1]) {
 
 					console.log("rank score first : ", self.scores[(myRank - i) - 1])
 					tmpScores[myRank - i] = self.scores[(myRank - i) - 1];
+					i++;
 				}
 
 				if (self.scores[(myRank + i) - 1]) {
@@ -333,21 +334,13 @@ class Game {
 
 					console.log("rank score second : ", self.scores[(myRank + i) - 1])
 					tmpScores[myRank + i] = self.scores[(myRank + i) - 1];
+					i++;
 				}
-				i++;
+				if (iTmp == i)
+					i++;
 			}
 
-			//
-			// if (self.username != self.scores[myRank - 1].username) {
-			// 	i = myRank - 4;
-			//
-			// 	while (i < tmpScores.length) {
-			// 		if (tmpScores[i])
-			// 			console.log("hello > ", tmpScores[i])
-			// 		i++;
-			// 	}
-			// }
-			//
+			console.log("hello tmpScores>> ", tmpScores);
 
 			//je push le nouveau dans le array et je trie  array comme dans le back..... et voila
 
