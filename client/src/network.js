@@ -10,9 +10,9 @@ class Network {
 			console.log("SOCKET IO");
 		});
 
-		document.addEventListener('saveScore', (e) => {
-			this.saveScore(e);
-		});
+		// document.addEventListener('saveScore', (e) => {
+		// 	this.saveScore(e);
+		// });
 	}
 
 }

@@ -11,7 +11,7 @@ class Score {
 		// 	this.saveScore(e);
 		// })
 
-		Network.socket.emit('getScore');
+		// Network.socket.emit('getScore');
 
 	}
 
