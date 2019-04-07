@@ -1,11 +1,13 @@
+import DisplayRankingScript from './DisplayRankingScript';
 import SpawnerScript from './spawnerScript';
 import RenderManager from './renderManager';
 import ControllerScript from './controller';
+import EndMenuScript from './endMenuScript';
 import SoloFinish from './soloFinish';
 import GameObject from './gameObject';
 import RenderText from './renderText';
-import EndMenuScript from './endMenuScript';
 import Render from './render';
+import Script from './script';
 import Score from './score';
 import Core from './core';
 
@@ -54,11 +56,14 @@ class Game {
 				"username": this.username
 			});
 
-			this.scoreManager.getScore((data) => {
-				setTimeout(() => {
-					this.displayRanking(this, data);
-				}, 2200);
-			});
+			// this.scoreManager.getScore((data) => {
+			// 	setTimeout(() => {
+			//
+			// 		this.rankingDisplay = new GameObject('rankingDisplay');
+			// 		this.rankingDisplay.addScript(new DisplayRankingScript());
+			//
+			// 	}, 2200);
+			// });
 		})
 
 		document.addEventListener("addScore", (e) => {
@@ -76,10 +81,6 @@ class Game {
 		})
 	}
 
-	bordel() {
-		console.log("hello++++++> ", this.putain);
-	}
-
 	canvasBackground() {
 		this.canvasBack = document.getElementById('canvasBack');
 		let ctx = this.canvasBack.getContext("2d");
@@ -93,39 +94,11 @@ class Game {
 		}
 	}
 
-	// initVersus() {
-	// 	let inputController = new GameObject('inputController');
-	// 	this.boardBar = new GameObject('boardBar');
-	// 	this.spawner = new GameObject('spawner');
-	//
-	// 	this.spawner.setPosition(1330, 250);
-	// 	this.boardBar.setPosition(50, 454);
-	//
-	//
-	// 	this.spawner.render = new Render('./spawner.gif');
-	// 	this.boardBar.render = new Render('./gameBoardBar.gif');
-	// 	this.spawner.script = new SpawnerScript();
-	// 	inputController.script = new ControllerScript(this.spawner);
-	//
-	// 	this.scoreUI = new GameObject('scoreUI');
-	// 	this.scoreUIBackground = new GameObject('scoreUIBackground');
-	// 	this.scoreUIBackground.render = new Render('./backgroundScore.png');
-	// 	this.scoreUIBackground.setPosition(600, 10);
-	// 	this.scoreUI.renderText = new RenderText('./gameFont1.png', '00000', 15);
-	// 	this.scoreUI.setPosition(600, 30);
-	//
-	// 	document.addEventListener("addScore", (score) => {
-	// 		let total = this.scoreUI.renderText.getText();
-	// 		total = (parseInt(total) + 100).toString();
-	// 		this.scoreUI.renderText.changeText(total);
-	// 	})
-	// }
-
 	initSolo(self) {
 		// console.log("first this score : ", this.score)
 		console.log("THIS >>>", this);
 		// console.log("first this score : ", this.score)
-		let inputController = new GameObject('inputController');
+		self.controller = new GameObject('controller');
 		self.boardBar = new GameObject('boardBar');
 		self.spawner = new GameObject('spawner');
 		// console.log("id >>>>>>>>>>>> ", +self.spawner.id);
@@ -137,7 +110,7 @@ class Game {
 		self.spawner.render = new Render('./spawner.gif');
 		self.boardBar.render = new Render('./gameBoardBar.gif');
 		self.spawner.script = new SpawnerScript();
-		inputController.script = new ControllerScript(self.spawner);
+		self.controller.script = new ControllerScript(self.spawner);
 
 		self.scoreUI = new GameObject('scoreUI');
 		self.scoreUIBackground = new GameObject('scoreUIBackground');
@@ -169,6 +142,8 @@ class Game {
 		GameObject.delete(self.scoreUIBackground);
 		GameObject.delete(self.scoreUI);
 		GameObject.delete(self.comboUI);
+
+
 		console.log("END GAME **********");
 
 		self.finishScorePanel = new GameObject('finishScorePanel');
@@ -198,6 +173,7 @@ class Game {
 
 			self.endMenu = new GameObject('endMenu');
 			self.endMenu.addScript(new EndMenuScript());
+
 
 
 		}, 2500);
@@ -319,6 +295,8 @@ class Game {
 		GameObject.delete(this.finishScorePanel);
 		GameObject.delete(this.scoreText);
 		GameObject.delete(this.endMenu);
+		GameObject.delete(this.controller);
+
 		cancelAnimationFrame(this.reqAnimGameLoop);
 	}
 }

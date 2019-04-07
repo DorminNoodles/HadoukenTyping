@@ -1,4 +1,5 @@
-import Core from './core'
+import Core from './core';
+import Script from './script';
 
 class GameObject {
 
@@ -57,27 +58,16 @@ class GameObject {
 	}
 
 	static delete(object) {
-		console.log("DELETE >>>> ", object.name);
-		console.log("DELETE >>>> ", object.id);
-		console.log("DELETE >>>> ", object);
-		console.log(object);
-		if (object.script && object.script.childs) {
-			console.log("DELETE 2");
-			console.log("DELETE 3", object.script.childs);
-			let childs = object.script.childs;
+		if (object.script) {
+			Script.delete(object.script);
+		}
 
-			console.log("DELETE 4", childs);
-			console.log("DELETE 4", object.script.childs.length);
+		if (object.script && object.script.childs) {
+			let childs = object.script.childs;
 			for( var el in childs ) {
-				console.log("name object >>", el);
-				console.log("name object >>", childs[el].id);
-				console.log("name object >>", childs[el].name);
 				GameObject.delete(childs[el]);
 			}
 		}
-		if (object.script)
-			object.script = undefined;
-		console.log(object.name);
 		Core.deleteObject(object.id);
 	}
 }

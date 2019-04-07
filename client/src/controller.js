@@ -1,23 +1,61 @@
+import Script from './script';
 
-
-class Controller {
+class Controller extends Script{
 
 	constructor(spawner) {
 
+		super();
+
+		this.addListener('yolo', () => {
+			this.yoloFunc(this);
+		});
+
+		let testEvent = new Event('yolo');
+		// document.dispatchEvent(testEvent);
+		// this.deleteAllListeners();
+		// document.dispatchEvent(testEvent);
+		// document.dispatchEvent(testEvent);
+
+
 		this.keyList = [];
+
 		console.log("the spawner itself : ", spawner);
-		document.addEventListener('keydown', (e) => {
+
+		this.addListener('keydown', (e) => {
 			if (!this.keyList[e.keyCode]) {
 				this.keyList[e.keyCode] = true;
 				this.handler(e);
 				this.arrowKey(e);
 			}
 		});
-		document.addEventListener('keyup', (e) => {
+
+		// document.addEventListener('keydown', (e) => {
+		// 	if (!this.keyList[e.keyCode]) {
+		// 		this.keyList[e.keyCode] = true;
+		// 		this.handler(e);
+		// 		this.arrowKey(e);
+		// 	}
+		// });
+
+		this.addListener('keyup', (e) => {
 			if (this.keyList[e.keyCode])
 				delete this.keyList[e.keyCode];
-		})
+		});
+
+		// setTimeout(() => {
+		// 	this.deleteAllListeners();
+		// }, 4000);
+
+		// document.addEventListener('keyup', (e) => {
+		// 	if (this.keyList[e.keyCode])
+		// 		delete this.keyList[e.keyCode];
+		// })
 		this.spawner = spawner;
+	}
+
+	yoloFunc(self) {
+		console.log("************ YOOOOOOLOOOOOOO ********");
+		console.log("eventListeners >>>>>>>>> ", self.eventListeners);
 	}
 
 	update() {

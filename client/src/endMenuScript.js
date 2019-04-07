@@ -29,11 +29,8 @@ class EndMenuScript {
 		this.childs['menuBtn'] = this.menuBtn;
 
 		this.pos = 0;
-		document.addEventListener('ArrowKey', (e) => {
 
-			// console.log("PUTAIN >>>>  ", e.detail);
-			// console.log("PUTAIN >>>>  ", e.keyCode);
-			// console.log("PUTAIN >>>>  ", this.pos);
+		document.addEventListener('ArrowKey', (e) => {
 			if (e.detail.keyCode === 40) {
 				this.pos++;
 				this.pos = this.pos % 2;
@@ -42,9 +39,8 @@ class EndMenuScript {
 				this.pos--;
 				this.pos = (this.pos < 0)? 1 : this.pos;
 			}
-
+			// console.log("HERE this pos >>> ", this.pos, '    ', this.gameObjectId);
 			this.changeBtn(this.pos);
-			// console.log("<<<<<<<<<<<<< arrow event >>>>>>>>>");
 		});
 
 		document.addEventListener('keydown', (e) => {
@@ -59,7 +55,8 @@ class EndMenuScript {
 	}
 
 	changeBtn(pos) {
-		console.log("CHNAGE ",pos);
+		// console.log("CHNAGE  ID ",this.gameObjectId);
+		// console.log("CHNAGE ",pos);
 		if (pos == 0)
 			this.playAgainBtn.render.changeAnim('playAgainSelected');
 		else
