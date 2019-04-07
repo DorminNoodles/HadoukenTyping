@@ -4,6 +4,7 @@ import ControllerScript from './controller';
 import SoloFinish from './soloFinish';
 import GameObject from './gameObject';
 import RenderText from './renderText';
+import EndMenuScript from './endMenuScript';
 import Render from './render';
 import Score from './score';
 import Core from './core';
@@ -194,6 +195,11 @@ class Game {
 					clearInterval(inter);
 				}
 			}, 20);
+
+			self.endMenu = new GameObject('endMenu');
+			self.endMenu.addScript(new EndMenuScript());
+
+
 		}, 2500);
 	}
 
@@ -226,8 +232,6 @@ class Game {
 			if (tmpScores[i]) {
 				let font = (tmpScores[i].username == self.username) ? "./gameFont3Yellow.png" : "./gameFont3.png";
 
-				console.log("here************************************");
-				console.log("here************   ", tmpScores[i].rank);
 				let scoreUIRank = new GameObject('scoreUIRank');
 				scoreUIRank.setPosition(460, posY);
 				scoreUIRank.renderText = new RenderText(font, tmpScores[i].rank.toString(), 22, 46);
@@ -278,13 +282,14 @@ class Game {
 		console.log("here bordel", this.testo);
 
 		let loop = (e) => {
+			// console.log("gameLoop");
 			this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 			this.renderBackground();
 			this.renderManager.update();
 			Core.update();
-			requestAnimationFrame(loop);
+			this.reqAnimGameLoop = requestAnimationFrame(loop);
 		}
-		requestAnimationFrame(loop);
+		this.reqAnimGameLoop = requestAnimationFrame(loop);
 	}
 
 	changeState(state) {
@@ -307,6 +312,14 @@ class Game {
 
 	endFinishScreen() {
 
+	}
+
+	deleteGame() {
+		console.log("DELETE GAME BORDEL &&&&&&&&&&&&&&&&&&&&&&&");
+		GameObject.delete(this.finishScorePanel);
+		GameObject.delete(this.scoreText);
+		GameObject.delete(this.endMenu);
+		cancelAnimationFrame(this.reqAnimGameLoop);
 	}
 }
 

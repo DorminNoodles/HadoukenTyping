@@ -9,6 +9,7 @@ class GameObject {
 		this.script;
 		this.x = 0;
 		this.y = 0;
+		this.childs = [];
 	}
 
 	static listOfAll() {
@@ -32,6 +33,18 @@ class GameObject {
 		script.object = this;
 	}
 
+	addChild(obj) {
+		this.childs.push(obj);
+	}
+
+	getChild(obj) {
+
+	}
+
+	getChilds() {
+		return this.childs;
+	}
+
 	static getGameObject(id) {
 		let list = Core.getGameObjectList();
 
@@ -43,9 +56,29 @@ class GameObject {
 		}
 	}
 
-	static delete(objet) {
+	static delete(object) {
+		console.log("DELETE >>>> ", object.name);
+		console.log("DELETE >>>> ", object.id);
+		console.log("DELETE >>>> ", object);
+		console.log(object);
+		if (object.script && object.script.childs) {
+			console.log("DELETE 2");
+			console.log("DELETE 3", object.script.childs);
+			let childs = object.script.childs;
 
-		Core.deleteObject(objet.id);
+			console.log("DELETE 4", childs);
+			console.log("DELETE 4", object.script.childs.length);
+			for( var el in childs ) {
+				console.log("name object >>", el);
+				console.log("name object >>", childs[el].id);
+				console.log("name object >>", childs[el].name);
+				GameObject.delete(childs[el]);
+			}
+		}
+		if (object.script)
+			object.script = undefined;
+		console.log(object.name);
+		Core.deleteObject(object.id);
 	}
 }
 

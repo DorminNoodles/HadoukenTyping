@@ -234,6 +234,11 @@ body {
 	to {top: -1200px; display: block}
 }
 
+@keyframes soloOpen {
+	from {top: -1200px; display: block}
+	to {top: 200px; display: block}
+}
+
 #solo {
 	cursor: pointer;
 	position: absolute;
@@ -274,6 +279,11 @@ body {
 @keyframes gameCanvasOpen {
 	from {top: -400px;}
 	to {top: 0px;}
+}
+
+@keyframes gameCanvasClose {
+	from {top: 0px;}
+	to {top: -4000px;}
 }
 
 

@@ -15,13 +15,17 @@ import GameObject from './gameObject';
 import Render from './render';
 import Network from './network';
 
+import MainMenu from './mainMenu';
+import {closeMainMenu, openMainMenu} from './mainMenu';
+
 
 
 const alpha = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
 
 
-
 let gameState = 'normal';
+
+let game;
 
 let life = 100;
 let enemyLife = 100;
@@ -405,22 +409,22 @@ function render() {
 	}
 }
 
-window.addEventListener('resize', () => {
-
-})
-
 document.addEventListener("gameState", (e) => {
 
 	console.log("GAME !!!!!!");
 	console.log("GAME STATE >> ", gameState);
 	console.log("USERNAME >> ", username);
-	let game;
 
+	console.log("HELLOOOOOOO", this);
 
 	if (gameState == 'solo' && username) {
 		game = new Game('solo', username);
 	}
 })
+
+document.addEventListener('openMenu', () => {
+	game.deleteGame();
+});
 
 document.addEventListener("gameState", (e) => {
 
@@ -446,6 +450,34 @@ document.addEventListener("gameState", (e) => {
 	gameCanvas.style.animationName = 'gameCanvasOpen';
 })
 
+function startGame() {
+
+	closeMainMenu();
+
+	let gameCanvas = document.getElementById('gameCanvas');
+	let versus = document.getElementById('versus');
+	let solo = document.getElementById('solo');
+
+	console.log("launch gameState Event");
+	gameCanvas.style.display = 'flex';
+
+	versus.style.top = '-400px';
+	versus.style.animationName = 'versusClose';
+
+	solo.style.top = '-1000px';
+	// setTimeout(() => {
+	// 	practice.style.display = 'none';
+	// }, 1200);
+	solo.style.animationName = 'soloClose';
+
+	gameCanvas.style.top = '0px';
+	gameCanvas.width = window.innerWidth;
+	gameCanvas.height = window.innerHeight;
+	gameCanvas.style.animationName = 'gameCanvasOpen';
+
+	game = new Game('solo', username);
+}
+
 
 function init() {
 	// let canvas = document.getElementById('canvas');
@@ -465,7 +497,8 @@ function init() {
 	solo.onclick = () => {
 		// console.log("onClickVersus");
 		gameState = 'solo';
-		document.dispatchEvent(gameStateEvent);
+		startGame('solo');
+		// document.dispatchEvent(gameStateEvent);
 	}
 
 	let againBtn = document.getElementsByClassName("againMenuBtn");
@@ -494,14 +527,6 @@ function saveUsername() {
 		username = input.value.toLowerCase()
 		myUsername.appendChild(document.createTextNode(input.value.toLowerCase()));
 	}
-
-	// myUsername.appendChild(document.createTextNode(input.value));
-	// username = input.value;
-
-	// console.log(scores);
-	// if (scores[input.value]) {
-		// myScore.appendChild(document.createTextNode(scores[input.value]));
-	// }
 }
 
 
