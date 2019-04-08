@@ -24,10 +24,6 @@ class RenderManager {
 
 		originX = (this.getRandomInt(40) % 2 > 0) ? -originX : originX;
 		originY = (this.getRandomInt(40) % 2 > 0) ? -originY : originY;
-		// let originY = (this.shake) ? this.shakeYArr[this.shake] : 0;
-		// let originY = (this.shake) ? this.shakeYArr[this.shake] : 0;
-		// let originY = (this.shake) ? this.shakeYArr[this.shake] : 0;
-		// let originY = (this.shake) ? 0 : 0;
 
 		objets.forEach((objet) => {
 			if (objet.render) {
@@ -36,9 +32,12 @@ class RenderManager {
 		})
 
 		objets.forEach((objet) => {
+			// console.log("Hello FIRST");
 			if (objet.renderText) {
+				// console.log("RENDER TEXT >> ", objet);
 				objet.renderText.draw(this.ctx, objet.x + originX, objet.y + originY);
 			}
+			// console.log("Hello LAST");
 		})
 
 		if (this.flash > 0) {

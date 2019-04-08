@@ -1,12 +1,13 @@
 import { playAgainSelected, playAgainGrey, menuSelected, menuGrey } from '../anim/AnimEndBtn';
 import GameObject from './gameObject';
 import Render from './render';
+import Script from './script';
 
 
-class EndMenuScript {
+class EndMenuScript extends Script{
 
 	constructor() {
-
+		super();
 		this.childs = [];
 
 		this.playAgainBtn = new GameObject('playAgainBtn');
@@ -30,7 +31,8 @@ class EndMenuScript {
 
 		this.pos = 0;
 
-		document.addEventListener('ArrowKey', (e) => {
+
+		this.addListener('ArrowKey', (e) => {
 			if (e.detail.keyCode === 40) {
 				this.pos++;
 				this.pos = this.pos % 2;

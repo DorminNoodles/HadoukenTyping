@@ -29,6 +29,7 @@ class GameObject {
 	}
 
 	addScript(script) {
+		console.log("ADD SCRIPT ###############", this);
 		script.gameObjectId = this.id;
 		this.script = script;
 		script.object = this;
@@ -58,6 +59,7 @@ class GameObject {
 	}
 
 	static delete(object) {
+		console.log("OBJECT DELETE > ", object);
 		if (object.script) {
 			Script.delete(object.script);
 		}
@@ -66,6 +68,16 @@ class GameObject {
 			let childs = object.script.childs;
 			for( var el in childs ) {
 				GameObject.delete(childs[el]);
+			}
+		}
+
+		if (object && object.childs) {
+			// console.log("HERE childs > ", object.name, '  ', object.childs);
+			// console.log(object.childs);
+			let childs = object.childs;
+			for( var el in childs ) {
+				GameObject.delete(childs[el]);
+				delete childs[el];
 			}
 		}
 		Core.deleteObject(object.id);

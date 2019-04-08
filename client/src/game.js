@@ -47,27 +47,11 @@ class Game {
 			this.gameLoop();
 		},25)
 
-		document.addEventListener("finish", () => {
-			// GameObject.delete(this.spawner);
-			this.changeState("endGame");
-			console.log("FINISH +++++++++++++++++");
-			this.scoreManager.saveScore({
-				"score": this.score,
-				"username": this.username
-			});
+		this.finishFunc = () => {
+			this.finish(this);
+		};
 
-			this.rankingDisplay = new GameObject('rankingDisplay');
-			this.rankingDisplay.addScript(new DisplayRankingScript(this.username));
-
-			// this.scoreManager.getScore((data) => {
-			// 	setTimeout(() => {
-			//
-			// 		this.rankingDisplay = new GameObject('rankingDisplay');
-			// 		this.rankingDisplay.addScript(new DisplayRankingScript());
-			//
-			// 	}, 2200);
-			// });
-		})
+		document.addEventListener("finish", this.finishFunc);
 
 		document.addEventListener("addScore", (e) => {
 			this.addScore(e.detail.score);
@@ -82,6 +66,19 @@ class Game {
 			this.combo = 0;
 			this.comboUI.renderText.changeText('x' + this.combo.toString());
 		})
+	}
+
+	finish(self) {
+		console.log("HELLO FINISH");
+		self.changeState("endGame");
+		console.log("FINISH +++++++++++++++++");
+		self.scoreManager.saveScore({
+			"score": self.score,
+			"username": self.username
+		});
+
+		self.rankingDisplay = new GameObject('rankingDisplay');
+		self.rankingDisplay.addScript(new DisplayRankingScript(self.username));
 	}
 
 	canvasBackground() {
@@ -175,20 +172,28 @@ class Game {
 			self.endMenu = new GameObject('endMenu');
 			self.endMenu.addScript(new EndMenuScript());
 
-
-
 		}, 2500);
 	}
 
 	displayRanking(self, scores) {
 
+		// console.log("########### >>>", tmpScores);
 		console.log("########### >>>", self.username);
 
 		let rank = self.getRanking(scores, self.username);
 		let tmpScores = [];
+		console.log("########### >>>", tmpScores);
+		console.log("########### >>>", tmpScores);
+		console.log("########### >>>", tmpScores);
 		let i = 1;
 
+
+		console.log("########### >>>", scores);
+		console.log("########### >>>", tmpScores);
+		console.log("########### >>>", tmpScores);
+
 		tmpScores.push({"rank": rank + 1, 'username': self.username, 'score': scores[rank].score});
+		console.log("########### >>>", tmpScores);
 
 		while (i < 5 && tmpScores.length < 5) {
 			if (scores[rank + i])
@@ -197,6 +202,8 @@ class Game {
 				tmpScores.push({"rank": rank - i + 1, 'username': scores[rank - i].username, 'score': scores[rank - i].score});
 			i++;
 		}
+
+		console.log("########### >>>", tmpScores);
 
 		console.log("TMPSCORES >>>>>>>>>>>> ", tmpScores);
 		tmpScores.sort(function(a, b) {
@@ -293,11 +300,15 @@ class Game {
 	}
 
 	deleteGame() {
-		console.log("DELETE GAME BORDEL &&&&&&&&&&&&&&&&&&&&&&&");
+		// console.log("DELETE GAME BORDEL &&&&&&&&&&&&&&&&&&&&&&&");
 		GameObject.delete(this.finishScorePanel);
 		GameObject.delete(this.scoreText);
 		GameObject.delete(this.endMenu);
 		GameObject.delete(this.controller);
+		// console.log("CALL RANKING DISPLAY");
+		GameObject.delete(this.rankingDisplay);
+		document.removeEventListener("finish", this.finishFunc);
+
 
 		cancelAnimationFrame(this.reqAnimGameLoop);
 	}
