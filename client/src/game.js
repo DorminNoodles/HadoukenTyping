@@ -56,6 +56,9 @@ class Game {
 				"username": this.username
 			});
 
+			this.rankingDisplay = new GameObject('rankingDisplay');
+			this.rankingDisplay.addScript(new DisplayRankingScript(this.username));
+
 			// this.scoreManager.getScore((data) => {
 			// 	setTimeout(() => {
 			//
@@ -159,8 +162,6 @@ class Game {
 			let score = 0;
 
 			let inter = setInterval(() => {
-				console.log(score.toString().length);
-
 				stringZero = self.stringZeros(score.toString(), 12);
 				self.scoreText.renderText = new RenderText('./gameFont3.png', stringZero + score.toString(), 22, 46);
 				score += delta;
@@ -196,6 +197,7 @@ class Game {
 				tmpScores.push({"rank": rank - i + 1, 'username': scores[rank - i].username, 'score': scores[rank - i].score});
 			i++;
 		}
+
 		console.log("TMPSCORES >>>>>>>>>>>> ", tmpScores);
 		tmpScores.sort(function(a, b) {
 			return a.rank - b.rank;
