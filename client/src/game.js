@@ -79,8 +79,11 @@ class Game {
 			"username": self.username
 		});
 
+
 		self.rankingDisplay = new GameObject('rankingDisplay');
 		self.rankingDisplay.addScript(new DisplayRankingScript(self.username));
+
+		console.log("rankingDisplay create");
 	}
 
 	canvasBackground() {
@@ -307,12 +310,14 @@ class Game {
 		GameObject.delete(this.scoreText);
 		GameObject.delete(this.endMenu);
 		GameObject.delete(this.controller);
-		// console.log("CALL RANKING DISPLAY");
 		GameObject.delete(this.rankingDisplay);
+		// console.log("CALL RANKING DISPLAY");
 		document.removeEventListener("finish", this.finishFunc);
 
 
-		cancelAnimationFrame(this.reqAnimGameLoop);
+		setTimeout(() => {
+			cancelAnimationFrame(this.reqAnimGameLoop);
+		}, 120);
 	}
 }
 

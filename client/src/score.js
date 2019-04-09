@@ -12,7 +12,6 @@ class Score {
 		// })
 
 		// Network.socket.emit('getScore');
-
 	}
 
 	saveScore(data) {
@@ -28,7 +27,8 @@ class Score {
 	getScore(callback) {
 		Network.socket.emit('getScore');
 		Network.socket.on('getScore', (data) => {
-			// console.log('ON GET SCORE', data);
+			console.log('ON GET SCORE CALLBACK', data);
+			this.scores = data;
 			callback(data);
 		})
 	}

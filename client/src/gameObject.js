@@ -59,8 +59,9 @@ class GameObject {
 	}
 
 	static delete(object) {
-		console.log("OBJECT DELETE > ", object);
+		console.log("OBJECT DELETE > ", object.name);
 		if (object.script) {
+			console.log("OBJECT DELETE 2 > ", object.name);
 			Script.delete(object.script);
 		}
 
@@ -72,14 +73,14 @@ class GameObject {
 		}
 
 		if (object && object.childs) {
-			// console.log("HERE childs > ", object.name, '  ', object.childs);
-			// console.log(object.childs);
 			let childs = object.childs;
 			for( var el in childs ) {
 				GameObject.delete(childs[el]);
 				delete childs[el];
 			}
 		}
+
+		console.log("OBJECT DELETE 3 > ", object.name);
 		Core.deleteObject(object.id);
 	}
 }

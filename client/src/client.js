@@ -157,6 +157,13 @@ function displayScore(scores) {
 
 }
 
+document.addEventListener('keydown', (e) => {
+	// console.log(e);
+	if (e.key == 'u') {
+		console.log(Core.getGameObjectList());
+	}
+});
+
 function restartMatch() {
 	console.log("restart !!!!!");
 	// let menu = document.getElementById("againMenuOpen");
