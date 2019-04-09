@@ -60,12 +60,14 @@ class Game {
 		document.addEventListener('combo', () => {
 			this.combo++;
 			this.comboUI.renderText.changeText('x' + this.combo.toString());
-		})
+		});
 
 		document.addEventListener('badLetter', () => {
 			this.combo = 0;
 			this.comboUI.renderText.changeText('x' + this.combo.toString());
-		})
+		});
+
+
 	}
 
 	finish(self) {
@@ -155,7 +157,7 @@ class Game {
 		self.scoreText.setPosition(650, 350);
 		setTimeout(() => {
 			let stringZero;
-			let delta = Math.floor(self.score / 350);
+			let delta = Math.floor(self.score / 120);
 			let score = 0;
 
 			let inter = setInterval(() => {

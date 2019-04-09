@@ -4,11 +4,17 @@ class Script {
 
 	constructor() {
 		this.eventListeners = [];
+		this.objs = [];
 	}
 
 	static delete(script) {
 		Script.deleteAllListeners(script);
 
+	}
+
+	newObject(obj) {
+		this.objs.push(obj);
+		return obj;
 	}
 
 	addListener(name, func) {

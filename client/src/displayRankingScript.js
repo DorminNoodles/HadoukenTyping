@@ -7,31 +7,35 @@ class DisplayRankingScript extends Script {
 
 	constructor(username) {
 		super();
-		this.objects = [];
-		// console.log("HEY HEY >>> ", this.object);
-		console.log("HELLLOOOOOOO###########");
-		let score = new Score();
-		score.getScore((scores) => {
-			console.log("hello >>>>>>>> ", scores);
-			setTimeout(() => {
 
-				console.log("HEY HEY set timeout>>> ", this.object);
-				let tmpScores = [];
-				let rank = this.getRanking(scores, username);
-				tmpScores = this.fillScores(scores, rank, username);
+		this.firstObj = this.newObject(new GameObject('firstObj'));
 
-				tmpScores.sort(function(a, b) {
-					return a.rank - b.rank;
-				});
-				this.displayScoresLines(tmpScores, username);
-
-				console.log("Childs >>>> ", this.object.childs)
-
-				// console.log(tmpScores);
-				// console.log("rank : ", rank);
-
-			}, 2200);
-		});
+		console.log("FIRST OBJ >> ", this.firstObj);
+		// this.objects = [];
+		// // console.log("HEY HEY >>> ", this.object);
+		// console.log("HELLLOOOOOOO###########");
+		// let score = new Score();
+		// score.getScore((scores) => {
+		// 	console.log("hello >>>>>>>> ", scores);
+		// 	setTimeout(() => {
+		//
+		// 		console.log("HEY HEY set timeout>>> ", this.object);
+		// 		let tmpScores = [];
+		// 		let rank = this.getRanking(scores, username);
+		// 		tmpScores = this.fillScores(scores, rank, username);
+		//
+		// 		tmpScores.sort(function(a, b) {
+		// 			return a.rank - b.rank;
+		// 		});
+		// 		this.displayScoresLines(tmpScores, username);
+		//
+		// 		console.log("Childs >>>> ", this.object.childs)
+		//
+		// 		// console.log(tmpScores);
+		// 		// console.log("rank : ", rank);
+		//
+		// 	}, 2200);
+		// });
 	}
 
 	update() {
