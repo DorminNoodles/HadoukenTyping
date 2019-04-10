@@ -55,8 +55,6 @@ class EndMenuScript extends Script{
 	}
 
 	changeBtn(pos) {
-		// console.log("CHNAGE  ID ",this.gameObjectId);
-		// console.log("CHNAGE ",pos);
 		if (pos == 0)
 			this.playAgainBtn.render.changeAnim('playAgainSelected');
 		else
@@ -70,16 +68,14 @@ class EndMenuScript extends Script{
 
 	pressEnter() {
 		if (this.pos == 1) {
-			let openMenuEvent = new Event('openMenu');
-			document.dispatchEvent(openMenuEvent);
+			let soloGameStart = new CustomEvent('SoloGameStart', {'detail': {'username': this.username}});
+			document.dispatchEvent(soloGameStart);
 		}
 		if (this.pos == 0) {
 			let soloGameStart = new CustomEvent('SoloGameStart', {'detail': {'username': this.username}});
 			document.dispatchEvent(soloGameStart);
 		}
 	}
-
-
 }
 
 export default EndMenuScript;

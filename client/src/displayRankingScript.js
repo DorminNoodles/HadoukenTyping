@@ -31,7 +31,7 @@ class DisplayRankingScript extends Script {
 	}
 
 	update() {
-		console.log("Test Display Ranking");
+
 	}
 
 	displayScoresLines(tmpScores, username) {

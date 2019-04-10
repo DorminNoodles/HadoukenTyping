@@ -60,10 +60,7 @@ class RenderManager {
 	  return Math.floor(Math.random() * Math.floor(max));
 	}
 
-	// static shake() {
-	// 	console.log("SHAKE");
-	// 	this.shake = 3;
-	// }
+
 }
 
 export default RenderManager;

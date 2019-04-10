@@ -130,8 +130,6 @@ class Game {
 	}
 
 	addScore(score) {
-		// console.log("ADD SCORE : " + score);
-		// console.log("ADD SCORE : " + this.score);
 		this.score += score;
 		// console.log(this.scoreUI);
 
@@ -179,65 +177,6 @@ class Game {
 
 		}, 2500);
 	}
-
-	// displayRanking(self, scores) {
-	//
-	// 	// console.log("########### >>>", tmpScores);
-	// 	console.log("########### >>>", self.username);
-	//
-	// 	let rank = self.getRanking(scores, self.username);
-	// 	let tmpScores = [];
-	// 	console.log("########### >>>", tmpScores);
-	// 	console.log("########### >>>", tmpScores);
-	// 	console.log("########### >>>", tmpScores);
-	// 	let i = 1;
-	//
-	//
-	// 	console.log("########### >>>", scores);
-	// 	console.log("########### >>>", tmpScores);
-	// 	console.log("########### >>>", tmpScores);
-	//
-	// 	tmpScores.push({"rank": rank + 1, 'username': self.username, 'score': scores[rank].score});
-	// 	console.log("########### >>>", tmpScores);
-	//
-	// 	while (i < 5 && tmpScores.length < 5) {
-	// 		if (scores[rank + i])
-	// 			tmpScores.push({"rank": rank + i + 1, 'username': scores[rank + i].username, 'score': scores[rank + i].score});
-	// 		if (scores[rank - i])
-	// 			tmpScores.push({"rank": rank - i + 1, 'username': scores[rank - i].username, 'score': scores[rank - i].score});
-	// 		i++;
-	// 	}
-	//
-	// 	console.log("########### >>>", tmpScores);
-	//
-	// 	console.log("TMPSCORES >>>>>>>>>>>> ", tmpScores);
-	// 	tmpScores.sort(function(a, b) {
-	// 		return a.rank - b.rank;
-	// 	});
-	// 	console.log("TMPSCORES >>>>>>>>>>>> ", tmpScores);
-	//
-	// 	i = 0;
-	// 	let posY = 450;
-	// 	while (i < tmpScores.length) {
-	// 		if (tmpScores[i]) {
-	// 			let font = (tmpScores[i].username == self.username) ? "./gameFont3Yellow.png" : "./gameFont3.png";
-	//
-	// 			let scoreUIRank = new GameObject('scoreUIRank');
-	// 			scoreUIRank.setPosition(460, posY);
-	// 			scoreUIRank.renderText = new RenderText(font, tmpScores[i].rank.toString(), 22, 46);
-	//
-	// 			let scoreUIName = new GameObject('scoreUIName');
-	// 			scoreUIName.setPosition(550, posY);
-	// 			scoreUIName.renderText = new RenderText(font, tmpScores[i].username, 26, 46);
-	//
-	// 			let scoreUI = new GameObject('scoreUI');
-	// 			scoreUI.setPosition(920, posY);
-	// 			scoreUI.renderText = new RenderText(font, tmpScores[i].score.toString(), 22, 46);
-	// 		}
-	// 		posY += 50;
-	// 		i++;
-	// 	}
-	// }
 
 	alreadyRanking(scores, username) {
 		for (let i = 0; i < scores.length; i++) {
@@ -305,7 +244,26 @@ class Game {
 	}
 
 	deleteGame() {
-		// console.log("DELETE GAME BORDEL &&&&&&&&&&&&&&&&&&&&&&&");
+		console.log("DELETE GAME BORDEL &&&&&&&&&&&&&&&&&&&&&&&");
+		console.log("DELETE GAME BORDEL &&&&&&&&&&&&&&&&&&&&&&&");
+		console.log("DELETE GAME BORDEL &&&&&&&&&&&&&&&&&&&&&&&");
+		console.log("DELETE GAME BORDEL &&&&&&&&&&&&&&&&&&&&&&&");
+		console.log("DELETE GAME BORDEL &&&&&&&&&&&&&&&&&&&&&&&");
+		console.log("DELETE GAME BORDEL &&&&&&&&&&&&&&&&&&&&&&&");
+		console.log("DELETE GAME BORDEL &&&&&&&&&&&&&&&&&&&&&&&");
+		console.log("DELETE GAME BORDEL &&&&&&&&&&&&&&&&&&&&&&&");
+		console.log("DELETE GAME BORDEL &&&&&&&&&&&&&&&&&&&&&&&");
+		console.log("DELETE GAME BORDEL &&&&&&&&&&&&&&&&&&&&&&&");
+		console.log("DELETE GAME BORDEL &&&&&&&&&&&&&&&&&&&&&&&");
+		console.log("DELETE GAME BORDEL &&&&&&&&&&&&&&&&&&&&&&&");
+		console.log("DELETE GAME BORDEL &&&&&&&&&&&&&&&&&&&&&&&");
+		console.log("DELETE GAME BORDEL &&&&&&&&&&&&&&&&&&&&&&&");
+		console.log("DELETE GAME BORDEL &&&&&&&&&&&&&&&&&&&&&&&");
+		console.log("DELETE GAME BORDEL &&&&&&&&&&&&&&&&&&&&&&&");
+		console.log("DELETE GAME BORDEL &&&&&&&&&&&&&&&&&&&&&&&");
+		console.log("DELETE GAME BORDEL &&&&&&&&&&&&&&&&&&&&&&&");
+		console.log("DELETE GAME BORDEL &&&&&&&&&&&&&&&&&&&&&&&");
+		console.log("DELETE GAME BORDEL &&&&&&&&&&&&&&&&&&&&&&&");
 		if (this.finishScorePanel)
 			GameObject.delete(this.finishScorePanel);
 		if (this.scoreText)
@@ -314,8 +272,12 @@ class Game {
 			GameObject.delete(this.endMenu);
 		if (this.controller)
 			GameObject.delete(this.controller);
+		if (this.boardBar)
+			GameObject.delete(this.boardBar);
 		if (this.rankingDisplay)
 			GameObject.delete(this.rankingDisplay);
+		if (this.spawner)
+			GameObject.delete(this.spawner);
 		// console.log("CALL RANKING DISPLAY");
 		document.removeEventListener("finish", this.finishFunc);
 

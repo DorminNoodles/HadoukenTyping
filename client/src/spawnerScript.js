@@ -7,15 +7,17 @@ import ComboScript from './comboScript.js';
 import * as anim from '../anim/animLetter';
 import GameObject from './gameObject';
 import Render from './render';
+import Script from './script';
 
 
-class SpawnerScript {
+class SpawnerScript extends Script {
 
 	constructor() {
+		super();
 		this.begin = Date.now();
 		this.nextSpawn = Date.now() + 2000;
 		// this.spawnSpeed = 500;
-		this.spawnSpeed = 10;
+		this.spawnSpeed = 50;
 		this.boardArray = [];
 		this.letterQuantity = 0;
 		this.alpha = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];

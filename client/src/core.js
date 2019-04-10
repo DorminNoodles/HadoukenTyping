@@ -25,7 +25,7 @@ class Core {
 			if (objet.script) {
 				objet.script.update();
 			}
-		})
+		});
 	}
 
 	deleteObject(id) {

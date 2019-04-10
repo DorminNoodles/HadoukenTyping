@@ -19,8 +19,6 @@ import MainMenu from './mainMenu';
 import {closeMainMenu, openMainMenu} from './mainMenu';
 
 
-
-
 import Garbage from './testGarbage';
 
 
@@ -68,7 +66,6 @@ let current = {
 
 let scores;
 let username;
-
 let gameStateEvent = new CustomEvent("gameState", {detail : { 'username': username}, bubbles: true, cancelable: false});
 
 // let idle = new Animation();
@@ -129,7 +126,7 @@ let gameStateEvent = new CustomEvent("gameState", {detail : { 'username': userna
 // 	shake();
 // 	takeDamageFeedback();
 // });
-//
+
 Network.socket.on('getScores', (data) => {
 	console.log("getScore !");
 	console.log(data);
@@ -243,7 +240,6 @@ function displayPlayersId(list) {
 
 function requestPlayer(id) {
 	console.log(id);
-	// socket.emit('playerRequest', id);
 	cleanPlayersId();
 	displayChrono();
 }
@@ -291,11 +287,6 @@ function cleanPlayersId() {
 	}
 }
 
-
-// console.log(socket, "bordel");
-
-
-
 let x = 0;
 let y = 0;
 
@@ -304,7 +295,6 @@ function redScreen() {
 	ctx.fillStyle = "red";
 	ctx.fill();
 }
-
 
 function shake() {
 	let shakeIterator = 0;
@@ -323,7 +313,6 @@ let gameLoop = setInterval(() => {
 		gameState = 'validation';
 		enemyLife -= 10;
 		displayEnemyLife();
-		// socket.emit('attack');
 		nextTime = Date.now() + 500;
 	}
 
@@ -356,7 +345,6 @@ function checkValid(arr) {
 		if (!elm.valid)
 			valid = false
 	})
-	// console.log("return " + valid);
 	return valid;
 }
 
@@ -425,84 +413,74 @@ function render() {
 }
 
 document.addEventListener("SoloGameStart", (e) => {
-	if (game)
-		game.deleteGame();
-	game = new Game('solo', e.detail.username);
-})
-
-document.addEventListener("gameState", (e) => {
-
-	console.log("GAME !!!!!!");
-	console.log("GAME STATE >> ", gameState);
-	console.log("USERNAME >> ", username);
-
-	console.log("HELLOOOOOOO", this);
-
-	if (gameState == 'solo' && username) {
-		game = new Game('solo', username);
-	}
-})
-
-document.addEventListener('openMenu', () => {
-	game.deleteGame();
-});
-
-document.addEventListener("gameState", (e) => {
-
-	let gameCanvas = document.getElementById('gameCanvas');
-	let versus = document.getElementById('versus');
-	let solo = document.getElementById('solo');
-
-	console.log("launch gameState Event");
-	gameCanvas.style.display = 'flex';
-
-	versus.style.top = '-400px';
-	versus.style.animationName = 'versusClose';
-
-	solo.style.top = '-1000px';
-	solo.style.animationName = 'soloClose';
-
-	gameCanvas.style.top = '0px';
-	gameCanvas.width = window.innerWidth;
-	gameCanvas.height = window.innerHeight;
-	gameCanvas.style.animationName = 'gameCanvasOpen';
-})
-
-function startGame() {
 
 	closeMainMenu();
 
 	let gameCanvas = document.getElementById('gameCanvas');
-	let versus = document.getElementById('versus');
-	let solo = document.getElementById('solo');
 
-	console.log("launch gameState Event");
 	gameCanvas.style.display = 'flex';
-
-	versus.style.top = '-400px';
-	versus.style.animationName = 'versusClose';
-
-	solo.style.top = '-1000px';
-	// setTimeout(() => {
-	// 	practice.style.display = 'none';
-	// }, 1200);
-	solo.style.animationName = 'soloClose';
-
 	gameCanvas.style.top = '0px';
 	gameCanvas.width = window.innerWidth;
 	gameCanvas.height = window.innerHeight;
 	gameCanvas.style.animationName = 'gameCanvasOpen';
 
+
+	// console.log("HELLOOOOO GAME GAMELAUNCH");
+	if (game){
+		console.log("HELLOOOOO GAME GAMELAUNCH 2");
+		game.deleteGame();
+	}
+	game = new Game('solo', e.detail.username);
+})
+
+// document.addEventListener("gameState", (e) => {
+//
+// 	console.log("GAME !!!!!!");
+// 	console.log("GAME STATE >> ", gameState);
+// 	console.log("USERNAME >> ", username);
+//
+// 	console.log("HELLOOOOOOO", this);
+//
+// 	if (gameState == 'solo' && username) {
+// 		game = new Game('solo', username);
+// 	}
+// })
+
+// document.addEventListener('openMenu', () => {
+// 	game.deleteGame();
+// });
+
+// document.addEventListener("gameState", (e) => {
+//
+// 	let gameCanvas = document.getElementById('gameCanvas');
+// 	let versus = document.getElementById('versus');
+// 	let solo = document.getElementById('solo');
+//
+// 	console.log("launch gameState Event");
+// 	gameCanvas.style.display = 'flex';
+//
+// 	versus.style.top = '-400px';
+// 	versus.style.animationName = 'versusClose';
+//
+// 	solo.style.top = '-1000px';
+// 	solo.style.animationName = 'soloClose';
+//
+// 	gameCanvas.style.top = '0px';
+// 	gameCanvas.width = window.innerWidth;
+// 	gameCanvas.height = window.innerHeight;
+// 	gameCanvas.style.animationName = 'gameCanvasOpen';
+// })
+
+function startGame() {
+
+	let gameCanvas = document.getElementById('gameCanvas');
+
 	// game = new Game('solo', username);
-	let soloGameStart = new CustomEvent('SoloGameStart', {'detail': {'username': username}});
-	document.dispatchEvent(soloGameStart);
+
 }
 
 
 function init() {
-	// let canvas = document.getElementById('canvas');
-	// canvas.width = 1024;
-	// canvas.height = 480;
 
 	let versus = document.getElementById('versus');
 
@@ -515,20 +493,14 @@ function init() {
 	let solo = document.getElementById('solo');
 
 	solo.onclick = () => {
-		// console.log("onClickVersus");
-		gameState = 'solo';
-		startGame('solo');
-		// document.dispatchEvent(gameStateEvent);
-	}
 
-	let againBtn = document.getElementsByClassName("againMenuBtn");
-	againBtn[1].onclick = quitMatch;
-	againBtn[0].onclick = restartMatch;
+		let soloGameStart = new CustomEvent('SoloGameStart', {'detail': {'username': username}});
+		document.dispatchEvent(soloGameStart);
+	}
 
 	document.getElementById("clickPlayBtn").onclick = saveUsername;
 
 	pageLoad = true;
-
 }
 
 function saveUsername() {
@@ -541,7 +513,6 @@ function saveUsername() {
 
 	if (input.value.length > 2 && input.value.length < 30 && input.value.match(/^[A-Za-z]+$/)) {
 		blackDrop.style.display = 'none';
-		console.log("CLICKAGE PLAY !");
 		// socket.emit('saveUsername', input.value);
 		form.style.display = 'none';
 		username = input.value.toLowerCase()
@@ -549,15 +520,14 @@ function saveUsername() {
 	}
 }
 
-
 window.onload = init;
 
-let objet1 = {"hello": 2};
-let objet2 = {"hello": 2};
 
 
-Core.addObject(objet1);
-Core.addObject(objet2);
+document.addEventListener('SoloGameStart', () => {
+	console.log("ALFRED !!!!");
+})
+
 
 console.log(GameObject.listOfAll());
 
