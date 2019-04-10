@@ -6,28 +6,26 @@ import Script from './script';
 
 class EndMenuScript extends Script{
 
-	constructor() {
+	constructor(username) {
 		super();
-		this.childs = [];
 
-		this.playAgainBtn = new GameObject('playAgainBtn');
+		this.username = username;
+
+		this.playAgainBtn = this.newObject(new GameObject('playAgainBtn'));
 		this.playAgainBtn.render = new Render('./btnEndScore.png');
 		this.playAgainBtn.render.addAnim(playAgainSelected);
 		this.playAgainBtn.render.addAnim(playAgainGrey);
-		this.playAgainBtn.setPosition(640, 900);
-		this.childs['playAgainBtn'] = this.playAgainBtn;
+		this.playAgainBtn.setPosition(680, 800);
 
-		console.log("ID >>>>>> ", this.childs['playAgainBtn'].id);
 
 		console.log(">>>>>>>>>>>>>", this.object);
 		// this.object.addChild(playAgainBtn);
 
-		this.menuBtn = new GameObject('menuBtn');
+		this.menuBtn = this.newObject(new GameObject('menuBtn'));
 		this.menuBtn.render = new Render('./btnEndScore.png');
 		this.menuBtn.render.addAnim(menuGrey);
 		this.menuBtn.render.addAnim(menuSelected);
-		this.menuBtn.setPosition(640, 1000);
-		this.childs['menuBtn'] = this.menuBtn;
+		this.menuBtn.setPosition(680, 900);
 
 		this.pos = 0;
 
@@ -74,6 +72,10 @@ class EndMenuScript extends Script{
 		if (this.pos == 1) {
 			let openMenuEvent = new Event('openMenu');
 			document.dispatchEvent(openMenuEvent);
+		}
+		if (this.pos == 0) {
+			let soloGameStart = new CustomEvent('SoloGameStart', {'detail': {'username': this.username}});
+			document.dispatchEvent(soloGameStart);
 		}
 	}
 

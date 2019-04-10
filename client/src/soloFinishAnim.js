@@ -1,5 +1,5 @@
 
-class SoloFinish {
+class SoloFinishAnim {
 
 	constructor() {
 		this.delayBeforeDisplay = Date.now() + 1200;
@@ -7,7 +7,7 @@ class SoloFinish {
 	}
 
 	update() {
-		if (this.delayBeforeDisplay < Date.now() && this.object.y > -100)
+		if (this.delayBeforeDisplay < Date.now() && this.object.y > -150)
 			this.speed -= 5;
 		if (this.speed < 0)
 				this.speed = 0;
@@ -17,4 +17,4 @@ class SoloFinish {
 
 }
 
-export default SoloFinish;
+export default SoloFinishAnim;

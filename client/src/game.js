@@ -3,7 +3,7 @@ import SpawnerScript from './spawnerScript';
 import RenderManager from './renderManager';
 import ControllerScript from './controller';
 import EndMenuScript from './endMenuScript';
-import SoloFinish from './soloFinish';
+import SoloFinishAnim from './soloFinishAnim';
 import GameObject from './gameObject';
 import RenderText from './renderText';
 import Render from './render';
@@ -154,10 +154,10 @@ class Game {
 		self.finishScorePanel = new GameObject('finishScorePanel');
 		self.finishScorePanel.setPosition(420, -1800);
 		self.finishScorePanel.render = new Render('./finishScore.png');
-		self.finishScorePanel.addScript(new SoloFinish());
+		self.finishScorePanel.addScript(new SoloFinishAnim());
 
 		self.scoreText = new GameObject('scoreText');
-		self.scoreText.setPosition(650, 350);
+		self.scoreText.setPosition(650, 300);
 		setTimeout(() => {
 			let stringZero;
 			let delta = Math.floor(self.score / 120);
@@ -175,69 +175,69 @@ class Game {
 			}, 20);
 
 			self.endMenu = new GameObject('endMenu');
-			self.endMenu.addScript(new EndMenuScript());
+			self.endMenu.addScript(new EndMenuScript(self.username));
 
 		}, 2500);
 	}
 
-	displayRanking(self, scores) {
-
-		// console.log("########### >>>", tmpScores);
-		console.log("########### >>>", self.username);
-
-		let rank = self.getRanking(scores, self.username);
-		let tmpScores = [];
-		console.log("########### >>>", tmpScores);
-		console.log("########### >>>", tmpScores);
-		console.log("########### >>>", tmpScores);
-		let i = 1;
-
-
-		console.log("########### >>>", scores);
-		console.log("########### >>>", tmpScores);
-		console.log("########### >>>", tmpScores);
-
-		tmpScores.push({"rank": rank + 1, 'username': self.username, 'score': scores[rank].score});
-		console.log("########### >>>", tmpScores);
-
-		while (i < 5 && tmpScores.length < 5) {
-			if (scores[rank + i])
-				tmpScores.push({"rank": rank + i + 1, 'username': scores[rank + i].username, 'score': scores[rank + i].score});
-			if (scores[rank - i])
-				tmpScores.push({"rank": rank - i + 1, 'username': scores[rank - i].username, 'score': scores[rank - i].score});
-			i++;
-		}
-
-		console.log("########### >>>", tmpScores);
-
-		console.log("TMPSCORES >>>>>>>>>>>> ", tmpScores);
-		tmpScores.sort(function(a, b) {
-			return a.rank - b.rank;
-		});
-		console.log("TMPSCORES >>>>>>>>>>>> ", tmpScores);
-
-		i = 0;
-		let posY = 450;
-		while (i < tmpScores.length) {
-			if (tmpScores[i]) {
-				let font = (tmpScores[i].username == self.username) ? "./gameFont3Yellow.png" : "./gameFont3.png";
-
-				let scoreUIRank = new GameObject('scoreUIRank');
-				scoreUIRank.setPosition(460, posY);
-				scoreUIRank.renderText = new RenderText(font, tmpScores[i].rank.toString(), 22, 46);
-
-				let scoreUIName = new GameObject('scoreUIName');
-				scoreUIName.setPosition(550, posY);
-				scoreUIName.renderText = new RenderText(font, tmpScores[i].username, 26, 46);
-
-				let scoreUI = new GameObject('scoreUI');
-				scoreUI.setPosition(920, posY);
-				scoreUI.renderText = new RenderText(font, tmpScores[i].score.toString(), 22, 46);
-			}
-			posY += 50;
-			i++;
-		}
-	}
+	// displayRanking(self, scores) {
+	//
+	// 	// console.log("########### >>>", tmpScores);
+	// 	console.log("########### >>>", self.username);
+	//
+	// 	let rank = self.getRanking(scores, self.username);
+	// 	let tmpScores = [];
+	// 	console.log("########### >>>", tmpScores);
+	// 	console.log("########### >>>", tmpScores);
+	// 	console.log("########### >>>", tmpScores);
+	// 	let i = 1;
+	//
+	//
+	// 	console.log("########### >>>", scores);
+	// 	console.log("########### >>>", tmpScores);
+	// 	console.log("########### >>>", tmpScores);
+	//
+	// 	tmpScores.push({"rank": rank + 1, 'username': self.username, 'score': scores[rank].score});
+	// 	console.log("########### >>>", tmpScores);
+	//
+	// 	while (i < 5 && tmpScores.length < 5) {
+	// 		if (scores[rank + i])
+	// 			tmpScores.push({"rank": rank + i + 1, 'username': scores[rank + i].username, 'score': scores[rank + i].score});
+	// 		if (scores[rank - i])
+	// 			tmpScores.push({"rank": rank - i + 1, 'username': scores[rank - i].username, 'score': scores[rank - i].score});
+	// 		i++;
+	// 	}
+	//
+	// 	console.log("########### >>>", tmpScores);
+	//
+	// 	console.log("TMPSCORES >>>>>>>>>>>> ", tmpScores);
+	// 	tmpScores.sort(function(a, b) {
+	// 		return a.rank - b.rank;
+	// 	});
+	// 	console.log("TMPSCORES >>>>>>>>>>>> ", tmpScores);
+	//
+	// 	i = 0;
+	// 	let posY = 450;
+	// 	while (i < tmpScores.length) {
+	// 		if (tmpScores[i]) {
+	// 			let font = (tmpScores[i].username == self.username) ? "./gameFont3Yellow.png" : "./gameFont3.png";
+	//
+	// 			let scoreUIRank = new GameObject('scoreUIRank');
+	// 			scoreUIRank.setPosition(460, posY);
+	// 			scoreUIRank.renderText = new RenderText(font, tmpScores[i].rank.toString(), 22, 46);
+	//
+	// 			let scoreUIName = new GameObject('scoreUIName');
+	// 			scoreUIName.setPosition(550, posY);
+	// 			scoreUIName.renderText = new RenderText(font, tmpScores[i].username, 26, 46);
+	//
+	// 			let scoreUI = new GameObject('scoreUI');
+	// 			scoreUI.setPosition(920, posY);
+	// 			scoreUI.renderText = new RenderText(font, tmpScores[i].score.toString(), 22, 46);
+	// 		}
+	// 		posY += 50;
+	// 		i++;
+	// 	}
+	// }
 
 	alreadyRanking(scores, username) {
 		for (let i = 0; i < scores.length; i++) {
@@ -306,11 +306,16 @@ class Game {
 
 	deleteGame() {
 		// console.log("DELETE GAME BORDEL &&&&&&&&&&&&&&&&&&&&&&&");
-		GameObject.delete(this.finishScorePanel);
-		GameObject.delete(this.scoreText);
-		GameObject.delete(this.endMenu);
-		GameObject.delete(this.controller);
-		GameObject.delete(this.rankingDisplay);
+		if (this.finishScorePanel)
+			GameObject.delete(this.finishScorePanel);
+		if (this.scoreText)
+			GameObject.delete(this.scoreText);
+		if (this.endMenu)
+			GameObject.delete(this.endMenu);
+		if (this.controller)
+			GameObject.delete(this.controller);
+		if (this.rankingDisplay)
+			GameObject.delete(this.rankingDisplay);
 		// console.log("CALL RANKING DISPLAY");
 		document.removeEventListener("finish", this.finishFunc);
 

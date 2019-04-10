@@ -59,7 +59,7 @@ class GameObject {
 	}
 
 	static delete(object) {
-		console.log("OBJECT DELETE > ", object.name);
+		// console.log("OBJECT DELETE > ", object.name);
 		if (object.script) {
 			console.log("OBJECT DELETE 2 > ", object.name);
 			Script.delete(object.script);

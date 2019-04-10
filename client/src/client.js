@@ -424,6 +424,12 @@ function render() {
 	}
 }
 
+document.addEventListener("SoloGameStart", (e) => {
+	if (game)
+		game.deleteGame();
+	game = new Game('solo', e.detail.username);
+})
+
 document.addEventListener("gameState", (e) => {
 
 	console.log("GAME !!!!!!");
@@ -454,9 +460,6 @@ document.addEventListener("gameState", (e) => {
 	versus.style.animationName = 'versusClose';
 
 	solo.style.top = '-1000px';
-	// setTimeout(() => {
-	// 	practice.style.display = 'none';
-	// }, 1200);
 	solo.style.animationName = 'soloClose';
 
 	gameCanvas.style.top = '0px';
@@ -490,7 +493,9 @@ function startGame() {
 	gameCanvas.height = window.innerHeight;
 	gameCanvas.style.animationName = 'gameCanvasOpen';
 
-	game = new Game('solo', username);
+	// game = new Game('solo', username);
+	let soloGameStart = new CustomEvent('SoloGameStart', {'detail': {'username': username}});
+	document.dispatchEvent(soloGameStart);
 }
 
 

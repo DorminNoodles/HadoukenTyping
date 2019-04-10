@@ -9,10 +9,9 @@ class DisplayRankingScript extends Script {
 		super();
 
 		this.objects = [];
-		this.getScore = false;
+		this.getScore = false;// if server send score 2 or more times
 
 		let score = new Score();
-		// this.scores = score.getScore(false);
 		score.getScore((scores) => {
 			if (!this.getScore) {
 				this.getScore = true;
@@ -26,8 +25,6 @@ class DisplayRankingScript extends Script {
 					});
 
 					this.displayScoresLines(tmpScores, username);
-						// console.log(tmpScores);
-						// console.log("rank : ", rank);
 				}, 2200);
 			}
 		});
@@ -35,12 +32,10 @@ class DisplayRankingScript extends Script {
 
 	update() {
 		console.log("Test Display Ranking");
-		// console.log("HEY HEY >>> ", this.object);
 	}
 
 	displayScoresLines(tmpScores, username) {
-		// let obj = this.object;
-		let posY = 450;
+		let posY = 400;
 		let i = 0;
 
 		while (i < tmpScores.length) {
