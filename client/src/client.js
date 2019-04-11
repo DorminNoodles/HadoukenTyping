@@ -424,14 +424,25 @@ document.addEventListener("SoloGameStart", (e) => {
 	gameCanvas.height = window.innerHeight;
 	gameCanvas.style.animationName = 'gameCanvasOpen';
 
-
-	// console.log("HELLOOOOO GAME GAMELAUNCH");
 	if (game){
-		console.log("HELLOOOOO GAME GAMELAUNCH 2");
 		game.deleteGame();
 	}
 	game = new Game('solo', e.detail.username);
 })
+
+document.addEventListener("OpenMainMenu", (e) => {
+	closeGameCanvas();
+	openMainMenu();
+	if (game)
+		game.deleteGame();
+})
+
+function closeGameCanvas() {
+	let gameCanvas = document.getElementById('gameCanvas');
+
+	gameCanvas.style.top = "-4000px";
+	gameCanvas.style.animationName = 'gameCanvasClose';
+}
 
 // document.addEventListener("gameState", (e) => {
 //
@@ -530,38 +541,6 @@ document.addEventListener('SoloGameStart', () => {
 
 
 console.log(GameObject.listOfAll());
-
-
-// let i = 0;
-// function anim(e) {
-// 	i++;
-// 	i = i % 5555555555;
-// 	console.log(e);
-// 	requestAnimationFrame(anim);
-// }
-
-// requestAnimationFrame(anim);
-
-// mushroom.render = new Render();
-
-// obj = undefined;
-// arrayOfObject.push(obj);
-
-// console.log(arrayOfObject, "hehe");
-// obj.render();
-// arrayOfObject[0].render();
-
-// window.DOMContentLoaded = run();
-//
-// const hello = () => {
-// 	console.log("hello");
-// }
-// setInterval(() => {
-//
-// })
-
-// render();
-
 
 
 //test_1

@@ -16,8 +16,8 @@ class SpawnerScript extends Script {
 		super();
 		this.begin = Date.now();
 		this.nextSpawn = Date.now() + 2000;
-		// this.spawnSpeed = 500;
-		this.spawnSpeed = 50;
+		this.spawnSpeed = 500;
+		// this.spawnSpeed = 50;
 		this.boardArray = [];
 		this.letterQuantity = 0;
 		this.alpha = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
@@ -90,13 +90,9 @@ class SpawnerScript extends Script {
 					console.log(this.boardArray[0]);
 					if (!(this.combo % 5))
 						this.activeCombo(this.boardArray[0].x, this.boardArray[0].y);
-
-
 					this.boardArray[0].script.deleteLetter();
 					this.boardArray[0] = undefined;
 					this.letterQuantity--;
-
-
 					for (let i = 0; i < this.boardArray.length; i++) {
 						if (this.boardArray[i]) {
 							this.boardArray[i].script.changePosition();
@@ -108,7 +104,6 @@ class SpawnerScript extends Script {
 			}
 			else {
 				this.breakCombo();
-
 				let chain = new GameObject('animChain');
 				chain.setPosition(this.boardArray[0].x - 46, this.boardArray[0].y - 56);
 				chain.render = new Render('./chain.png');
@@ -141,7 +136,7 @@ class SpawnerScript extends Script {
 	}
 
 	breakCombo() {
-		console.log("BREAK COMBO");
+		// console.log("BREAK COMBO");
 		this.combo = 0;
 		// document.addEventListener("badLetter", {})
 		let event = new Event('badLetter');

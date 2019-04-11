@@ -4,7 +4,6 @@ class AnimationManager {
 
 	constructor() {
 		this.test = "pouet";
-		console.log(this.test);
 	}
 
 	update() {
@@ -15,7 +14,7 @@ class AnimationManager {
 	// 	console.log("animation");
 	// }
 
-	
+
 
 
 }

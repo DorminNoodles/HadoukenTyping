@@ -59,8 +59,6 @@ class Controller extends Script{
 	}
 
 	update() {
-		// console.log("in controller", this.boardArray);
-		// console.log("in controller", this.boardArray[0]);
 		// console.log("controller");
 	}
 

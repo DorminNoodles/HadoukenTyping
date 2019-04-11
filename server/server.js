@@ -19,12 +19,6 @@ let scores = [];
 // scores.push({username: 'pouet', score: 500});
 // scores.push({username: 'cingle', score: 400});
 
-console.log(scores)
-
-setInterval(() => {
-	console.log(matchs);
-},4000)
-
 function checkMatch(player1, player2) {
 	if (playerRequest[player1] && playerRequest[player1] == player2) {
 		if (playerRequest[player2] && playerRequest[player2] == player1)

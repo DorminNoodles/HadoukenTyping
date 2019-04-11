@@ -44,7 +44,6 @@ class LetterScript {
 
 	onBoard() {
 		let destination = (this.position * 82) + 200;
-		// console.log("id : ", this.gameObjectId, "   position : ", this.position, "     destination : ", destination);
 		if (this.object.x > destination) {
 			this.object.move(this.onBoardSpeed, 0);
 		}
@@ -58,12 +57,10 @@ class LetterScript {
 		this.object.move(0, this.deadMove);
 		this.deadMove += 5;
 
-		// console.log("DEAD !!!!");
 	}
 
 	deleteLetter() {
 
-		// let scoreEvent = new Event("addScore", {"bubbles":true, "cancelable":false});
 		let scoreEvent = new CustomEvent("addScore", {
 			detail : {
 				'score': 100
@@ -74,7 +71,6 @@ class LetterScript {
 		document.dispatchEvent(scoreEvent);
 
 		this.gameObject.render.changeAnim('flash');
-
 		this.state = this.dead;
 
 		let flashKill = new GameObject('animFlash');

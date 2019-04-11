@@ -24,7 +24,6 @@ class Letter {
 			if (!elm.valid)
 				valid = false
 		})
-		console.log("return " + valid);
 		return valid;
 	}
 

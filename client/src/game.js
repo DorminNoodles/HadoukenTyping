@@ -16,10 +16,11 @@ class Game {
 
 	constructor(type, username){
 		this.username = username;
-		this.testo = 'hello';
 		this.canvasBack;
 		this.canvas = document.getElementById('canvas');
 		this.ctx = canvas.getContext("2d");
+		canvas.width = 1600;
+		canvas.height = 1400;
 		this.renderManager = new RenderManager();
 		this.currentState = "inGame";
 		this.score = 0;
@@ -67,7 +68,6 @@ class Game {
 			this.comboUI.renderText.changeText('x' + this.combo.toString());
 		});
 
-
 	}
 
 	finish(self) {
@@ -96,6 +96,9 @@ class Game {
 			var pattern = ctx.createPattern(img, 'repeat'); // Create a pattern with this image, and set it to "repeat".
 			ctx.fillStyle = pattern;
 			ctx.fillRect(0, 0, this.canvasBack.width, this.canvasBack.height); // context.fillRect(x, y, width, height);
+			// ctx.fillRect(0, 0, this.canvasBack.width, this.canvasBack.height); // context.fillRect(x, y, width, height);
+			// setInterval(() => {
+			// }, 80);
 		}
 	}
 
@@ -213,7 +216,7 @@ class Game {
 		let loop = (e) => {
 			// console.log("gameLoop");
 			this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-			this.renderBackground();
+			// this.renderBackground();
 			this.renderManager.update();
 			Core.update();
 			this.reqAnimGameLoop = requestAnimationFrame(loop);
@@ -278,7 +281,6 @@ class Game {
 			GameObject.delete(this.rankingDisplay);
 		if (this.spawner)
 			GameObject.delete(this.spawner);
-		// console.log("CALL RANKING DISPLAY");
 		document.removeEventListener("finish", this.finishFunc);
 
 

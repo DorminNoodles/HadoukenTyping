@@ -14,7 +14,7 @@ class GameObject {
 	}
 
 	static listOfAll() {
-		console.log("Test {{{{{{{{}}}}}}}}");
+		// console.log("Test {{{{{{{{}}}}}}}}");
 		return Core.getGameObjectList();
 	}
 
@@ -29,7 +29,7 @@ class GameObject {
 	}
 
 	addScript(script) {
-		console.log("ADD SCRIPT ###############", this);
+		// console.log("ADD SCRIPT ###############", this);
 		script.gameObjectId = this.id;
 		this.script = script;
 		script.object = this;
@@ -78,7 +78,7 @@ class GameObject {
 			}
 		}
 
-		console.log("OBJECT DELETE 3 > ", object.name);
+		// console.log("OBJECT DELETE 3 > ", object.name);
 		Core.deleteObject(object.id);
 	}
 }

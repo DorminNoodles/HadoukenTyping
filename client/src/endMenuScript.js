@@ -67,12 +67,12 @@ class EndMenuScript extends Script{
 	}
 
 	pressEnter() {
-		if (this.pos == 1) {
+		if (this.pos == 0) {
 			let soloGameStart = new CustomEvent('SoloGameStart', {'detail': {'username': this.username}});
 			document.dispatchEvent(soloGameStart);
 		}
-		if (this.pos == 0) {
-			let soloGameStart = new CustomEvent('SoloGameStart', {'detail': {'username': this.username}});
+		if (this.pos == 1) {
+			let soloGameStart = new CustomEvent('OpenMainMenu', {'detail': {'username': this.username}});
 			document.dispatchEvent(soloGameStart);
 		}
 	}
