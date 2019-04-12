@@ -3,10 +3,12 @@ import BoardScoreUI from './boardScoreUI';
 import GameObject from './gameObject';
 import RenderText from './renderText';
 import Render from './render';
+import Script from './script';
 
-class LetterScript {
+class LetterScript extends Script {
 
 	constructor(position, letter, gameObject) {
+		super();
 		this.gameObjectId = gameObject.id;
 		this.begin = Date.now();
 		this.speedRefresh = 1000/60;
@@ -59,6 +61,10 @@ class LetterScript {
 
 	}
 
+	stone() {
+
+	}
+
 	deleteLetter() {
 
 		let scoreEvent = new CustomEvent("addScore", {
@@ -104,8 +110,31 @@ class LetterScript {
 		return this.vulnerable;
 	}
 
-	changePosition() {
-		this.position--;
+	changePosition(board, pos, object) {
+
+
+		// if (pos - 1 > 0 && !board[pos - 1]) {
+		// 	this.position--;
+		// 	console.log(object);
+		// 	this.board[pos - 1] = object;
+		// 	this.board[pos] = undefined;
+		// }
+
+		console.log("POS > ", pos - 1);
+		console.log("POS > ", board[pos - 1]);
+
+		if (pos - 1 >= 0 && !board[pos - 1]) {
+			this.position--;
+			board[pos - 1] = object;
+			console.log("HEY CA RENTRE");
+			board[pos] = undefined;
+		}
+		// if (pos - 1 > 0)
+		console.log("AFTER > ", board[1]);
+		console.log("AFTER > ", board);
+
+
+		// this.position--;
 	}
 }
 

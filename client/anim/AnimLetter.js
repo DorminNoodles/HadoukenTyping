@@ -194,3 +194,17 @@ export const animGFlash = {
 	duration: 15,
 	nextAnim: ''
 }
+
+export const animStone01 = {
+	name: "stone01",
+	img: './boutonLetters.png',
+	width: 80,
+	height: 80,
+	frameNb: 1,
+	row: 10,
+	col: 0,
+	speed: 100,
+	loop: false,
+	duration: 15,
+	nextAnim: ''
+}

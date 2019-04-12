@@ -16,8 +16,8 @@ class SpawnerScript extends Script {
 		super();
 		this.begin = Date.now();
 		this.nextSpawn = Date.now() + 2000;
-		this.spawnSpeed = 500;
-		// this.spawnSpeed = 50;
+		// this.spawnSpeed = 500;
+		this.spawnSpeed = 1200;
 		this.boardArray = [];
 		this.letterQuantity = 0;
 		this.alpha = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
@@ -26,6 +26,7 @@ class SpawnerScript extends Script {
 		this.speedReduce = 20;
 		this.deadTime = false; //additional time before realy dead
 		this.combo = 0;
+		this.currentLetter = 0;
 
 		document.addEventListener('finish', () => {
 				this.deleteAllLetter();
@@ -41,16 +42,16 @@ class SpawnerScript extends Script {
 
 		if (this.nextSpawn < Date.now()) {
 
-			let letter = new GameObject('letter');
+			let letter = this.newObject(new GameObject('letter'));
 			let rand = this.getRandomInt(5);
 			let randomLetter = this.alpha[rand];
 
 			this.boardArray[this.letterQuantity] = letter;
 			letter.render = new Render('./boutonLetters.png');
 
-
 			letter.render.addAnim(anim['anim' + randomLetter.toUpperCase()]);
 			letter.render.addAnim(anim['anim' + randomLetter.toUpperCase() + 'Flash']);
+			letter.render.addAnim(anim['animStone01']);
 			letter.setPosition(1340, 252);
 			letter.addScript(new LetterScript(this.letterQuantity, randomLetter, letter));
 
@@ -82,32 +83,37 @@ class SpawnerScript extends Script {
 	}
 
 	deleteLetter(key) {
-		if (this.boardArray[0]) {
-			if (key == this.boardArray[0].script.letter) {
-				if (this.boardArray[0].script.isVulnerable()) {
+		if (this.boardArray[this.currentLetter]) {
+			if (key == this.boardArray[this.currentLetter].script.letter) {
+				if (this.boardArray[this.currentLetter].script.isVulnerable()) {
 
+					// console.log("BEFORE1 > " + this.boardArray);
+					console.log(this.boardArray);
+					// console.log("BEFORE ARR > ", this.boardArray);
+					for (let i = 0; i < 1000000; i++);
 					this.combo++;
-					console.log(this.boardArray[0]);
 					if (!(this.combo % 5))
-						this.activeCombo(this.boardArray[0].x, this.boardArray[0].y);
-					this.boardArray[0].script.deleteLetter();
-					this.boardArray[0] = undefined;
+						this.activeCombo(this.boardArray[this.currentLetter].x, this.boardArray[this.currentLetter].y);
+					this.boardArray[this.currentLetter].script.deleteLetter();
+					this.boardArray[this.currentLetter] = undefined;
 					this.letterQuantity--;
+					console.log("BEFORE2 > ", this.boardArray);
 					for (let i = 0; i < this.boardArray.length; i++) {
 						if (this.boardArray[i]) {
-							this.boardArray[i].script.changePosition();
-							this.boardArray[i - 1] = this.boardArray[i];
-							this.boardArray[i] = undefined;
+							this.boardArray[i].script.changePosition(this.boardArray, i, this.boardArray[i]);
+							// this.boardArray[i - 1] = this.boardArray[i];
+							// this.boardArray[i] = undefined;
 						}
 					}
 				}
 			}
 			else {
 				this.breakCombo();
-				let chain = new GameObject('animChain');
-				chain.setPosition(this.boardArray[0].x - 46, this.boardArray[0].y - 56);
+				let chain = this.newObject(new GameObject('animChain'));
+				chain.setPosition(this.boardArray[this.currentLetter].x - 46, this.boardArray[this.currentLetter].y - 56);
 				chain.render = new Render('./chain.png');
 				chain.render.addAnim(animChain);
+				this.currentLetter++;
 
 				setTimeout(() => {
 					GameObject.delete(chain);
@@ -123,7 +129,6 @@ class SpawnerScript extends Script {
 		let event = new Event('combo');
 		document.dispatchEvent(event);
 
-		// console.log("combo", this.combo % 5);
 		let comboUI = new GameObject('combo');
 		comboUI.addScript(new ComboScript());
 		comboUI.setPosition(x - 25, y);
