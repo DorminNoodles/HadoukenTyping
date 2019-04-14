@@ -95,6 +95,10 @@ class LetterScript extends Script {
 
 	}
 
+	getStoneLife() {
+		return this.stoneLife;
+	}
+
 	deleteLetter() {
 
 		let scoreEvent = new CustomEvent("addScore", {
@@ -113,7 +117,6 @@ class LetterScript extends Script {
 		flashKill.setPosition(this.object.x - 160, this.object.y - 180);
 		flashKill.render = new Render('./flashAnim.png');
 		flashKill.render.addAnim(animFlash);
-
 
 
 		let score = new GameObject('score');
@@ -138,13 +141,15 @@ class LetterScript extends Script {
 		return this.vulnerable;
 	}
 
-	changePosition(board, pos, object) {
-
-		if (pos - 1 >= 0 && !board[pos - 1]) {
+	changePosition() {
+		if (this.position > 0)
 			this.position--;
-			board[pos - 1] = object;
-			board[pos] = undefined;
-		}
+		console.log(this.letter, "  HAAAAA > ", this.position);
+		// if (pos - 1 >= 0 && !board[pos - 1]) {
+		// 	this.position--;
+		// 	board[pos - 1] = object;
+		// 	board[pos] = undefined;
+		// }
 	}
 }
 

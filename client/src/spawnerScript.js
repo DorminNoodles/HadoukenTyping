@@ -66,7 +66,7 @@ class SpawnerScript extends Script {
 			this.letterQuantity++;
 			this.nextSpawn = Date.now() + this.spawnSpeed + ((this.letterQuantity * this.letterQuantity));
 
-			console.log(this.letterQuantity);
+			// console.log(this.letterQuantity);
 
 			if (this.letterQuantity > 15 && this.deadTime == false) {
 				this.deadTime = true;
@@ -78,6 +78,24 @@ class SpawnerScript extends Script {
 					}
 					this.deadTime = false;
 				}, 500);
+			}
+		}
+
+		for (let i = 0; i < this.boardArray.length; i++) {
+			if (i > 0 && this.boardArray[i]) {
+				console.log(i);
+
+				if (!this.boardArray[i - 1]) {
+					console.log("right is free !");
+					this.boardArray[i - 1] = this.boardArray[i];
+				}
+				else {
+					console.log("alfred > ", this.boardArray[i - 1].script.letter)
+				}
+				// if (!this.boardArray[i - 1])
+				// 	this.boardArray[i - 1] = this.boardArray[i];
+				// 	this.boardArray[i].script.changePosition();
+				// 	delete this.boardArray[i];
 			}
 		}
 	}
@@ -94,39 +112,45 @@ class SpawnerScript extends Script {
 		if (this.boardArray[this.currentLetter]) {
 			if (key == this.boardArray[this.currentLetter].script.letter) {
 				if (this.boardArray[this.currentLetter].script.isVulnerable()) {
-
-					if (this.boardArray[this.currentLetter - 1])
-						console.log("hello currentLetter");
-					if (this.boardArray[this.currentLetter - 1])
-						this.boardArray[this.currentLetter - 1].script.stone();
-					if (this.boardArray[this.currentLetter - 1].script.getStoneLife() < 11)
-
-					this.combo++;
+			//
 					if (!(this.combo % 5))
 						this.activeCombo(this.boardArray[this.currentLetter].x, this.boardArray[this.currentLetter].y);
 					this.boardArray[this.currentLetter].script.deleteLetter();
-					this.boardArray[this.currentLetter] = undefined;
-					this.letterQuantity--;
-					for (let i = 0; i < this.boardArray.length; i++) {
-						if (this.boardArray[i]) {
-							this.boardArray[i].script.changePosition(this.boardArray, i, this.boardArray[i]);
-							// this.boardArray[i - 1] = this.boardArray[i];
-							// this.boardArray[i] = undefined;
-						}
-					}
+					// this.boardArray[this.currentLetter] = undefined;
+					delete this.boardArray[this.currentLetter]
+					// this.letterQuantity--;
+			//
+
+					// if (this.boardArray[this.currentLetter - 1]) {
+					// 	this.boardArray[this.currentLetter - 1].script.stone();
+					// 	if (this.boardArray[this.currentLetter - 1].script.getStoneLife() < 11) {
+					// 		// this.boardArray[this.currentLetter - 1].script.deleteLetter();
+					// 		// this.boardArray[this.currentLetter - 1] = undefined;
+					// 		// this.letterQuantity--;
+					// 		this.currentLetter--;
+					// 	}
+					// }
+
+					this.combo++;
+					// for (let i = 0; i < this.boardArray.length; i++) {
+					// 	if (this.boardArray[i]) {
+					// 		i = this.boardArray[i].script.changePosition(this.boardArray, i, this.boardArray[i]) ? :
+					// 		// this.boardArray[i - 1] = this.boardArray[i];
+					// 	}
+					// }
 				}
 			}
 			else {
-				this.boardArray[this.currentLetter].script.stone();
-				this.breakCombo();
-				let chain = this.newObject(new GameObject('animChain'));
-				chain.setPosition(this.boardArray[this.currentLetter].x - 46, this.boardArray[this.currentLetter].y - 56);
-				chain.render = new Render('./chain.png');
-				chain.render.addAnim(animChain);
-				this.currentLetter++;
-				setTimeout(() => {
-					GameObject.delete(chain);
-				}, 1000);
+				// this.boardArray[this.currentLetter].script.stone();
+				// this.breakCombo();
+				// let chain = this.newObject(new GameObject('animChain'));
+				// chain.setPosition(this.boardArray[this.currentLetter].x - 46, this.boardArray[this.currentLetter].y - 56);
+				// chain.render = new Render('./chain.png');
+				// chain.render.addAnim(animChain);
+				// this.currentLetter++;
+				// setTimeout(() => {
+				// 	GameObject.delete(chain);
+				// }, 1000);
 			}
 		}
 	}
