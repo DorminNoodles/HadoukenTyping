@@ -52,6 +52,14 @@ class SpawnerScript extends Script {
 			letter.render.addAnim(anim['anim' + randomLetter.toUpperCase()]);
 			letter.render.addAnim(anim['anim' + randomLetter.toUpperCase() + 'Flash']);
 			letter.render.addAnim(anim['animStone01']);
+			letter.render.addAnim(anim['animStone02']);
+			letter.render.addAnim(anim['animStone03']);
+			letter.render.addAnim(anim['animStone04']);
+			letter.render.addAnim(anim['animStone05']);
+			letter.render.addAnim(anim['animStone06']);
+			letter.render.addAnim(anim['animStone07']);
+			letter.render.addAnim(anim['animStone08']);
+			letter.render.addAnim(anim['animStone09']);
 			letter.setPosition(1340, 252);
 			letter.addScript(new LetterScript(this.letterQuantity, randomLetter, letter));
 
@@ -87,17 +95,18 @@ class SpawnerScript extends Script {
 			if (key == this.boardArray[this.currentLetter].script.letter) {
 				if (this.boardArray[this.currentLetter].script.isVulnerable()) {
 
-					// console.log("BEFORE1 > " + this.boardArray);
-					console.log(this.boardArray);
-					// console.log("BEFORE ARR > ", this.boardArray);
-					for (let i = 0; i < 1000000; i++);
+					if (this.boardArray[this.currentLetter - 1])
+						console.log("hello currentLetter");
+					if (this.boardArray[this.currentLetter - 1])
+						this.boardArray[this.currentLetter - 1].script.stone();
+					if (this.boardArray[this.currentLetter - 1].script.getStoneLife() < 11)
+
 					this.combo++;
 					if (!(this.combo % 5))
 						this.activeCombo(this.boardArray[this.currentLetter].x, this.boardArray[this.currentLetter].y);
 					this.boardArray[this.currentLetter].script.deleteLetter();
 					this.boardArray[this.currentLetter] = undefined;
 					this.letterQuantity--;
-					console.log("BEFORE2 > ", this.boardArray);
 					for (let i = 0; i < this.boardArray.length; i++) {
 						if (this.boardArray[i]) {
 							this.boardArray[i].script.changePosition(this.boardArray, i, this.boardArray[i]);
@@ -108,13 +117,13 @@ class SpawnerScript extends Script {
 				}
 			}
 			else {
+				this.boardArray[this.currentLetter].script.stone();
 				this.breakCombo();
 				let chain = this.newObject(new GameObject('animChain'));
 				chain.setPosition(this.boardArray[this.currentLetter].x - 46, this.boardArray[this.currentLetter].y - 56);
 				chain.render = new Render('./chain.png');
 				chain.render.addAnim(animChain);
 				this.currentLetter++;
-
 				setTimeout(() => {
 					GameObject.delete(chain);
 				}, 1000);
@@ -141,9 +150,7 @@ class SpawnerScript extends Script {
 	}
 
 	breakCombo() {
-		// console.log("BREAK COMBO");
 		this.combo = 0;
-		// document.addEventListener("badLetter", {})
 		let event = new Event('badLetter');
 
 		document.dispatchEvent(event);

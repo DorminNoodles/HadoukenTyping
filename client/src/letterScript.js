@@ -1,4 +1,5 @@
 import { animFlash } from '../anim/animFlash';
+// import { animStone01 } from '../anim/AnimLetter';
 import BoardScoreUI from './boardScoreUI';
 import GameObject from './gameObject';
 import RenderText from './renderText';
@@ -21,6 +22,8 @@ class LetterScript extends Script {
 		this.gameObject = gameObject;
 		this.onBoardSpeed = -50;
 		this.dropSpeed = 40;
+		this.isStone = false;
+		this.stoneLife = 19;
 	}
 
 	update() {
@@ -46,13 +49,11 @@ class LetterScript extends Script {
 
 	onBoard() {
 		let destination = (this.position * 82) + 200;
-		if (this.object.x > destination) {
+		if (this.object.x > destination)
 			this.object.move(this.onBoardSpeed, 0);
-		}
 
-		if (this.object.x < destination) {
+		if (this.object.x < destination)
 			this.object.x = destination;
-		}
 	}
 
 	dead() {
@@ -61,7 +62,36 @@ class LetterScript extends Script {
 
 	}
 
+
+	// loseStoneLife() {
+	// 	console.log("HERE @@@@@@@@@@@");
+	// 	this.stoneLife--;
+	// }
+
 	stone() {
+		if (!this.isStone) {
+			this.isStone = true;
+			this.object.render.changeAnim('stone01');
+		}
+		if (this.stoneLife == 19)
+			console.log("fuck you %%%%%%%%%%");
+		if (this.stoneLife == 18)
+			this.object.render.changeAnim('stone02');
+		if (this.stoneLife == 17)
+			this.object.render.changeAnim('stone03');
+		if (this.stoneLife == 16)
+			this.object.render.changeAnim('stone04');
+		if (this.stoneLife == 15)
+			this.object.render.changeAnim('stone05');
+		if (this.stoneLife == 14)
+			this.object.render.changeAnim('stone06');
+		if (this.stoneLife == 13)
+			this.object.render.changeAnim('stone07');
+		if (this.stoneLife == 12)
+			this.object.render.changeAnim('stone08');
+		if (this.stoneLife == 11)
+			this.object.render.changeAnim('stone09');
+		this.stoneLife--;
 
 	}
 
@@ -91,7 +121,6 @@ class LetterScript extends Script {
 		score.renderText = new RenderText('./gameFont1.png', "100", 15, 46);
 		score.addScript(new BoardScoreUI());
 
-
 		setTimeout(() => {
 			GameObject.delete(score);
 		}, 1000);
@@ -99,7 +128,6 @@ class LetterScript extends Script {
 		setTimeout(() => {
 			GameObject.delete(flashKill);
 		}, 400);
-
 
 		setTimeout(() => {
 			GameObject.delete(this.gameObject);
@@ -112,29 +140,11 @@ class LetterScript extends Script {
 
 	changePosition(board, pos, object) {
 
-
-		// if (pos - 1 > 0 && !board[pos - 1]) {
-		// 	this.position--;
-		// 	console.log(object);
-		// 	this.board[pos - 1] = object;
-		// 	this.board[pos] = undefined;
-		// }
-
-		console.log("POS > ", pos - 1);
-		console.log("POS > ", board[pos - 1]);
-
 		if (pos - 1 >= 0 && !board[pos - 1]) {
 			this.position--;
 			board[pos - 1] = object;
-			console.log("HEY CA RENTRE");
 			board[pos] = undefined;
 		}
-		// if (pos - 1 > 0)
-		console.log("AFTER > ", board[1]);
-		console.log("AFTER > ", board);
-
-
-		// this.position--;
 	}
 }
 

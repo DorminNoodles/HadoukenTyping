@@ -201,10 +201,122 @@ export const animStone01 = {
 	width: 80,
 	height: 80,
 	frameNb: 1,
-	row: 10,
-	col: 0,
+	row: 0,
+	col: 15,
 	speed: 100,
-	loop: false,
+	loop: true,
+	duration: 15,
+	nextAnim: ''
+}
+
+export const animStone02 = {
+	name: "stone02",
+	img: './boutonLetters.png',
+	width: 80,
+	height: 80,
+	frameNb: 1,
+	row: 0,
+	col: 16,
+	speed: 100,
+	loop: true,
+	duration: 15,
+	nextAnim: ''
+}
+
+export const animStone03 = {
+	name: "stone03",
+	img: './boutonLetters.png',
+	width: 80,
+	height: 80,
+	frameNb: 1,
+	row: 0,
+	col: 17,
+	speed: 100,
+	loop: true,
+	duration: 15,
+	nextAnim: ''
+}
+
+export const animStone04 = {
+	name: "stone04",
+	img: './boutonLetters.png',
+	width: 80,
+	height: 80,
+	frameNb: 1,
+	row: 0,
+	col: 18,
+	speed: 100,
+	loop: true,
+	duration: 15,
+	nextAnim: ''
+}
+
+export const animStone05 = {
+	name: "stone05",
+	img: './boutonLetters.png',
+	width: 80,
+	height: 80,
+	frameNb: 1,
+	row: 0,
+	col: 19,
+	speed: 100,
+	loop: true,
+	duration: 15,
+	nextAnim: ''
+}
+
+export const animStone06 = {
+	name: "stone06",
+	img: './boutonLetters.png',
+	width: 80,
+	height: 80,
+	frameNb: 1,
+	row: 0,
+	col: 20,
+	speed: 100,
+	loop: true,
+	duration: 15,
+	nextAnim: ''
+}
+
+export const animStone07 = {
+	name: "stone07",
+	img: './boutonLetters.png',
+	width: 80,
+	height: 80,
+	frameNb: 1,
+	row: 0,
+	col: 21,
+	speed: 100,
+	loop: true,
+	duration: 15,
+	nextAnim: ''
+}
+
+export const animStone08 = {
+	name: "stone08",
+	img: './boutonLetters.png',
+	width: 80,
+	height: 80,
+	frameNb: 1,
+	row: 0,
+	col: 22,
+	speed: 100,
+	loop: true,
+	duration: 15,
+	nextAnim: ''
+}
+
+export const animStone09 = {
+	name: "stone09",
+	img: './boutonLetters.png',
+	width: 80,
+	height: 80,
+	frameNb: 1,
+	row: 0,
+	col: 23,
+	speed: 100,
+	loop: true,
 	duration: 15,
 	nextAnim: ''
 }
