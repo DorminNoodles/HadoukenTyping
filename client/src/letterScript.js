@@ -32,6 +32,7 @@ class LetterScript extends Script {
 			this.nextRefresh = Date.now() + this.speedRefresh;
 			this.state();
 		}
+		// console.log(this.letter, "   ", this.position);
 	}
 
 	drop() {
@@ -69,6 +70,9 @@ class LetterScript extends Script {
 	// }
 
 	stone() {
+
+		console.log("STONE ", this.stoneLife, ' ', this.letter);
+
 		if (!this.isStone) {
 			this.isStone = true;
 			this.object.render.changeAnim('stone01');
@@ -100,7 +104,6 @@ class LetterScript extends Script {
 	}
 
 	deleteLetter() {
-
 		let scoreEvent = new CustomEvent("addScore", {
 			detail : {
 				'score': 100
@@ -144,7 +147,7 @@ class LetterScript extends Script {
 	changePosition() {
 		if (this.position > 0)
 			this.position--;
-		console.log(this.letter, "  HAAAAA > ", this.position);
+		// console.log(this.letter, "  HAAAAA > ", this.position);
 		// if (pos - 1 >= 0 && !board[pos - 1]) {
 		// 	this.position--;
 		// 	board[pos - 1] = object;

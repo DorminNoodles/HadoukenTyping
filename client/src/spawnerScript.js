@@ -17,7 +17,7 @@ class SpawnerScript extends Script {
 		this.begin = Date.now();
 		this.nextSpawn = Date.now() + 2000;
 		// this.spawnSpeed = 500;
-		this.spawnSpeed = 1200;
+		this.spawnSpeed = 800;
 		this.boardArray = [];
 		this.letterQuantity = 0;
 		this.alpha = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
@@ -46,7 +46,7 @@ class SpawnerScript extends Script {
 			let rand = this.getRandomInt(5);
 			let randomLetter = this.alpha[rand];
 
-			this.boardArray[this.letterQuantity] = letter;
+			this.boardArray[15] = letter;
 			letter.render = new Render('./boutonLetters.png');
 
 			letter.render.addAnim(anim['anim' + randomLetter.toUpperCase()]);
@@ -61,12 +61,14 @@ class SpawnerScript extends Script {
 			letter.render.addAnim(anim['animStone08']);
 			letter.render.addAnim(anim['animStone09']);
 			letter.setPosition(1340, 252);
-			letter.addScript(new LetterScript(this.letterQuantity, randomLetter, letter));
+			// letter.addScript(new LetterScript(this.letterQuantity, randomLetter, letter));
+			letter.addScript(new LetterScript(15, randomLetter, letter));
+
+			// console.log("pos create >> ", this.letterQuantity);
 
 			this.letterQuantity++;
 			this.nextSpawn = Date.now() + this.spawnSpeed + ((this.letterQuantity * this.letterQuantity));
 
-			// console.log(this.letterQuantity);
 
 			if (this.letterQuantity > 15 && this.deadTime == false) {
 				this.deadTime = true;
@@ -81,21 +83,19 @@ class SpawnerScript extends Script {
 			}
 		}
 
-		for (let i = 0; i < this.boardArray.length; i++) {
+		// console.log(this.letterQuantity);
+
+		for (let i = 0; i < 16; i++) {
 			if (i > 0 && this.boardArray[i]) {
-				console.log(i);
 
 				if (!this.boardArray[i - 1]) {
-					console.log("right is free !");
+					this.boardArray[i].script.changePosition();
 					this.boardArray[i - 1] = this.boardArray[i];
+					delete this.boardArray[i];
 				}
-				else {
-					console.log("alfred > ", this.boardArray[i - 1].script.letter)
-				}
-				// if (!this.boardArray[i - 1])
-				// 	this.boardArray[i - 1] = this.boardArray[i];
-				// 	this.boardArray[i].script.changePosition();
-				// 	delete this.boardArray[i];
+				// else {
+				// 	console.log("alfred > ", this.boardArray[i - 1].script.letter)
+				// }
 			}
 		}
 	}
@@ -116,20 +116,36 @@ class SpawnerScript extends Script {
 					if (!(this.combo % 5))
 						this.activeCombo(this.boardArray[this.currentLetter].x, this.boardArray[this.currentLetter].y);
 					this.boardArray[this.currentLetter].script.deleteLetter();
-					// this.boardArray[this.currentLetter] = undefined;
 					delete this.boardArray[this.currentLetter]
-					// this.letterQuantity--;
-			//
+					this.letterQuantity--;
 
-					// if (this.boardArray[this.currentLetter - 1]) {
-					// 	this.boardArray[this.currentLetter - 1].script.stone();
-					// 	if (this.boardArray[this.currentLetter - 1].script.getStoneLife() < 11) {
-					// 		// this.boardArray[this.currentLetter - 1].script.deleteLetter();
-					// 		// this.boardArray[this.currentLetter - 1] = undefined;
-					// 		// this.letterQuantity--;
-					// 		this.currentLetter--;
-					// 	}
-					// }
+					console.log("Here1#  ");
+					if (this.boardArray[this.currentLetter - 1]) {
+						this.boardArray[this.currentLetter - 1].script.stone();
+						if (this.boardArray[this.currentLetter - 1].script.getStoneLife() < 11) {
+							console.log("Here2#  ");
+							this.boardArray[this.currentLetter - 1].script.deleteLetter();
+							delete this.boardArray[this.currentLetter - 1];
+							this.letterQuantity--;
+							this.currentLetter--;
+							console.log("Here3#  ");
+							for (let i = this.currentLetter - 1; i >= 0; i--) {
+								// this.boardArray[i].script.stone();
+								console.log("ICI ", this.boardArray[i].script.getStoneLife());
+								if (this.boardArray[i].script.getStoneLife() == 11) {
+									this.boardArray[i].script.deleteLetter();
+									delete this.boardArray[i];
+									this.letterQuantity--;
+									this.currentLetter--;
+								}
+								else
+									break;
+							}
+						}
+					}
+
+
+
 
 					this.combo++;
 					// for (let i = 0; i < this.boardArray.length; i++) {
@@ -141,16 +157,16 @@ class SpawnerScript extends Script {
 				}
 			}
 			else {
-				// this.boardArray[this.currentLetter].script.stone();
-				// this.breakCombo();
-				// let chain = this.newObject(new GameObject('animChain'));
-				// chain.setPosition(this.boardArray[this.currentLetter].x - 46, this.boardArray[this.currentLetter].y - 56);
-				// chain.render = new Render('./chain.png');
-				// chain.render.addAnim(animChain);
-				// this.currentLetter++;
-				// setTimeout(() => {
-				// 	GameObject.delete(chain);
-				// }, 1000);
+				this.boardArray[this.currentLetter].script.stone();
+				this.breakCombo();
+				let chain = this.newObject(new GameObject('animChain'));
+				chain.setPosition(this.boardArray[this.currentLetter].x - 46, this.boardArray[this.currentLetter].y - 56);
+				chain.render = new Render('./chain.png');
+				chain.render.addAnim(animChain);
+				setTimeout(() => {
+					GameObject.delete(chain);
+				}, 1000);
+				this.currentLetter++;
 			}
 		}
 	}
