@@ -1,4 +1,4 @@
-import DisplayRankingScript from './DisplayRankingScript';
+import DisplayRankingScript from './displayRankingScript';
 import SpawnerScript from './spawnerScript';
 import RenderManager from './renderManager';
 import ControllerScript from './controller';
