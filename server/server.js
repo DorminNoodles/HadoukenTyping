@@ -162,7 +162,7 @@ io.on('disconnect', (socket) => {
 });
 
 
-app.use(express.static(__dirname + '/../client'));
+app.use(express.static(__dirname + '/../client/app'));
 
 
 

@@ -29,7 +29,6 @@ class Core {
 	}
 
 	deleteObject(id) {
-		// console.log("DELETE OBJECT CORE > ", id);
 		// console.log(this.gameObjectList);
 		delete this.gameObjectList[id];
 	}
