@@ -161,8 +161,8 @@ io.on('disconnect', (socket) => {
 	console.log("hello");
 });
 
-
-app.use(express.static(__dirname + '/../client/app'));
+console.log(__dirname);
+app.use(express.static(__dirname + '/../client'));
 
 
 

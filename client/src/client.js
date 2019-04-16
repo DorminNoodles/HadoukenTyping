@@ -21,7 +21,6 @@ import {closeMainMenu, openMainMenu} from './mainMenu';
 
 import Garbage from './testGarbage';
 
-
 let soap = new Garbage();
 
 soap = undefined;

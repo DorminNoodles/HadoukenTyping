@@ -1,5 +1,4 @@
-import { animFlash } from '../anim/animFlash';
-// import { animStone01 } from '../anim/AnimLetter';
+import { animFlash } from './anim/animFlash';
 import BoardScoreUI from './boardScoreUI';
 import GameObject from './gameObject';
 import RenderText from './renderText';

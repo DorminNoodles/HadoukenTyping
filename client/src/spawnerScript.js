@@ -1,10 +1,10 @@
-import { animCombo, idleCombo } from '../anim/animCombo';
+import { animCombo, idleCombo } from './anim/animCombo';
 import RenderManager from './renderManager.js';
-import { animFlash } from '../anim/animFlash';
-import { animChain } from '../anim/animChain';
+import { animFlash } from './anim/animFlash';
+import { animChain } from './anim/animChain';
 import LetterScript from './letterScript.js';
 import ComboScript from './comboScript.js';
-import * as anim from '../anim/animLetter';
+import * as anim from './anim/animLetter';
 import GameObject from './gameObject';
 import Render from './render';
 import Script from './script';
@@ -61,10 +61,7 @@ class SpawnerScript extends Script {
 			letter.render.addAnim(anim['animStone08']);
 			letter.render.addAnim(anim['animStone09']);
 			letter.setPosition(1340, 252);
-			// letter.addScript(new LetterScript(this.letterQuantity, randomLetter, letter));
 			letter.addScript(new LetterScript(15, randomLetter, letter));
-
-			// console.log("pos create >> ", this.letterQuantity);
 
 			this.letterQuantity++;
 			this.nextSpawn = Date.now() + this.spawnSpeed + ((this.letterQuantity * this.letterQuantity));
