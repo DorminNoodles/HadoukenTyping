@@ -1,4 +1,4 @@
-import { playAgainSelected, playAgainGrey, menuSelected, menuGrey } from './anim/AnimEndBtn';
+import { playAgainSelected, playAgainGrey, menuSelected, menuGrey } from './anim/animEndBtn';
 import GameObject from './gameObject';
 import Render from './render';
 import Script from './script';
