@@ -165,7 +165,6 @@ console.log(__dirname);
 app.use(express.static(__dirname + '/../client'));
 
 
-
 server.listen(8000);
 
 
