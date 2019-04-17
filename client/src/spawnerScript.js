@@ -127,7 +127,6 @@ class SpawnerScript extends Script {
 							this.currentLetter--;
 							console.log("Here3#  ");
 							for (let i = this.currentLetter - 1; i >= 0; i--) {
-								// this.boardArray[i].script.stone();
 								console.log("ICI ", this.boardArray[i].script.getStoneLife());
 								if (this.boardArray[i].script.getStoneLife() == 11) {
 									this.boardArray[i].script.deleteLetter();
@@ -145,12 +144,6 @@ class SpawnerScript extends Script {
 
 
 					this.combo++;
-					// for (let i = 0; i < this.boardArray.length; i++) {
-					// 	if (this.boardArray[i]) {
-					// 		i = this.boardArray[i].script.changePosition(this.boardArray, i, this.boardArray[i]) ? :
-					// 		// this.boardArray[i - 1] = this.boardArray[i];
-					// 	}
-					// }
 				}
 			}
 			else {

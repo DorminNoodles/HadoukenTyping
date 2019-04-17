@@ -4,6 +4,20 @@
 // import ryuAnim from './ryuAnim.js';
 // import  from './node_modules/socket.io-client/dist/socket.io.js';
 const io = require('socket.io-client');
+// const checksum = require('checksum');
+// const cs = checksum()
+// const fs = require('fs');
+//
+//
+// checksum.file('letterScript.js', (err, sum) => {
+//
+// 	console.log('CHECKSUM >>  ', sum);
+// })
+
+
+
+
+
 
 import RenderManager from './renderManager';
 import Core from './core';
@@ -67,6 +81,7 @@ let scores;
 let username;
 let gameStateEvent = new CustomEvent("gameState", {detail : { 'username': username}, bubbles: true, cancelable: false});
 
+window.scrollBy(-1, -1);
 // let idle = new Animation();
 // let punch = new Animation2();
 // let gameRender = new Render();

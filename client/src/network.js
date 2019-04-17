@@ -4,7 +4,7 @@ class Network {
 
 	constructor() {
 
-		this.socket = io('http://51.83.44.50:8000');
+		this.socket = io('http://localhost:8000');
 
 		this.socket.on('connection', () => {
 			console.log("SOCKET IO");

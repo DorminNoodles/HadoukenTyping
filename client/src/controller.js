@@ -41,15 +41,6 @@ class Controller extends Script{
 			if (this.keyList[e.keyCode])
 				delete this.keyList[e.keyCode];
 		});
-
-		// setTimeout(() => {
-		// 	this.deleteAllListeners();
-		// }, 4000);
-
-		// document.addEventListener('keyup', (e) => {
-		// 	if (this.keyList[e.keyCode])
-		// 		delete this.keyList[e.keyCode];
-		// })
 		this.spawner = spawner;
 	}
 
