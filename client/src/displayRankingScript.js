@@ -18,6 +18,7 @@ class DisplayRankingScript extends Script {
 				setTimeout(() => {
 					console.log("GET SCORE 1234");
 					let tmpScores = [];
+					console.log("HERE   >> ", username);
 					let rank = this.getRanking(scores, username);
 					tmpScores = this.fillScores(scores, rank, username);
 					tmpScores.sort(function(a, b) {
@@ -81,9 +82,13 @@ class DisplayRankingScript extends Script {
 	}
 
 	getRanking(scores, username) {
+		console.log("START HERE");
 		for (let i = 0; i < scores.length; i++) {
-			if (scores[i].username.toLowerCase() == username.toLowerCase())
+			console.log(scores[i].username);
+			if (scores[i] && scores[i].username) {
+				if (scores[i].username.toLowerCase() == username.toLowerCase())
 				return i;
+			}
 		}
 	}
 }

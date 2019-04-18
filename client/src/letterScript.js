@@ -62,12 +62,6 @@ class LetterScript extends Script {
 
 	}
 
-
-	// loseStoneLife() {
-	// 	console.log("HERE @@@@@@@@@@@");
-	// 	this.stoneLife--;
-	// }
-
 	stone() {
 
 		console.log("STONE ", this.stoneLife, ' ', this.letter);
