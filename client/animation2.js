@@ -11,7 +11,6 @@ class Animation2 {
 	//the position where the frame will be drawn
 
 	constructor() {
-		console.log("create Animation");
 
 		this.x = 0;
 		this.y = 0;

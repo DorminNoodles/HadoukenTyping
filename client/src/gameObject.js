@@ -5,6 +5,7 @@ class GameObject {
 
 	constructor(name) {
 		this.id = Core.addObject(this);
+		console.log("create > ", this.id, " : ", name);
 		this.name = name;
 		this.render;
 		this.script;
@@ -14,7 +15,6 @@ class GameObject {
 	}
 
 	static listOfAll() {
-		// console.log("Test {{{{{{{{}}}}}}}}");
 		return Core.getGameObjectList();
 	}
 
@@ -29,7 +29,6 @@ class GameObject {
 	}
 
 	addScript(script) {
-		// console.log("ADD SCRIPT ###############", this);
 		script.gameObjectId = this.id;
 		this.script = script;
 		script.object = this;
@@ -59,6 +58,9 @@ class GameObject {
 	}
 
 	static delete(object) {
+
+		console.log(object.id, " : ", object.name);
+
 		if (object.script) {
 			Script.delete(object.script);
 		}
@@ -78,7 +80,6 @@ class GameObject {
 			}
 		}
 
-		// console.log("OBJECT DELETE 3 > ", object.name);
 		Core.deleteObject(object.id);
 	}
 }

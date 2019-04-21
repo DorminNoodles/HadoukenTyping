@@ -12,10 +12,6 @@ class Render {
 	}
 
 	addAnim(anim) {
-		// console.log(anim);
-		if (!anim) {
-			console.log("No anim !");
-		}
 		this.isAnimated = true;
 		this.anim[anim.name] = anim;
 		if (!this.currentAnim) {
@@ -25,7 +21,6 @@ class Render {
 	}
 
 	draw(ctx, x, y) {
-		// console.log(this.img.src);
 		if (this.img) {
 			if (this.isAnimated)
 				this.drawAnim(ctx, x, y);

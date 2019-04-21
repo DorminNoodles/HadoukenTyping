@@ -7,6 +7,8 @@ import Script from './script';
 class EndMenuScript extends Script{
 
 	constructor(username) {
+
+		console.log("Create end menu");
 		super();
 
 		this.username = username;
@@ -16,10 +18,6 @@ class EndMenuScript extends Script{
 		this.playAgainBtn.render.addAnim(playAgainSelected);
 		this.playAgainBtn.render.addAnim(playAgainGrey);
 		this.playAgainBtn.setPosition(680, 800);
-
-
-		console.log(">>>>>>>>>>>>>", this.object);
-		// this.object.addChild(playAgainBtn);
 
 		this.menuBtn = this.newObject(new GameObject('menuBtn'));
 		this.menuBtn.render = new Render('./btnEndScore.png');
@@ -39,19 +37,19 @@ class EndMenuScript extends Script{
 				this.pos--;
 				this.pos = (this.pos < 0)? 1 : this.pos;
 			}
-			// console.log("HERE this pos >>> ", this.pos, '    ', this.gameObjectId);
 			this.changeBtn(this.pos);
 		});
 
-		document.addEventListener('keydown', (e) => {
-
-			if (e.keyCode == 13)
+		this.addListener('keydown', (e) => {
+			if (e.keyCode == 13) {
+				console.log("keydown ENTER");
 				this.pressEnter();
+			}
 		})
 	}
 
 	update() {
-		// console.log("script END MENU");
+
 	}
 
 	changeBtn(pos) {
@@ -68,10 +66,12 @@ class EndMenuScript extends Script{
 
 	pressEnter() {
 		if (this.pos == 0) {
+			// console.log("EVENT SOLOGAME");
 			let soloGameStart = new CustomEvent('SoloGameStart', {'detail': {'username': this.username}});
 			document.dispatchEvent(soloGameStart);
 		}
 		if (this.pos == 1) {
+			console.log("SOLOGAME START");
 			let soloGameStart = new CustomEvent('OpenMainMenu', {'detail': {'username': this.username}});
 			document.dispatchEvent(soloGameStart);
 		}

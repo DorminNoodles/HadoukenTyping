@@ -1,19 +1,19 @@
 // import Render from './render';
 import Core from './core';
+import Script from './script';
 
-class RenderManager {
+class RenderManager extends Script {
 
 	constructor() {
+		super();
 		this.canvas = document.getElementById("canvas");
 		this.ctx = canvas.getContext("2d");
 		this.shake = 0;
-		// this.shakeYArr = [5,-10,5];
 		this.flash = 0;
 
-		document.addEventListener('badLetter', () => {
+		this.addListener('badLetter', () => {
 			this.flash = 100;
 			this.shake = 10;
-			// this.flashScreen(this);
 		});
 	}
 
@@ -32,12 +32,9 @@ class RenderManager {
 		})
 
 		objets.forEach((objet) => {
-			// console.log("Hello FIRST");
 			if (objet.renderText) {
-				// console.log("RENDER TEXT >> ", objet);
 				objet.renderText.draw(this.ctx, objet.x + originX, objet.y + originY);
 			}
-			// console.log("Hello LAST");
 		})
 
 		if (this.flash > 0) {

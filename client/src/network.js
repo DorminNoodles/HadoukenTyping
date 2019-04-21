@@ -9,10 +9,6 @@ class Network {
 		this.socket.on('connection', () => {
 			console.log("SOCKET IO");
 		});
-
-		// document.addEventListener('saveScore', (e) => {
-		// 	this.saveScore(e);
-		// });
 	}
 
 }

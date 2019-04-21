@@ -17,7 +17,7 @@ class SpawnerScript extends Script {
 		this.begin = Date.now();
 		this.nextSpawn = Date.now() + 2000;
 		// this.spawnSpeed = 500;
-		this.spawnSpeed = 800;
+		this.spawnSpeed = 200;
 		this.boardArray = [];
 		this.letterQuantity = 0;
 		this.alpha = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
@@ -28,7 +28,7 @@ class SpawnerScript extends Script {
 		this.combo = 0;
 		this.currentLetter = 0;
 
-		document.addEventListener('finish', () => {
+		this.addListener('finishGame', () => {
 				this.deleteAllLetter();
 		})
 	}
@@ -69,10 +69,10 @@ class SpawnerScript extends Script {
 
 			if (this.letterQuantity > 15 && this.deadTime == false) {
 				this.deadTime = true;
-				console.log("DEAD TIME !");
 				setTimeout(() => {
 					if (this.letterQuantity > 15) {
-						let evt = new Event("finish", {"bubbles":true, "cancelable":false});
+						console.log("EVENT FINISH");
+						let evt = new Event("finishGame", {"bubbles":true, "cancelable":false});
 						document.dispatchEvent(evt);
 					}
 					this.deadTime = false;
@@ -80,7 +80,6 @@ class SpawnerScript extends Script {
 			}
 		}
 
-		// console.log(this.letterQuantity);
 
 		for (let i = 0; i < 16; i++) {
 			if (i > 0 && this.boardArray[i]) {
@@ -90,9 +89,6 @@ class SpawnerScript extends Script {
 					this.boardArray[i - 1] = this.boardArray[i];
 					delete this.boardArray[i];
 				}
-				// else {
-				// 	console.log("alfred > ", this.boardArray[i - 1].script.letter)
-				// }
 			}
 		}
 	}
@@ -112,24 +108,20 @@ class SpawnerScript extends Script {
 			//
 					if (!(this.combo % 5))
 						this.activeCombo(this.boardArray[this.currentLetter].x, this.boardArray[this.currentLetter].y);
-					this.boardArray[this.currentLetter].script.deleteLetter();
+					this.boardArray[this.currentLetter].script.deleteLetter(true);
 					delete this.boardArray[this.currentLetter]
 					this.letterQuantity--;
 
-					console.log("Here1#  ");
 					if (this.boardArray[this.currentLetter - 1]) {
 						this.boardArray[this.currentLetter - 1].script.stone();
 						if (this.boardArray[this.currentLetter - 1].script.getStoneLife() < 11) {
-							console.log("Here2#  ");
-							this.boardArray[this.currentLetter - 1].script.deleteLetter();
+							this.boardArray[this.currentLetter - 1].script.deleteLetter(true);
 							delete this.boardArray[this.currentLetter - 1];
 							this.letterQuantity--;
 							this.currentLetter--;
-							console.log("Here3#  ");
 							for (let i = this.currentLetter - 1; i >= 0; i--) {
-								console.log("ICI ", this.boardArray[i].script.getStoneLife());
 								if (this.boardArray[i].script.getStoneLife() == 11) {
-									this.boardArray[i].script.deleteLetter();
+									this.boardArray[i].script.deleteLetter(true);
 									delete this.boardArray[i];
 									this.letterQuantity--;
 									this.currentLetter--;
@@ -139,9 +131,6 @@ class SpawnerScript extends Script {
 							}
 						}
 					}
-
-
-
 
 					this.combo++;
 				}
@@ -163,7 +152,6 @@ class SpawnerScript extends Script {
 
 	activeCombo(x, y) {
 
-		console.log("ACTIVE COMBO");
 
 		let event = new Event('combo');
 		document.dispatchEvent(event);
@@ -187,10 +175,9 @@ class SpawnerScript extends Script {
 	}
 
 	deleteAllLetter() {
-		console.log("Hello delete all letter");
 		for (let i = 0; i < this.boardArray.length; i++) {
 			if (this.boardArray[i]) {
-				this.boardArray[i].script.deleteLetter();
+				this.boardArray[i].script.deleteLetter(false);
 			}
 		}
 	}

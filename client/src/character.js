@@ -43,7 +43,6 @@ class Character {
 	}
 
 	render() {
-		// console.log("render me !");
 		let canvas = document.getElementById('canvas');
 		let ctx = canvas.getContext('2d');
 
@@ -58,16 +57,12 @@ class Character {
 	}
 
 	addAnimation(anim) {
-		console.log(anim[0], "hello");
 		anim.forEach((elem) => {
-			console.log(elem.name);
 			this.anim[elem.name] = elem;
 			this.anim[elem.name].image = new Image();
 			this.anim[elem.name].image.src = this.anim[elem.name].file;
 		});
-		// console.log("HERE@@@@@@@@@@@@@@@");
 		this.currentAnim = this.anim['idle'];
-		// console.log(this.anim['idle'].file);
 	}
 
 	playAnim() {
@@ -83,7 +78,6 @@ class Character {
 	}
 
 	changeAnim(animName) {
-		console.log("change ANIM !");
 		this.currentAnim = this.anim[animName];
 		this.currentFrame = 0;
 	}

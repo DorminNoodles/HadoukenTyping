@@ -64,14 +64,12 @@ class LetterScript extends Script {
 
 	stone() {
 
-		console.log("STONE ", this.stoneLife, ' ', this.letter);
 
 		if (!this.isStone) {
 			this.isStone = true;
 			this.object.render.changeAnim('stone01');
 		}
-		if (this.stoneLife == 19)
-			console.log("fuck you %%%%%%%%%%");
+
 		if (this.stoneLife == 18)
 			this.object.render.changeAnim('stone02');
 		if (this.stoneLife == 17)
@@ -96,15 +94,17 @@ class LetterScript extends Script {
 		return this.stoneLife;
 	}
 
-	deleteLetter() {
-		let scoreEvent = new CustomEvent("addScore", {
-			detail : {
-				'score': 100
-			},
-			"bubbles":true,
-			"cancelable":false
-		});
-		document.dispatchEvent(scoreEvent);
+	deleteLetter(withScore) {
+		if (withScore) {
+			let scoreEvent = new CustomEvent("addScore", {
+				detail : {
+					'score': 100
+				},
+				"bubbles":true,
+				"cancelable":false
+			});
+			document.dispatchEvent(scoreEvent);
+		}
 
 		this.gameObject.render.changeAnim('flash');
 		this.state = this.dead;
@@ -115,14 +115,16 @@ class LetterScript extends Script {
 		flashKill.render.addAnim(animFlash);
 
 
-		let score = new GameObject('score');
-		score.setPosition(this.object.x, this.object.y);
-		score.renderText = new RenderText('./gameFont1.png', "100", 15, 46);
-		score.addScript(new BoardScoreUI());
+		if (withScore) {
+			let score = new GameObject('score');
+			score.setPosition(this.object.x, this.object.y);
+			score.renderText = new RenderText('./gameFont1.png', "100", 15, 46);
+			score.addScript(new BoardScoreUI());
 
-		setTimeout(() => {
-			GameObject.delete(score);
-		}, 1000);
+			setTimeout(() => {
+				GameObject.delete(score);
+			}, 1000);
+		}
 
 		setTimeout(() => {
 			GameObject.delete(flashKill);
@@ -140,7 +142,6 @@ class LetterScript extends Script {
 	changePosition() {
 		if (this.position > 0)
 			this.position--;
-		// console.log(this.letter, "  HAAAAA > ", this.position);
 		// if (pos - 1 >= 0 && !board[pos - 1]) {
 		// 	this.position--;
 		// 	board[pos - 1] = object;

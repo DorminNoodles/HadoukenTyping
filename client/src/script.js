@@ -5,20 +5,20 @@ class Script {
 
 	constructor() {
 		this.eventListeners = [];
-		this.objs = [];
+		this.childs = [];
 	}
 
 	static delete(script) {
 		Script.deleteAllListeners(script);
-		for (let obj in script.objs) {
-			GameObject.delete(script.objs[obj]);
-			delete script.objs[obj];
+		for (let obj in script.childs) {
+			GameObject.delete(script.childs[obj]);
+			delete script.childs[obj];
 		}
 
 	}
 
 	newObject(obj) {
-		this.objs.push(obj);
+		this.childs.push(obj);
 		return obj;
 	}
 
@@ -28,8 +28,7 @@ class Script {
 	}
 
 	deleteObject(obj){
-		// for
-		console.log("DELETE IN SCRIPT > ", obj.id);
+
 	}
 
 	static deleteAllListeners(s) {

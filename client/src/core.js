@@ -22,14 +22,13 @@ class Core {
 	update() {
 
 		this.gameObjectList.forEach((objet) => {
-			if (objet.script) {
+			if (objet.script && objet.script.update) {
 				objet.script.update();
 			}
 		});
 	}
 
 	deleteObject(id) {
-		// console.log(this.gameObjectList);
 		delete this.gameObjectList[id];
 	}
 }

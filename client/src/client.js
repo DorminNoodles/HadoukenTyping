@@ -8,16 +8,6 @@ const io = require('socket.io-client');
 // const cs = checksum()
 // const fs = require('fs');
 //
-//
-// checksum.file('letterScript.js', (err, sum) => {
-//
-// 	console.log('CHECKSUM >>  ', sum);
-// })
-
-
-
-
-
 
 import RenderManager from './renderManager';
 import Core from './core';
@@ -31,13 +21,6 @@ import Network from './network';
 
 import MainMenu from './mainMenu';
 import {closeMainMenu, openMainMenu} from './mainMenu';
-
-
-import Garbage from './testGarbage';
-
-let soap = new Garbage();
-
-soap = undefined;
 
 const alpha = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
 
@@ -81,7 +64,6 @@ let scores;
 let username;
 let gameStateEvent = new CustomEvent("gameState", {detail : { 'username': username}, bubbles: true, cancelable: false});
 
-window.scrollBy(-1, -1);
 // let idle = new Animation();
 // let punch = new Animation2();
 // let gameRender = new Render();
@@ -94,12 +76,8 @@ window.scrollBy(-1, -1);
 // }, 100);
 
 //
-// socket.on('connection', () => {
-// 	console.log("SOCKET IO");
-// });
 //
 // socket.on('allPlayersId', (data) => {
-// 	console.log(data);
 // 	if (gameState != "fight") {
 // 		displayPlayersId(data);
 // 	}
@@ -142,43 +120,19 @@ window.scrollBy(-1, -1);
 // });
 
 Network.socket.on('getScores', (data) => {
-	console.log("getScore !");
-	console.log(data);
 	scores = data;
 	displayScore(data);
 })
 
 function displayScore(scores) {
-	console.log('display score');
-	console.log(scores);
-	// scores.forEach((score) => {
 
 	for (let user in scores) {
 		let divScores = document.getElementById('scores');
 		let newDiv = document.createElement('span');
 
-		console.log("score in scores >> ", user);
-
 		newDiv.innerHTML = (parseInt(user) + 1) + ' ' + scores[user].username + ' ' + scores[user].score;
-		// newDiv.innerHTML =;
-
 		divScores.appendChild(newDiv);
-		// console.log('for >>> ', scores);
 	}
-
-}
-
-document.addEventListener('keydown', (e) => {
-	// console.log(e);
-	if (e.key == 'u') {
-		console.log(Core.getGameObjectList());
-	}
-});
-
-function restartMatch() {
-	console.log("restart !!!!!");
-	// let menu = document.getElementById("againMenuOpen");
-	// menu.removeAttribute("id");
 }
 
 function quitMatch() {
@@ -186,7 +140,6 @@ function quitMatch() {
 
 	menu.style.top = "-300px";
 	menu.style.animationName = "close";
-	console.log("QUIT !!!!!");
 }
 
 function displayAgainMenu() {
@@ -239,12 +192,9 @@ function displayLose() {
 
 function displayPlayersId(list) {
 
-	console.log("DISPLAY PLAYER CHOICE");
-	console.log(list);
 	let myElements = document.body.getElementsByClassName('playerChoiceButton');
 	if (myElements) {
 		let arr = [...myElements];//convert htmlCollection to array
-		console.log(arr);
 		arr.forEach((elem) => {
 			elem.parentNode.removeChild(elem);
 		});
@@ -253,7 +203,6 @@ function displayPlayersId(list) {
 }
 
 function requestPlayer(id) {
-	console.log(id);
 	cleanPlayersId();
 	displayChrono();
 }
@@ -368,7 +317,6 @@ function cleanLetters() {
 	let myElements = document.body.getElementsByClassName('Letters');
 	if (myElements) {
 		let arr = [...myElements];//convert htmlCollection to array
-		console.log(arr);
 		arr.forEach((elem) => {
 			elem.parentNode.removeChild(elem);
 		});
@@ -377,7 +325,6 @@ function cleanLetters() {
 	let myElements2 = document.body.getElementsByClassName('LettersOK');
 	if (myElements2) {
 		let arr = [...myElements2];//convert htmlCollection to array
-		console.log(arr);
 		arr.forEach((elem) => {
 			elem.parentNode.removeChild(elem);
 		});
@@ -392,7 +339,6 @@ function displaySocketId() {
 	// newDiv.appendChild(newContent);
 	// document.getElementById("myId").appendChild(newDiv);
 	//
-	// console.log(socket.id);
 }
 
 function takeDamageFeedback() {
@@ -428,6 +374,7 @@ function render() {
 
 document.addEventListener("SoloGameStart", (e) => {
 
+	console.log("HERE START");
 	closeMainMenu();
 
 	let gameCanvas = document.getElementById('gameCanvas');
@@ -438,10 +385,13 @@ document.addEventListener("SoloGameStart", (e) => {
 	gameCanvas.height = window.innerHeight;
 	gameCanvas.style.animationName = 'gameCanvasOpen';
 
-	if (game){
-		game.deleteGame();
-	}
-	game = new Game('solo', e.detail.username);
+	// if (game) {
+	// 	console.log("delete game in client")
+	// 	game.deleteGame();
+	// }
+	game = new GameObject('game');
+	game.addScript(new Game(e.detail.username));
+	// game = new gameObject('game', e.detail.username);
 })
 
 document.addEventListener("OpenMainMenu", (e) => {
@@ -460,11 +410,6 @@ function closeGameCanvas() {
 
 // document.addEventListener("gameState", (e) => {
 //
-// 	console.log("GAME !!!!!!");
-// 	console.log("GAME STATE >> ", gameState);
-// 	console.log("USERNAME >> ", username);
-//
-// 	console.log("HELLOOOOOOO", this);
 //
 // 	if (gameState == 'solo' && username) {
 // 		game = new Game('solo', username);
@@ -481,7 +426,6 @@ function closeGameCanvas() {
 // 	let versus = document.getElementById('versus');
 // 	let solo = document.getElementById('solo');
 //
-// 	console.log("launch gameState Event");
 // 	gameCanvas.style.display = 'flex';
 //
 // 	versus.style.top = '-400px';
@@ -510,7 +454,6 @@ function init() {
 	let versus = document.getElementById('versus');
 
 	versus.onclick = () => {
-		console.log("onClickVersus");
 		gameState = 'versus';
 		document.dispatchEvent(gameStateEvent);
 	}
@@ -532,13 +475,10 @@ function saveUsername() {
 
 	let input = document.getElementById("inputUsername");
 	let form = document.getElementById("usernameForm");
-	// let myUsername = document.getElementById("myUsername");
-	// let myScore = document.getElementById("myScore");
 	let blackDrop = document.getElementById("blackDrop");
 
 	if (input.value.length > 2 && input.value.length < 30 && input.value.match(/^[A-Za-z]+$/)) {
 		blackDrop.style.display = 'none';
-		// socket.emit('saveUsername', input.value);
 		form.style.display = 'none';
 		username = input.value.toLowerCase()
 		myUsername.appendChild(document.createTextNode(input.value.toLowerCase()));
@@ -550,12 +490,8 @@ window.onload = init;
 
 
 document.addEventListener('SoloGameStart', () => {
-	console.log("ALFRED !!!!");
+
 })
-
-
-console.log(GameObject.listOfAll());
-
 
 //test_1
 // console.log(getLetters(2));

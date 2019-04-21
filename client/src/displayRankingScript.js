@@ -8,6 +8,8 @@ class DisplayRankingScript extends Script {
 	constructor(username) {
 		super();
 
+
+
 		this.objects = [];
 		this.getScore = false;// if server send score 2 or more times
 
@@ -16,9 +18,7 @@ class DisplayRankingScript extends Script {
 			if (!this.getScore) {
 				this.getScore = true;
 				setTimeout(() => {
-					console.log("GET SCORE 1234");
 					let tmpScores = [];
-					console.log("HERE   >> ", username);
 					let rank = this.getRanking(scores, username);
 					tmpScores = this.fillScores(scores, rank, username);
 					tmpScores.sort(function(a, b) {
@@ -82,9 +82,7 @@ class DisplayRankingScript extends Script {
 	}
 
 	getRanking(scores, username) {
-		console.log("START HERE");
 		for (let i = 0; i < scores.length; i++) {
-			console.log(scores[i].username);
 			if (scores[i] && scores[i].username) {
 				if (scores[i].username.toLowerCase() == username.toLowerCase())
 				return i;
