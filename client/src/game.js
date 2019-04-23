@@ -1,15 +1,16 @@
 import DisplayRankingScript from './displayRankingScript';
+import SoloFinishAnim from './soloFinishAnim';
 import SpawnerScript from './spawnerScript';
 import RenderManager from './renderManager';
 import ControllerScript from './controller';
 import EndMenuScript from './endMenuScript';
-import SoloFinishAnim from './soloFinishAnim';
 import GameObject from './gameObject';
 import RenderText from './renderText';
 import Render from './render';
 import Script from './script';
 import Score from './score';
 import Core from './core';
+import scoreUI from './gameObjects/scoreUI/scoreUI';
 
 
 class Game extends Script {
@@ -20,12 +21,12 @@ class Game extends Script {
 		this.canvas = document.getElementById('canvas');
 		this.ctx = canvas.getContext('2d');
 
-
 		this.renderManager = new RenderManager();
+		this.scoreManager = new Score();
+		this.username = username;
+		this.score = 0;
 
-		// this.canvasBackground();
 		this.initSolo();
-
 
 		setTimeout(() => {
 			this.gameLoop();
@@ -33,6 +34,15 @@ class Game extends Script {
 
 		this.addListener('finishGame', () => {
 			this.endSolo();
+		});
+
+		this.addListener('addScore', (e) => {
+			this.addScore(e.detail.score);
+		});
+
+		this.addListener('combo', () => {
+			// this.addCombo();
+			this.scoreManager.addCombo();
 		})
 	}
 
@@ -60,13 +70,15 @@ class Game extends Script {
 		this.spawner.script = new SpawnerScript();
 		this.controller.script = new ControllerScript(this.spawner);
 
-		this.scoreUI = this.newObject(new GameObject('scoreUI'));
+		this.scoreUI = scoreUI();
+		// console.log()
+		// this.scoreUI = this.newObject(new GameObject('scoreUI'));
 		// self.scoreUIBackground = new GameObject('scoreUIBackground');
 		// self.scoreUIBackground.render = new Render('./backgroundScore.png');
 		// self.scoreUIBackground.setPosition(650, 10);
 
-		this.scoreUI.setPosition(650, 30);
-		this.scoreUI.renderText = new RenderText('./gameFont1.png', '00000', 15, 46);
+		// this.scoreUI.setPosition(650, 30);
+		// this.scoreUI.renderText = new RenderText('./gameFont1.png', '00000', 15, 46);
 		//
 		// self.comboUI = new GameObject('comboUI');
 		// self.comboUI.setPosition(400, 10);
@@ -74,16 +86,15 @@ class Game extends Script {
 	}
 
 	endSolo() {
-		// console.log("END SOLO 1432");
-		// this.scoreManager.saveScore({
-		// 	"score": self.score,
-		// 	"username": self.username
-		// });
+		this.scoreManager.saveScore({
+			"score": this.scoreManager.playerScore,
+			"username": this.username
+		});
 
 		GameObject.delete(this.spawner);
 		GameObject.delete(this.boardBar);
+		GameObject.delete(this.scoreUI);
 		// GameObject.delete(self.scoreUIBackground);
-		// GameObject.delete(self.scoreUI);
 		// GameObject.delete(self.comboUI);
 
 
@@ -115,7 +126,14 @@ class Game extends Script {
 		//
 		// }, 2500);
 
+	}
 
+	addScore(score) {
+		this.scoreManager.addScore(score);
+
+		// let zeros = this.stringZeros(this.score.toString(), 12);
+
+		// this.scoreUI.renderText.changeText(zeros + this.score.toString());
 	}
 
 	// canvasBackground() {
@@ -202,7 +220,6 @@ class Game extends Script {
 // 	}
 //
 // 	finish(self) {
-// 		console.log("FINISH CALL 456");
 // 		this.endSolo(self);
 // 		// self.changeState("endGame");
 // 		// self.scoreManager.saveScore({
@@ -263,7 +280,6 @@ class Game extends Script {
 // 	}
 //
 // 	endSolo(self) {
-// 		console.log("END SOLO 1432");
 // 		self.scoreManager.saveScore({
 // 			"score": self.score,
 // 			"username": self.username
@@ -303,7 +319,6 @@ class Game extends Script {
 // 			self.endMenu.addScript(new EndMenuScript(self.username));
 //
 // 		}, 2500);
-//
 //
 // 	}
 //
@@ -385,8 +400,7 @@ class Game extends Script {
 //
 // 		document.removeEventListener("finishGame", this._finish);
 // 		document.removeEventListener("addScore", this._addScore);
-//
-//
+
 // 		setTimeout(() => {
 // 			cancelAnimationFrame(this.reqAnimGameLoop);
 // 		}, 120);

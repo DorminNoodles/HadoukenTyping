@@ -5,7 +5,7 @@ class GameObject {
 
 	constructor(name) {
 		this.id = Core.addObject(this);
-		console.log("create > ", this.id, " : ", name);
+		// console.log("create > ", this.id, " : ", name);
 		this.name = name;
 		this.render;
 		this.script;
@@ -49,7 +49,6 @@ class GameObject {
 	static getGameObject(id) {
 		let list = Core.getGameObjectList();
 
-
 		for (let i = 0; i < list.length; i++) {
 			if (list[i] && list[i].id === id) {
 				return list[i];
@@ -58,8 +57,6 @@ class GameObject {
 	}
 
 	static delete(object) {
-
-		console.log(object.id, " : ", object.name);
 
 		if (object.script) {
 			Script.delete(object.script);

@@ -1,5 +1,5 @@
 import { animFlash } from './anim/animFlash';
-import BoardScoreUI from './boardScoreUI';
+import letterScoreUI from './letterScoreUI';
 import GameObject from './gameObject';
 import RenderText from './renderText';
 import Render from './render';
@@ -59,7 +59,6 @@ class LetterScript extends Script {
 	dead() {
 		this.object.move(0, this.deadMove);
 		this.deadMove += 5;
-
 	}
 
 	stone() {
@@ -116,14 +115,24 @@ class LetterScript extends Script {
 
 
 		if (withScore) {
-			let score = new GameObject('score');
-			score.setPosition(this.object.x, this.object.y);
-			score.renderText = new RenderText('./gameFont1.png', "100", 15, 46);
-			score.addScript(new BoardScoreUI());
 
-			setTimeout(() => {
-				GameObject.delete(score);
-			}, 1000);
+			// let = new CustomEvent('')
+			let eventLetterScoreUI = new CustomEvent("showLetterScore", {
+				detail : {
+					'x' : this.object.x,
+					'y' : this.object.y,
+				}
+			});
+			document.dispatchEvent(eventLetterScoreUI);
+
+			// let score = new GameObject('score');
+			// score.setPosition(this.object.x, this.object.y);
+			// score.renderText = new RenderText('./gameFont1.png', "100", 15, 46);
+			// score.addScript(new letterScoreUI());
+			//
+			// setTimeout(() => {
+			// 	GameObject.delete(score);
+			// }, 1000);
 		}
 
 		setTimeout(() => {
