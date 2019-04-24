@@ -9,6 +9,8 @@ class Render {
 		this.isAnimated = false;
 		this.currentFrame = 0;
 		this.nextFrameTime = 0;
+
+		this.opacity = 1.0;
 	}
 
 	addAnim(anim) {
@@ -58,6 +60,10 @@ class Render {
 				this.nextFrameTime = Date.now() + speed;
 			}
 		}
+	}
+
+	changeOpacity(opacity) {
+		this.opacity = opacity;
 	}
 
 	changeAnim(currentAnim, nextAnim) {

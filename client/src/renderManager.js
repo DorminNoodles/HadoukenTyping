@@ -10,10 +10,18 @@ class RenderManager extends Script {
 		this.ctx = canvas.getContext("2d");
 		this.shake = 0;
 		this.flash = 0;
+		this.pressShake = 0;
+		this.pressShakeForce = 1;
 
 		this.addListener('badLetter', () => {
 			this.flash = 100;
 			this.shake = 10;
+		});
+
+		this.addListener('pressShake', (e) => {
+			this.pressShake = 3;
+			this.pressShakeForce = e.detail.force;
+			this.pressShakeForce = (this.pressShakeForce > 25) ? 25 : this.pressShakeForce;
 		});
 	}
 
@@ -25,9 +33,14 @@ class RenderManager extends Script {
 		originX = (this.getRandomInt(40) % 2 > 0) ? -originX : originX;
 		originY = (this.getRandomInt(40) % 2 > 0) ? -originY : originY;
 
+		originY = (this.pressShake > 0) ? this.pressShakeForce : 0;
+
 		objets.forEach((objet) => {
 			if (objet.render) {
+				if (objet.render.opacity != 1.0)
+					this.ctx.globalAlpha = objet.render.opacity;
 				objet.render.draw(this.ctx, objet.x + originX, objet.y + originY);
+				this.ctx.globalAlpha = 1.0;
 			}
 		})
 
@@ -46,12 +59,16 @@ class RenderManager extends Script {
 
 		if (this.shake > 0)
 			this.shake--;
+
+		if (this.pressShake > 0)
+			this.pressShake--;
 	}
 
 	flashScreen(self) {
 		console.log("FLASHSCREEN");
 		console.log(self);
 	}
+
 
 	getRandomInt(max) {
 	  return Math.floor(Math.random() * Math.floor(max));

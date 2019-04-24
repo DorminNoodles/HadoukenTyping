@@ -66,6 +66,11 @@ class SpawnerScript extends Script {
 			this.letterQuantity++;
 			this.nextSpawn = Date.now() + this.spawnSpeed + ((this.letterQuantity * this.letterQuantity));
 
+			let eventLetterSpawned = new CustomEvent("letterSpawned", {
+				detail : {'qty' : this.letterQuantity}
+			});
+			document.dispatchEvent(eventLetterSpawned);
+
 
 			if (this.letterQuantity > 15 && this.deadTime == false) {
 				this.deadTime = true;

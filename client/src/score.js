@@ -70,8 +70,20 @@ class Score extends Script {
 		});
 		document.dispatchEvent(eventScoreUI);
 
+		this.pressShakeEvent();
 		// let event = new CustomEvent('displayScoreUI', {'detail' : {'score' : this.playerScore}};
 		// document.dispatchEvent(eventScore);
+	}
+
+	pressShakeEvent() {
+		if (this.combo > 4) {
+			let pressShakeEvent = new CustomEvent("pressShake", {
+				detail : {
+					'force': Math.floor(this.combo / 4)
+				}
+			});
+			document.dispatchEvent(pressShakeEvent);
+		}
 	}
 }
 

@@ -124,15 +124,6 @@ class LetterScript extends Script {
 				}
 			});
 			document.dispatchEvent(eventLetterScoreUI);
-
-			// let score = new GameObject('score');
-			// score.setPosition(this.object.x, this.object.y);
-			// score.renderText = new RenderText('./gameFont1.png', "100", 15, 46);
-			// score.addScript(new letterScoreUI());
-			//
-			// setTimeout(() => {
-			// 	GameObject.delete(score);
-			// }, 1000);
 		}
 
 		setTimeout(() => {

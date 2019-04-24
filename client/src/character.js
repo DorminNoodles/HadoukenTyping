@@ -4,7 +4,6 @@
 
 //take json anim
 
-
 class Character {
 
 	constructor(x, y, reverse){

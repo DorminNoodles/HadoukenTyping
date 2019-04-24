@@ -11,6 +11,7 @@ import Script from './script';
 import Score from './score';
 import Core from './core';
 import scoreUI from './gameObjects/scoreUI/scoreUI';
+import blackDeathUI from './gameObjects/blackDeathUI/blackDeathUI';
 
 
 class Game extends Script {
@@ -71,6 +72,8 @@ class Game extends Script {
 		this.controller.script = new ControllerScript(this.spawner);
 
 		this.scoreUI = scoreUI();
+
+		this.blackDeathUI = blackDeathUI();
 		// console.log()
 		// this.scoreUI = this.newObject(new GameObject('scoreUI'));
 		// self.scoreUIBackground = new GameObject('scoreUIBackground');
