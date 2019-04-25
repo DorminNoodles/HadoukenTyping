@@ -16,10 +16,7 @@ class BlackDeathUIScript extends Script {
 				this.object.render.opacity = opacity;
 			}
 		})
-
 	}
-
-
 }
 
 export default BlackDeathUIScript;

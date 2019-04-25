@@ -94,6 +94,22 @@ class LetterScript extends Script {
 	}
 
 	deleteLetter(withScore) {
+
+		// 1 define score
+
+		let currentScore = (withScore) ? 100 : 0;
+
+		let eventDelete = new CustomEvent("deleteLetter", {
+			detail : {
+				'score': currentScore,
+				'x' : this.object.x,
+				'y' : this.object.y
+			},
+			"bubbles":true,
+			"cancelable":false
+		});
+		document.dispatchEvent(eventDelete);
+
 		if (withScore) {
 			let scoreEvent = new CustomEvent("addScore", {
 				detail : {
