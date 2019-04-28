@@ -14,9 +14,6 @@ const numberKeysUI = () => {
 	obj.setPosition(150, 120);
 
 
-	// text.addScript()
-
-
 
 
 	return obj;
