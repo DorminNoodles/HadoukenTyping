@@ -29,8 +29,6 @@ class GameObject {
 	}
 
 	addScript(script) {
-		console.log(script);
-		console.log(script, '  ', this.id);
 		script.gameObjectId = this.id;
 		this.script = script;
 		script.object = this;

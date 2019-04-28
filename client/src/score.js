@@ -59,10 +59,7 @@ class Score extends Script {
 	}
 
 	addScore(score) {
-		console.log("ScoreManager >> ", score);
 		this.playerScore += (score * this.combo);
-		console.log("player >> ", (score * this.combo));
-		console.log("playerScore >> ", this.playerScore);
 
 
 		let eventScoreUI = new CustomEvent("displayScoreUI", {

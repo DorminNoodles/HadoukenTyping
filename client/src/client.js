@@ -72,7 +72,6 @@ let gameStateEvent = new CustomEvent("gameState", {detail : { 'username': userna
 //
 // setInterval(() => {
 // 	window.moveBy(5,5);
-// 	console.log(gameState);
 // }, 100);
 
 //
@@ -374,7 +373,7 @@ function render() {
 
 document.addEventListener("SoloGameStart", (e) => {
 
-	console.log("HERE START");
+	// console.log("HERE START");
 	closeMainMenu();
 
 	let gameCanvas = document.getElementById('gameCanvas');
@@ -386,7 +385,6 @@ document.addEventListener("SoloGameStart", (e) => {
 	gameCanvas.style.animationName = 'gameCanvasOpen';
 
 	// if (game) {
-	// 	console.log("delete game in client")
 	// 	game.deleteGame();
 	// }
 	game = new GameObject('game');
@@ -499,5 +497,4 @@ document.addEventListener('SoloGameStart', () => {
 
 //test_2
 // document.addEventListener('keydown', (event) => {
-// 	console.log(event.key);
 // });

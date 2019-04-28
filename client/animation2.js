@@ -64,7 +64,6 @@ class Animation2 {
 		let i = 0;
 		let inter = setInterval(() => {
 			i++;
-			// console.log(test);
 			this.drawImage();
 
 			if (i == 4)

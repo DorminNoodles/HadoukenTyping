@@ -1,4 +1,4 @@
-import Script from './script';
+import Script from '../../script';
 
 class SpeedWordUIScript extends Script {
 
@@ -7,7 +7,7 @@ class SpeedWordUIScript extends Script {
 	}
 
 	update() {
-		// this.object.move(0, -4)
+		this.object.move(0, 0)
 	}
 }
 

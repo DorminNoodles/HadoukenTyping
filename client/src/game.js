@@ -12,14 +12,10 @@ import Score from './score';
 import Core from './core';
 import scoreUI from './gameObjects/scoreUI/scoreUI';
 import blackDeathUI from './gameObjects/blackDeathUI/blackDeathUI';
-<<<<<<< HEAD
 import numberKeysUI from './gameObjects/numberKeysUI/numberKeysUI';
-import cursorUI from './gameObjects/cursorUI'
-=======
-// import numberKeysUI from './gameObjects/numberKeysUI/numberKeysUI';
 import cursorUI from './gameObjects/cursorUI/cursorUI';
 import speedProfiler from './gameObjects/speedProfiler/speedProfiler';
->>>>>>> cc6f803c6169a3e2831d791ebf0db54c1d3ebc89
+import endGameMenu from './gameObjects/endGameMenu/endGameMenu';
 
 
 class Game extends Script {
@@ -82,17 +78,13 @@ class Game extends Script {
 		this.scoreUI = scoreUI();
 
 		this.blackDeathUI = this.newObject(blackDeathUI());
-<<<<<<< HEAD
 		this.numberKeysUI = this.newObject(numberKeysUI());
-
-=======
 		this.speedProfiler = this.newObject(speedProfiler());
 		// speedProfiler();
 
 
 		// this.numberKeysUI = this.newObject(numberKeysUI());
 		// console.log()
->>>>>>> cc6f803c6169a3e2831d791ebf0db54c1d3ebc89
 		// this.scoreUI = this.newObject(new GameObject('scoreUI'));
 		// self.scoreUIBackground = new GameObject('scoreUIBackground');
 		// self.scoreUIBackground.render = new Render('./backgroundScore.png');
@@ -115,15 +107,19 @@ class Game extends Script {
 		GameObject.delete(this.spawner);
 		GameObject.delete(this.boardBar);
 		GameObject.delete(this.scoreUI);
-		// GameObject.delete(this.numberKeysUI);
+		GameObject.delete(this.numberKeysUI);
 		// GameObject.delete(self.scoreUIBackground);
 		// GameObject.delete(self.comboUI);
 
 
 		this.finishScorePanel = this.newObject(new GameObject('finishScorePanel'));
-		this.finishScorePanel.setPosition(420, -1800);
+		this.finishScorePanel.setPosition(420, -5000);
 		this.finishScorePanel.render = new Render('./finishScore.png');
 		this.finishScorePanel.addScript(new SoloFinishAnim());
+
+		setTimeout(() => {
+			this.endGameMenu = this.newObject(endGameMenu());
+		}, 600);
 
 		// self.scoreText = new GameObject('scoreText');
 		// self.scoreText.setPosition(650, 300);
@@ -400,10 +396,7 @@ class Game extends Script {
 // 			GameObject.delete(this.scoreText);
 // 		if (this.endMenu) {
 // 			GameObject.delete(this.endMenu);
-// 			console.log("delete end Menu");
 // 		}
-// 		else
-// 			console.log("NO END MENU");
 // 		if (this.controller)
 // 			GameObject.delete(this.controller);
 // 		if (this.boardBar)

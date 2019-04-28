@@ -9,9 +9,6 @@ const cursorUI = () => {
 	// obj.addScript(new CursorUIScript);
 
 	obj.render = new Render('./cursorUI.png');
-	// obj.render.addAnim(idle);
-
-
 	return obj;
 }
 

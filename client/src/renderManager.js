@@ -65,10 +65,8 @@ class RenderManager extends Script {
 	}
 
 	flashScreen(self) {
-		console.log("FLASHSCREEN");
-		console.log(self);
-	}
 
+	}
 
 	getRandomInt(max) {
 	  return Math.floor(Math.random() * Math.floor(max));

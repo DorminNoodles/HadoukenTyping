@@ -8,7 +8,7 @@ class EndMenuScript extends Script{
 
 	constructor(username) {
 
-		console.log("Create end menu");
+		// console.log("Create end menu");
 		super();
 
 		this.username = username;
@@ -27,7 +27,6 @@ class EndMenuScript extends Script{
 
 		this.pos = 0;
 
-
 		this.addListener('ArrowKey', (e) => {
 			if (e.detail.keyCode === 40) {
 				this.pos++;
@@ -42,7 +41,6 @@ class EndMenuScript extends Script{
 
 		this.addListener('keydown', (e) => {
 			if (e.keyCode == 13) {
-				console.log("keydown ENTER");
 				this.pressEnter();
 			}
 		})

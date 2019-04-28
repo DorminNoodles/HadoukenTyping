@@ -35,7 +35,6 @@ class Script {
 		if (s.eventListeners) {
 			let list = s.eventListeners;
 			for (let key in list) {
-				console.log(key);
 				document.removeEventListener(list[key].name, list[key].func);
 			}
 		}

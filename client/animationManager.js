@@ -11,7 +11,6 @@ class AnimationManager {
 	}
 
 	// anim = () => {
-	// 	console.log("animation");
 	// }
 
 
