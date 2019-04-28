@@ -12,8 +12,14 @@ import Score from './score';
 import Core from './core';
 import scoreUI from './gameObjects/scoreUI/scoreUI';
 import blackDeathUI from './gameObjects/blackDeathUI/blackDeathUI';
+<<<<<<< HEAD
 import numberKeysUI from './gameObjects/numberKeysUI/numberKeysUI';
 import cursorUI from './gameObjects/cursorUI'
+=======
+// import numberKeysUI from './gameObjects/numberKeysUI/numberKeysUI';
+import cursorUI from './gameObjects/cursorUI/cursorUI';
+import speedProfiler from './gameObjects/speedProfiler/speedProfiler';
+>>>>>>> cc6f803c6169a3e2831d791ebf0db54c1d3ebc89
 
 
 class Game extends Script {
@@ -76,8 +82,17 @@ class Game extends Script {
 		this.scoreUI = scoreUI();
 
 		this.blackDeathUI = this.newObject(blackDeathUI());
+<<<<<<< HEAD
 		this.numberKeysUI = this.newObject(numberKeysUI());
 
+=======
+		this.speedProfiler = this.newObject(speedProfiler());
+		// speedProfiler();
+
+
+		// this.numberKeysUI = this.newObject(numberKeysUI());
+		// console.log()
+>>>>>>> cc6f803c6169a3e2831d791ebf0db54c1d3ebc89
 		// this.scoreUI = this.newObject(new GameObject('scoreUI'));
 		// self.scoreUIBackground = new GameObject('scoreUIBackground');
 		// self.scoreUIBackground.render = new Render('./backgroundScore.png');
