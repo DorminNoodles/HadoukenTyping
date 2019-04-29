@@ -14,7 +14,6 @@ class Script {
 			GameObject.delete(script.childs[obj]);
 			delete script.childs[obj];
 		}
-
 	}
 
 	newObject(obj) {

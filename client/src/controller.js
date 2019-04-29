@@ -8,7 +8,6 @@ class Controller extends Script{
 
 		this.keyList = [];
 
-
 		this.addListener('keydown', (e) => {
 			if (!this.keyList[e.keyCode]) {
 				this.keyList[e.keyCode] = true;
@@ -35,8 +34,8 @@ class Controller extends Script{
 				detail : {
 					'keyCode': e.keyCode
 				},
-				"bubbles":true,
-				"cancelable":false
+				"bubbles": true,
+				"cancelable": false
 			});
 			document.dispatchEvent(arrowEvent);
 		}

@@ -80,6 +80,7 @@ class Game extends Script {
 		this.blackDeathUI = this.newObject(blackDeathUI());
 		this.numberKeysUI = this.newObject(numberKeysUI());
 		this.speedProfiler = this.newObject(speedProfiler());
+
 		// speedProfiler();
 
 
@@ -113,13 +114,13 @@ class Game extends Script {
 
 
 		this.finishScorePanel = this.newObject(new GameObject('finishScorePanel'));
-		this.finishScorePanel.setPosition(420, -5000);
+		this.finishScorePanel.setPosition(420, -1800);
 		this.finishScorePanel.render = new Render('./finishScore.png');
 		this.finishScorePanel.addScript(new SoloFinishAnim());
 
 		setTimeout(() => {
 			this.endGameMenu = this.newObject(endGameMenu());
-		}, 600);
+		}, 1200);
 
 		// self.scoreText = new GameObject('scoreText');
 		// self.scoreText.setPosition(650, 300);

@@ -1,7 +1,5 @@
 import Script from "../../script";
 
-
-
 class NumberKeysUIScript extends Script {
 	constructor() {
 		super();
