@@ -64,7 +64,6 @@ class EndMenuScript extends Script{
 
 	pressEnter() {
 		if (this.pos == 0) {
-			// console.log("EVENT SOLOGAME");
 			let soloGameStart = new CustomEvent('SoloGameStart', {'detail': {'username': this.username}});
 			document.dispatchEvent(soloGameStart);
 		}

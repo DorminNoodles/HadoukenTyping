@@ -13,6 +13,9 @@ class Render {
 		this.opacity = 1.0;
 
 		this.zIndex = 0;
+
+		this.offsetX = 0;
+		this.offsetY = 0;
 	}
 
 	addAnim(anim) {
@@ -53,8 +56,8 @@ class Render {
 				sY,
 				width,
 				height,
-				x,
-				y,
+				x + this.offsetX,
+				y + this.offsetY,
 				width,
 				height
 			);
@@ -81,6 +84,11 @@ class Render {
 			this.nextAnim = nextAnim;
 		else
 			this.nextAnim = undefined;
+	}
+
+	setOffset(x, y) {
+		this.offsetX = x;
+		this.offsetY = y;
 	}
 
 }

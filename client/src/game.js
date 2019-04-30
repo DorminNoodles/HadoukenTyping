@@ -46,7 +46,6 @@ class Game extends Script {
 		});
 
 		this.addListener('combo', () => {
-			// this.addCombo();
 			this.scoreManager.addCombo();
 		})
 	}
@@ -87,7 +86,6 @@ class Game extends Script {
 
 
 		// this.numberKeysUI = this.newObject(numberKeysUI());
-		// console.log()
 		// this.scoreUI = this.newObject(new GameObject('scoreUI'));
 		// self.scoreUIBackground = new GameObject('scoreUIBackground');
 		// self.scoreUIBackground.render = new Render('./backgroundScore.png');

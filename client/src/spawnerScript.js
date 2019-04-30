@@ -9,7 +9,9 @@ import GameObject from './gameObject';
 import Render from './render';
 import Script from './script';
 
+
 import cursorUI from './gameObjects/cursorUI/cursorUI';
+import letterAsian from './gameObjects/letterAsian/letterAsian';
 
 
 class SpawnerScript extends Script {
@@ -18,7 +20,7 @@ class SpawnerScript extends Script {
 		super();
 		this.begin = Date.now();
 		this.nextSpawn = Date.now() + 2000;
-		this.spawnSpeed = 500;
+		this.spawnSpeed = 800;
 		// this.spawnSpeed = 200;
 		this.boardArray = [];
 		this.letterQuantity = 0;
@@ -27,8 +29,11 @@ class SpawnerScript extends Script {
 		this.changeSpeedDelay = 4000;
 		this.speedReduce = 20;
 		this.deadTime = false; //additional time before realy dead
+		this.chain = 0;
 		this.combo = 0;
 		this.currentLetter = 0;
+		this.totalLetters = 0;
+		this.doubleShot = false;
 
 		this.addListener('finishGame', () => {
 				this.deleteAllLetter();
@@ -38,7 +43,6 @@ class SpawnerScript extends Script {
 	}
 
 	update() {
-
 
 		if (this.boardArray[this.currentLetter]) {
 			this.cursorUI.setPosition(this.boardArray[this.currentLetter].x - 20, this.boardArray[this.currentLetter].y - 26);
@@ -52,26 +56,12 @@ class SpawnerScript extends Script {
 
 		if (this.nextSpawn < Date.now()) {
 
-			let letter = this.newObject(new GameObject('letter'));
-			let rand = this.getRandomInt(5);
-			let randomLetter = this.alpha[rand];
+			this.totalLetters++;
+			if (this.totalLetters % 5)
+				this.spawnStandardLetter();
+			else
+				this.spawnAsianLetter();
 
-			this.boardArray[15] = letter;
-			letter.render = new Render('./boutonLetters.png');
-
-			letter.render.addAnim(anim['anim' + randomLetter.toUpperCase()]);
-			letter.render.addAnim(anim['anim' + randomLetter.toUpperCase() + 'Flash']);
-			letter.render.addAnim(anim['animStone01']);
-			letter.render.addAnim(anim['animStone02']);
-			letter.render.addAnim(anim['animStone03']);
-			letter.render.addAnim(anim['animStone04']);
-			letter.render.addAnim(anim['animStone05']);
-			letter.render.addAnim(anim['animStone06']);
-			letter.render.addAnim(anim['animStone07']);
-			letter.render.addAnim(anim['animStone08']);
-			letter.render.addAnim(anim['animStone09']);
-			letter.setPosition(1340, 252);
-			letter.addScript(new LetterScript(15, randomLetter, letter));
 
 			this.letterQuantity++;
 			this.nextSpawn = Date.now() + this.spawnSpeed + ((this.letterQuantity * this.letterQuantity));
@@ -80,7 +70,6 @@ class SpawnerScript extends Script {
 				detail : {'qty' : this.letterQuantity}
 			});
 			document.dispatchEvent(eventLetterSpawned);
-
 
 			if (this.letterQuantity > 15 && this.deadTime == false) {
 				this.deadTime = true;
@@ -118,15 +107,28 @@ class SpawnerScript extends Script {
 
 	deleteLetter(key) {
 		if (this.boardArray[this.currentLetter]) {
+			console.log(this.boardArray[this.currentLetter].script.letter);
 			if (key == this.boardArray[this.currentLetter].script.letter) {
 				if (this.boardArray[this.currentLetter].script.isVulnerable()) {
-			//
-					if (!(this.combo % 5))
+					if (!(this.chain % 5))
 						this.activeCombo(this.boardArray[this.currentLetter].x, this.boardArray[this.currentLetter].y);
 					this.boardArray[this.currentLetter].script.deleteLetter(true);
 					delete this.boardArray[this.currentLetter]
 					this.letterQuantity--;
 
+
+
+				//doubleShot
+					if (this.boardArray[this.currentLetter + 1] && this.doubleShot) {
+						if (this.boardArray[this.currentLetter + 1].script.isVulnerable()) {
+							this.boardArray[this.currentLetter + 1].script.deleteLetter(true);
+							delete this.boardArray[this.currentLetter + 1]
+							this.letterQuantity--;
+						}
+					}
+
+
+				//delete stone on left
 					if (this.boardArray[this.currentLetter - 1]) {
 						this.boardArray[this.currentLetter - 1].script.stone();
 						if (this.boardArray[this.currentLetter - 1].script.getStoneLife() < 11) {
@@ -147,7 +149,7 @@ class SpawnerScript extends Script {
 						}
 					}
 
-					this.combo++;
+					this.chain++;
 				}
 			}
 			else {
@@ -165,13 +167,68 @@ class SpawnerScript extends Script {
 		}
 	}
 
+	spawnStandardLetter() {
+
+		let letter = this.newObject(new GameObject('letter'));
+		let rand = this.getRandomInt(5);
+		let randomLetter = this.alpha[rand];
+
+		this.boardArray[15] = letter;
+
+		letter.render = new Render('./boutonLetters.png');
+
+		letter.render.addAnim(anim['anim' + randomLetter.toUpperCase()]);
+		letter.render.addAnim(anim['anim' + randomLetter.toUpperCase() + 'Flash']);
+		letter.render.addAnim(anim['animStone01']);
+		letter.render.addAnim(anim['animStone02']);
+		letter.render.addAnim(anim['animStone03']);
+		letter.render.addAnim(anim['animStone04']);
+		letter.render.addAnim(anim['animStone05']);
+		letter.render.addAnim(anim['animStone06']);
+		letter.render.addAnim(anim['animStone07']);
+		letter.render.addAnim(anim['animStone08']);
+		letter.render.addAnim(anim['animStone09']);
+		letter.setPosition(1340, 252);
+		letter.addScript(new LetterScript(15, randomLetter, letter));
+
+
+	}
+
+	spawnAsianLetter() {
+
+		let letter = this.newObject(letterAsian(15, 'a'));
+		let rand = this.getRandomInt(5);
+		let randomLetter = this.alpha[rand];
+
+		this.boardArray[15] = letter;
+		letter.setPosition(1335, 235);
+		// letter.render = new Render('./asianLetters.png');
+
+		// letter.render.addAnim(anim['anim' + randomLetter.toUpperCase()]);
+		// letter.render.addAnim(anim['anim' + randomLetter.toUpperCase() + 'Flash']);
+		// letter.render.addAnim(anim['animStone01']);
+		// letter.render.addAnim(anim['animStone02']);
+		// letter.render.addAnim(anim['animStone03']);
+		// letter.render.addAnim(anim['animStone04']);
+		// letter.render.addAnim(anim['animStone05']);
+		// letter.render.addAnim(anim['animStone06']);
+		// letter.render.addAnim(anim['animStone07']);
+		// letter.render.addAnim(anim['animStone08']);
+		// letter.render.addAnim(anim['animStone09']);
+		// letter.addScript(new LetterScript(15, randomLetter, letter));
+
+	}
+
 	activeCombo(x, y) {
 		let event = new Event('combo');
 		document.dispatchEvent(event);
+		this.combo++;
+		if (this.combo > 5)
+			this.doubleShot = true;
 
 		let comboUI = new GameObject('combo');
 		comboUI.addScript(new ComboScript());
-		comboUI.setPosition(x - 25, y);
+		comboUI.setPosition(x - 28, y);
 		comboUI.render = new Render('./combo.png');
 		comboUI.render.addAnim(animCombo);
 		comboUI.render.addAnim(idleCombo);
@@ -182,8 +239,9 @@ class SpawnerScript extends Script {
 
 	breakCombo() {
 		this.combo = 0;
+		this.chain = 0;
+		this.doubleShot = false;
 		let event = new Event('badLetter');
-
 		document.dispatchEvent(event);
 	}
 

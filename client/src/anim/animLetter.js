@@ -320,3 +320,31 @@ export const animStone09 = {
 	duration: 15,
 	nextAnim: ''
 }
+
+export const a1ShowA = {
+	name: "a1ShowA",
+	img: './asianLetters.png',
+	width: 88,
+	height: 128,
+	frameNb: 4,
+	row: 0,
+	col: 0,
+	speed: 100,
+	loop: false,
+	duration: 15,
+	nextAnim: 'a1ShowKanji'
+}
+
+export const a1ShowKanji = {
+	name: "a1ShowKanji",
+	img: './asianLetters.png',
+	width: 88,
+	height: 128,
+	frameNb: 4,
+	row: 1,
+	col: 0,
+	speed: 100,
+	loop: false,
+	duration: 15,
+	nextAnim: 'a1ShowA'
+}

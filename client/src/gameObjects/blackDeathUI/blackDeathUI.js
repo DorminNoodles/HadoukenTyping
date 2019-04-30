@@ -5,7 +5,6 @@ import Render from '../../render';
 
 const blackDeathUI = () => {
 	let obj = new GameObject('blackDeathUI');
-	// console.log(obj);
 	obj.addScript(new BlackDeathUIScript());
 
 	obj.render = new Render('./blackDeathUI.png');

@@ -128,10 +128,7 @@ class LetterScript extends Script {
 		flashKill.render = new Render('./flashAnim.png');
 		flashKill.render.addAnim(animFlash);
 
-
 		if (withScore) {
-
-			// let = new CustomEvent('')
 			let eventLetterScoreUI = new CustomEvent("showLetterScore", {
 				detail : {
 					'x' : this.object.x,
@@ -157,11 +154,6 @@ class LetterScript extends Script {
 	changePosition() {
 		if (this.position > 0)
 			this.position--;
-		// if (pos - 1 >= 0 && !board[pos - 1]) {
-		// 	this.position--;
-		// 	board[pos - 1] = object;
-		// 	board[pos] = undefined;
-		// }
 	}
 }
 
