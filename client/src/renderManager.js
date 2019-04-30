@@ -26,7 +26,7 @@ class RenderManager extends Script {
 	}
 
 	update() {
-		let objets = Core.getGameObjectList();
+		let objects = Core.getGameObjectList();
 		let originX = (this.shake > 0) ? this.getRandomInt(40) : 0;
 		let originY = (this.shake > 0) ? this.getRandomInt(40) : 0;
 
@@ -35,16 +35,40 @@ class RenderManager extends Script {
 
 		originY = (this.pressShake > 0) ? this.pressShakeForce : 0;
 
-		objets.forEach((objet) => {
-			if (objet.render) {
+
+		// console.log(objects[0]);
+		// console.log(objects[1]);
+		// console.log(objects[2]);
+		// console.log(objects[3]);
+		// console.log(objects[4]);
+		// console.log(objects[5]);
+
+
+		let cloneObjets = [];
+
+
+		objects.forEach((objet) => {
+			if (objet.render)
+				cloneObjets.push(objet)
+		})
+
+		// let cloneObjets = [...objects];
+		cloneObjets.sort(function(a, b) {
+			return a.render.zIndex - b.render.zIndex;
+		});
+
+		console.log(cloneObjets);
+
+		cloneObjets.forEach((objet) => {
+			// if (objet.render) {
 				if (objet.render.opacity != 1.0)
 					this.ctx.globalAlpha = objet.render.opacity;
 				objet.render.draw(this.ctx, objet.x + originX, objet.y + originY);
 				this.ctx.globalAlpha = 1.0;
-			}
+			// }
 		})
 
-		objets.forEach((objet) => {
+		objects.forEach((objet) => {
 			if (objet.renderText) {
 				objet.renderText.draw(this.ctx, objet.x + originX, objet.y + originY);
 			}

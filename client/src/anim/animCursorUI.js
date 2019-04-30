@@ -6,8 +6,8 @@ export const idle = {
 	frameNb: 3,
 	row: 0,
 	col: 0,
-	speed: 200,
-	loop: false,
+	speed: 100,
+	loop: true,
 	duration: 0,
 	nextAnim: 'idle'
 }

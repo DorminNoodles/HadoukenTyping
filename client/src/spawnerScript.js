@@ -9,6 +9,8 @@ import GameObject from './gameObject';
 import Render from './render';
 import Script from './script';
 
+import cursorUI from './gameObjects/cursorUI/cursorUI';
+
 
 class SpawnerScript extends Script {
 
@@ -16,8 +18,8 @@ class SpawnerScript extends Script {
 		super();
 		this.begin = Date.now();
 		this.nextSpawn = Date.now() + 2000;
-		// this.spawnSpeed = 500;
-		this.spawnSpeed = 200;
+		this.spawnSpeed = 500;
+		// this.spawnSpeed = 200;
 		this.boardArray = [];
 		this.letterQuantity = 0;
 		this.alpha = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
@@ -31,9 +33,17 @@ class SpawnerScript extends Script {
 		this.addListener('finishGame', () => {
 				this.deleteAllLetter();
 		})
+
+		this.cursorUI = this.newObject(cursorUI());
 	}
 
 	update() {
+
+
+		if (this.boardArray[this.currentLetter]) {
+			this.cursorUI.setPosition(this.boardArray[this.currentLetter].x - 20, this.boardArray[this.currentLetter].y - 26);
+			// console.log("Ouech >>> ", this.boardArray[this.currentLetter]);
+		}
 
 		if (this.nextChangeSpeed < Date.now()) {
 			this.spawnSpeed -= this.speedReduce;

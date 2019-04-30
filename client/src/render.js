@@ -11,6 +11,8 @@ class Render {
 		this.nextFrameTime = 0;
 
 		this.opacity = 1.0;
+
+		this.zIndex = 0;
 	}
 
 	addAnim(anim) {
@@ -30,6 +32,10 @@ class Render {
 				ctx.drawImage(this.img, x, y);
 		}
 
+	}
+
+	setZIndex(zIndex) {
+		this.zIndex = zIndex;
 	}
 
 	drawAnim(ctx, x, y) {
