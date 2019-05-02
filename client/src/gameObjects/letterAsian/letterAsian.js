@@ -1,6 +1,6 @@
 import GameObject from '../../gameObject';
-import { a1ShowA, a1ShowKanji }from '../../anim/animLetter';
-import * as anim from '../../anim/animLetter';
+// import { a1ShowA, a1ShowKanji }from '../../anim/animLetter';
+import * as anim from '../../anim/animAsianLetters';
 import LetterAsianScript from './letterAsianScript';
 import Render from '../../render';
 
@@ -9,6 +9,7 @@ const letterAsian = (position, letter) => {
 	let obj = new GameObject('letterAsian');
 
 	obj.addScript(new LetterAsianScript(position, letter, obj));
+	// obj.render = new Render('./asianLetters.png');
 	obj.render = new Render('./asianLetters.png');
 	obj.render.setOffset(-2,-32);
 	obj.render.addAnim(anim['a1ShowA']);
