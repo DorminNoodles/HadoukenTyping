@@ -20,14 +20,14 @@ class SpawnerScript extends Script {
 		super();
 		this.begin = Date.now();
 		this.nextSpawn = Date.now() + 2000;
-		this.spawnSpeed = 800;
+		this.spawnSpeed = 500;
 		// this.spawnSpeed = 200;
 		this.boardArray = [];
 		this.letterQuantity = 0;
 		this.alpha = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
 		this.nextChangeSpeed = Date.now() + 10000;
 		this.changeSpeedDelay = 4000;
-		this.speedReduce = 20;
+		this.speedReduce = 15;
 		this.deadTime = false; //additional time before realy dead
 		this.chain = 0;
 		this.combo = 0;
