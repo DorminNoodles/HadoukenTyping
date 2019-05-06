@@ -9,10 +9,9 @@ import GameObject from './gameObject';
 import Render from './render';
 import Script from './script';
 
-
 import cursorUI from './gameObjects/cursorUI/cursorUI';
 import letterAsian from './gameObjects/letterAsian/letterAsian';
-
+import letterTime from './gameObjects/letterTime/letterTime';
 
 class SpawnerScript extends Script {
 
@@ -46,7 +45,6 @@ class SpawnerScript extends Script {
 
 		if (this.boardArray[this.currentLetter]) {
 			this.cursorUI.setPosition(this.boardArray[this.currentLetter].x - 20, this.boardArray[this.currentLetter].y - 26);
-			// console.log("Ouech >>> ", this.boardArray[this.currentLetter]);
 		}
 
 		if (this.nextChangeSpeed < Date.now()) {
@@ -57,10 +55,12 @@ class SpawnerScript extends Script {
 		if (this.nextSpawn < Date.now()) {
 
 			this.totalLetters++;
-			if (this.totalLetters % 5)
-				this.spawnStandardLetter();
-			else
+			if (!(this.totalLetters % 5))
 				this.spawnAsianLetter();
+			else if (!(this.totalLetters % 8))
+				this.spawnLetterTime();
+			else
+				this.spawnStandardLetter();
 
 
 			this.letterQuantity++;
@@ -116,8 +116,6 @@ class SpawnerScript extends Script {
 					delete this.boardArray[this.currentLetter]
 					this.letterQuantity--;
 
-
-
 				//doubleShot
 					if (this.boardArray[this.currentLetter + 1] && this.doubleShot) {
 						if (this.boardArray[this.currentLetter + 1].script.isVulnerable()) {
@@ -127,6 +125,14 @@ class SpawnerScript extends Script {
 						}
 					}
 
+				//for bonus
+					if (this.boardArray[this.currentLetter + 1] && this.doubleShot) {
+						if (this.boardArray[this.currentLetter + 1].script.isVulnerable()) {
+							this.boardArray[this.currentLetter + 1].script.deleteLetter(true);
+							delete this.boardArray[this.currentLetter + 1]
+							this.letterQuantity--;
+						}
+					}
 
 				//delete stone on left
 					if (this.boardArray[this.currentLetter - 1]) {
@@ -197,26 +203,20 @@ class SpawnerScript extends Script {
 	spawnAsianLetter() {
 
 		let letter = this.newObject(letterAsian(15, 'a'));
-		let rand = this.getRandomInt(5);
-		let randomLetter = this.alpha[rand];
+		// let rand = this.getRandomInt(5);
+		// let randomLetter = this.alpha[rand];
 
 		this.boardArray[15] = letter;
 		letter.setPosition(1335, 235);
 		// letter.render = new Render('./asianLetters.png');
+	}
 
-		// letter.render.addAnim(anim['anim' + randomLetter.toUpperCase()]);
-		// letter.render.addAnim(anim['anim' + randomLetter.toUpperCase() + 'Flash']);
-		// letter.render.addAnim(anim['animStone01']);
-		// letter.render.addAnim(anim['animStone02']);
-		// letter.render.addAnim(anim['animStone03']);
-		// letter.render.addAnim(anim['animStone04']);
-		// letter.render.addAnim(anim['animStone05']);
-		// letter.render.addAnim(anim['animStone06']);
-		// letter.render.addAnim(anim['animStone07']);
-		// letter.render.addAnim(anim['animStone08']);
-		// letter.render.addAnim(anim['animStone09']);
-		// letter.addScript(new LetterScript(15, randomLetter, letter));
+	spawnLetterTime() {
 
+		let letter = this.newObject(letterTime(15));
+
+		this.boardArray[15] = letter;
+		letter.setPosition(1335, 235);
 	}
 
 	activeCombo(x, y) {
