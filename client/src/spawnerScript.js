@@ -7,6 +7,7 @@ import ComboScript from './comboScript.js';
 import * as anim from './anim/animLetter';
 import GameObject from './gameObject';
 import Render from './render';
+import RenderText from './renderText';
 import Script from './script';
 
 import cursorUI from './gameObjects/cursorUI/cursorUI';
@@ -19,14 +20,16 @@ class SpawnerScript extends Script {
 		super();
 		this.begin = Date.now();
 		this.nextSpawn = Date.now() + 2000;
-		this.spawnSpeed = 800;
+
+		this.spawnSpeed = 45;
+		this.spawnSpeedDelta = 60000 / this.spawnSpeed;
 		// this.spawnSpeed = 200;
 		this.boardArray = [];
 		this.letterQuantity = 0;
 		this.alpha = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
 		this.nextChangeSpeed = Date.now() + 10000;
 		this.changeSpeedDelay = 4000;
-		this.speedReduce = 20;
+		this.speedReduce = 15;
 		this.deadTime = false; //additional time before realy dead
 		this.chain = 0;
 		this.combo = 0;
@@ -38,6 +41,11 @@ class SpawnerScript extends Script {
 				this.deleteAllLetter();
 		})
 
+
+		this.speedUI = this.newObject(new GameObject('speedUI'));
+		this.speedUI.setPosition(0,0);
+		this.speedUI.renderText = new RenderText('./gameFont1.png', this.spawnSpeed.toString() + ' lbm', 15, 46);
+
 		this.cursorUI = this.newObject(cursorUI());
 	}
 
@@ -47,10 +55,10 @@ class SpawnerScript extends Script {
 			this.cursorUI.setPosition(this.boardArray[this.currentLetter].x - 20, this.boardArray[this.currentLetter].y - 26);
 		}
 
-		if (this.nextChangeSpeed < Date.now()) {
-			this.spawnSpeed -= this.speedReduce;
-			this.nextChangeSpeed = Date.now() + this.changeSpeedDelay;
-		}
+		// if (this.nextChangeSpeed < Date.now()) {
+		// 	this.spawnSpeed;
+		// 	this.nextChangeSpeed = Date.now() + this.changeSpeedDelay;
+		// }
 
 		if (this.nextSpawn < Date.now()) {
 
@@ -64,7 +72,7 @@ class SpawnerScript extends Script {
 
 
 			this.letterQuantity++;
-			this.nextSpawn = Date.now() + this.spawnSpeed + ((this.letterQuantity * this.letterQuantity));
+			this.nextSpawn = Date.now() + this.spawnSpeedDelta + ((this.letterQuantity * this.letterQuantity));
 
 			let eventLetterSpawned = new CustomEvent("letterSpawned", {
 				detail : {'qty' : this.letterQuantity}

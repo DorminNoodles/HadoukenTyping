@@ -19,7 +19,7 @@ class LetterScript extends Script {
 		this.letter = letter;
 		this.deadMove = -20;
 		this.gameObject = gameObject;
-		this.onBoardSpeed = -50;
+		this.onBoardSpeed = -100;
 		this.dropSpeed = 40;
 		this.isStone = false;
 		this.stoneLife = 19;
@@ -48,7 +48,7 @@ class LetterScript extends Script {
 	}
 
 	onBoard() {
-		let destination = (this.position * 82) + 200;
+		let destination = (this.position * 86) + 190;
 		if (this.object.x > destination)
 			this.object.move(this.onBoardSpeed, 0);
 
