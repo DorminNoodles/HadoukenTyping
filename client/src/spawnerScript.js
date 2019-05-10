@@ -21,7 +21,7 @@ class SpawnerScript extends Script {
 		this.begin = Date.now();
 		this.nextSpawn = Date.now() + 2000;
 
-		this.spawnSpeed = 45;
+		this.spawnSpeed = 130;
 		this.spawnSpeedDelta = 60000 / this.spawnSpeed;
 		// this.spawnSpeed = 200;
 		this.boardArray = [];
