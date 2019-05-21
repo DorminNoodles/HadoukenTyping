@@ -91,6 +91,12 @@ class Render {
 		this.offsetY = y;
 	}
 
+	changeImage(img) {
+		// console.log("HELLO");
+		this.image = new Image();
+		this.image.src = img.src;
+	}
+
 }
 
 export default Render;

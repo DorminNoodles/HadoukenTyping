@@ -15,6 +15,7 @@ import blackDeathUI from './gameObjects/blackDeathUI/blackDeathUI';
 import numberKeysUI from './gameObjects/numberKeysUI/numberKeysUI';
 import speedProfiler from './gameObjects/speedProfiler/speedProfiler';
 import endGameMenu from './gameObjects/endGameMenu/endGameMenu';
+import bar from './gameObjects/bar/bar';
 // import cursorUI from './gameObjects/cursorUI/cursorUI';
 
 
@@ -79,6 +80,7 @@ class Game extends Script {
 		this.blackDeathUI = this.newObject(blackDeathUI());
 		this.numberKeysUI = this.newObject(numberKeysUI());
 		this.speedProfiler = this.newObject(speedProfiler());
+		this.bar = this.newObject(bar());
 
 		// this.cursorUI = this.newObject(cursorUI());
 
