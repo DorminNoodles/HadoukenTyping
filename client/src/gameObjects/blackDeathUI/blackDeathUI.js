@@ -1,4 +1,4 @@
-import BlackDeathUIScript from './BlackDeathUIScript';
+import BlackDeathUIScript from './blackDeathUIScript';
 import GameObject from '../../gameObject';
 import RenderText from '../../renderText';
 import Render from '../../render';

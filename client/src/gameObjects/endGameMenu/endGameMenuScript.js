@@ -33,10 +33,6 @@ class EndGameMenuSript extends Script {
 			}
 			this.changeBtn(this.pos);
 		});
-
-		// this.playAgainBtn = this.newObject('playAgainBtn');
-
-		// this.menuBtn = this.newObject();
 	}
 
 	changeBtn(pos) {

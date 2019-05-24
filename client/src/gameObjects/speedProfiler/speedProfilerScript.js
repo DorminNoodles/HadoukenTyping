@@ -3,7 +3,7 @@ import GameObject from '../../gameObject';
 import Script from '../../script';
 import Render from '../../render';
 
-import speedWordUIScript from './SpeedWordUIScript';
+import speedWordUIScript from './speedWordUIScript';
 
 
 class SpeedProfilerScript extends Script {
