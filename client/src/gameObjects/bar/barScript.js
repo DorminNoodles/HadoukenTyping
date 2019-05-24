@@ -14,18 +14,18 @@ class BarScript extends Script {
 
 		this.timer = Date.now() + 1000;
 
-		this.sectionPosOriginX = 164;
-		this.sectionPosOriginY = 300;
+		this.sectionPosOriginX = 260;
+		this.sectionPosOriginY = 400;
 
 		this.beginSection = this.newObject(beginSection());
-		this.beginSection.setPosition(30, 300);
+		this.beginSection.setPosition(this.sectionPosOriginX - 134, this.sectionPosOriginY);
 
 		this.section = [];
 		this.section[0] = this.newObject(section());
-		this.section[0].setPosition(this.sectionPosOriginX, 300);
+		this.section[0].setPosition(this.sectionPosOriginX, this.sectionPosOriginY);
 
 		this.endSection = this.newObject(endSection());
-		this.endSection.setPosition(255, 300);
+		this.endSection.setPosition(this.sectionPosOriginX + 92, this.sectionPosOriginY);
 
 		this.addListener('addBarSection', () => {
 			// console.log('+ 1 section ', 'nb : ', this.nbSections);
@@ -42,11 +42,6 @@ class BarScript extends Script {
 			console.log("impair");
 
 			x = (y % 2) ? (this.sectionsMax - 1) - x : x;
-
-
-
-
-
 
 
 			let deltaX = x * 92;
