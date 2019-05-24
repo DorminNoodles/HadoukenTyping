@@ -10,6 +10,7 @@ class BarScript extends Script {
 		super();
 
 		this.nbSections = 1;
+		this.sectionsMax = 12;
 
 		this.timer = Date.now() + 1000;
 
@@ -30,20 +31,21 @@ class BarScript extends Script {
 			// console.log('+ 1 section ', 'nb : ', this.nbSections);
 			this.nbSections++;
 
-			let x = (this.nbSections - 1) % 10;
+			let x = (this.nbSections - 1) % this.sectionsMax;
 
-			let y = Math.floor((this.nbSections - 1) / 10);
+			let y = Math.floor((this.nbSections - 1) / this.sectionsMax);
 
 			this.section[this.nbSections - 1] = this.newObject(section());
 
 
-
-
-
 			if (y % 2)
-				console.log("impair");
+			console.log("impair");
 
-			x = (y % 2) ? 9 - x : x;
+			x = (y % 2) ? (this.sectionsMax - 1) - x : x;
+
+
+
+
 
 
 
@@ -55,22 +57,25 @@ class BarScript extends Script {
 			console.log("XXXX : ", x);
 
 
-			if (x === 9 && y % 2 === 0)
-				this.section[this.nbSections - 1].render.changeImage({'src': '../../sectionCornerUpRight.png'});
-			if (x === 0 && y % 2) {
-				this.section[this.nbSections - 1].render.changeImage({'src': '../../sectionCornerUpLeft.png'});
-				this.section[this.nbSections - 1].move(-25, 0);
-			}
-			if (x === 9 && y % 2)
-				this.section[this.nbSections - 1].render.changeImage({'src': '../../sectionCornerBottomRight.png'});
-			if (x === 0 && y % 2 === 0)
-				this.section[this.nbSections - 1].render.changeImage({'src': '../../sectionCornerBottomLeft.png'});
-
-
-
 			this.section[this.nbSections - 1].setPosition(this.sectionPosOriginX + deltaX, this.sectionPosOriginY + deltaY);
 
+			if (x === (this.sectionsMax - 1) && y % 2 === 0)
+				this.section[this.nbSections - 1].render.changeImage({'src': '../../sectionCornerUpRight.png'});
 
+			if (x === 0 && y % 2) {
+				this.section[this.nbSections - 1].render.changeImage({'src': '../../sectionCornerUpLeft.png'});
+				this.section[this.nbSections - 1].move(-30, 0);
+			}
+
+			if (x === (this.sectionsMax - 1) && y % 2)
+				this.section[this.nbSections - 1].render.changeImage({'src': '../../sectionCornerBottomRight.png'});
+
+			if (x === 0 && y % 2 === 0) {
+				this.section[this.nbSections - 1].render.changeImage({'src': '../../sectionCornerBottomLeft.png'});
+				this.section[this.nbSections - 1].move(-30, 0);
+			}
+
+			console.log("hello ....");
 			this.moveEndSection(this.endSection, this.nbSections);
 
 
@@ -84,22 +89,30 @@ class BarScript extends Script {
 
 	moveEndSection(endSection, nbSections) {
 
-		let x = nbSections % 10;
-		let y = Math.floor(nbSections / 10);
+		let x = nbSections % this.sectionsMax;
+		let y = Math.floor(nbSections / this.sectionsMax);
 
-		x = (y % 2) ? 9 - x : x;
+		x = (y % 2) ? (this.sectionsMax - 1) - x : x;
 
 
 		endSection.setPosition(this.sectionPosOriginX + (92 * x), this.sectionPosOriginY + (148 * y));
 
-		if (this.nbSections % 10 === 0) {
+
+		console.log(" >>> ", (y % 2));
+
+		if (nbSections % this.sectionsMax === 0 && (y % 2)) {
 			endSection.render.changeImage({'src': '../../endSectionCornerRight.png'});
 			// endSection.setPosition(this.sectionPosOriginX + (92 * x) - 25, this.sectionPosOriginY + (148 * y));
 			endSection.move(-36, 0);
 		}
+		else if (nbSections % this.sectionsMax === 0) {
+			endSection.render.changeImage({'src': '../../endSectionCornerLeft.png'});
+			// endSection.setPosition(this.sectionPosOriginX + (92 * x) - 25, this.sectionPosOriginY + (148 * y));
+			endSection.move(-30, 0);
+		}
 		else if (y % 2) {
-			this.endSection.render.changeImage({'src': '../../endSectionInvert.png'});
-			endSection.move(-12, 0);
+			endSection.render.changeImage({'src': '../../endSectionInvert.png'});
+			endSection.move(-28, 0);
 		}
 		else
 			endSection.render.changeImage({'src': '../../endSection.png'});
@@ -111,7 +124,7 @@ class BarScript extends Script {
 
 
 		if (this.timer < Date.now()) {
-			this.timer = Date.now() + 1000;
+			this.timer = Date.now() + 600;
 
 			// console.log('EMIT ******************');
 			let eventAddBarSection = new CustomEvent("addBarSection", {
