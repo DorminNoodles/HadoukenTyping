@@ -9,11 +9,13 @@ class BarScript extends Script {
 	constructor() {
 		super();
 
-		this.nbSections = 1;
-		this.sectionsMax = 12;
+		// this.defaultNbSections = 4;
+		this.nbSections = 4;
+		this.sectionsMaxRow = 12;
 
 		this.timer = Date.now() + 1000;
 
+		// this.nbSections = this.default;
 		this.sectionPosOriginX = 260;
 		this.sectionPosOriginY = 400;
 
@@ -21,19 +23,21 @@ class BarScript extends Script {
 		this.beginSection.setPosition(this.sectionPosOriginX - 134, this.sectionPosOriginY);
 
 		this.section = [];
-		this.section[0] = this.newObject(section());
-		this.section[0].setPosition(this.sectionPosOriginX, this.sectionPosOriginY);
+
+		for (let i = 0; i < this.nbSections; i++) {
+			this.section[i] = this.newObject(section());
+			this.section[i].setPosition(this.sectionPosOriginX + (i * 92), this.sectionPosOriginY);
+		}
 
 		this.endSection = this.newObject(endSection());
-		this.endSection.setPosition(this.sectionPosOriginX + 92, this.sectionPosOriginY);
+		this.endSection.setPosition(this.sectionPosOriginX + (92 * this.nbSections), this.sectionPosOriginY);
 
 		this.addListener('addBarSection', () => {
-			// console.log('+ 1 section ', 'nb : ', this.nbSections);
+
 			this.nbSections++;
+			let x = (this.nbSections - 1) % this.sectionsMaxRow;
 
-			let x = (this.nbSections - 1) % this.sectionsMax;
-
-			let y = Math.floor((this.nbSections - 1) / this.sectionsMax);
+			let y = Math.floor((this.nbSections - 1) / this.sectionsMaxRow);
 
 			this.section[this.nbSections - 1] = this.newObject(section());
 
@@ -41,7 +45,7 @@ class BarScript extends Script {
 			if (y % 2)
 			console.log("impair");
 
-			x = (y % 2) ? (this.sectionsMax - 1) - x : x;
+			x = (y % 2) ? (this.sectionsMaxRow - 1) - x : x;
 
 
 			let deltaX = x * 92;
@@ -54,7 +58,7 @@ class BarScript extends Script {
 
 			this.section[this.nbSections - 1].setPosition(this.sectionPosOriginX + deltaX, this.sectionPosOriginY + deltaY);
 
-			if (x === (this.sectionsMax - 1) && y % 2 === 0)
+			if (x === (this.sectionsMaxRow - 1) && y % 2 === 0)
 				this.section[this.nbSections - 1].render.changeImage({'src': '../../sectionCornerUpRight.png'});
 
 			if (x === 0 && y % 2) {
@@ -62,7 +66,7 @@ class BarScript extends Script {
 				this.section[this.nbSections - 1].move(-30, 0);
 			}
 
-			if (x === (this.sectionsMax - 1) && y % 2)
+			if (x === (this.sectionsMaxRow - 1) && y % 2)
 				this.section[this.nbSections - 1].render.changeImage({'src': '../../sectionCornerBottomRight.png'});
 
 			if (x === 0 && y % 2 === 0) {
@@ -73,34 +77,30 @@ class BarScript extends Script {
 			console.log("hello ....");
 			this.moveEndSection(this.endSection, this.nbSections);
 
-
-			// if (this.nbSections % 6 === 0) {
-			// 	this.endSection.render.changeImage({'src': '../../beginSection.png'});
-			// }
-
 		});
 
 	}
 
 	moveEndSection(endSection, nbSections) {
 
-		let x = nbSections % this.sectionsMax;
-		let y = Math.floor(nbSections / this.sectionsMax);
+		let x = nbSections % this.sectionsMaxRow;
+		let y = Math.floor(nbSections / this.sectionsMaxRow);
 
-		x = (y % 2) ? (this.sectionsMax - 1) - x : x;
+		x = (y % 2) ? (this.sectionsMaxRow - 1) - x : x;
 
 
+		// console.log(this.sectionPosOriginX + (92 * x), this.sectionPosOriginY + (148 * y));
 		endSection.setPosition(this.sectionPosOriginX + (92 * x), this.sectionPosOriginY + (148 * y));
 
 
 		console.log(" >>> ", (y % 2));
 
-		if (nbSections % this.sectionsMax === 0 && (y % 2)) {
+		if (nbSections % this.sectionsMaxRow === 0 && (y % 2)) {
 			endSection.render.changeImage({'src': '../../endSectionCornerRight.png'});
 			// endSection.setPosition(this.sectionPosOriginX + (92 * x) - 25, this.sectionPosOriginY + (148 * y));
 			endSection.move(-36, 0);
 		}
-		else if (nbSections % this.sectionsMax === 0) {
+		else if (nbSections % this.sectionsMaxRow === 0) {
 			endSection.render.changeImage({'src': '../../endSectionCornerLeft.png'});
 			// endSection.setPosition(this.sectionPosOriginX + (92 * x) - 25, this.sectionPosOriginY + (148 * y));
 			endSection.move(-30, 0);

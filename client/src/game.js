@@ -48,7 +48,8 @@ class Game extends Script {
 
 		this.addListener('combo', () => {
 			this.scoreManager.addCombo();
-		})
+		});
+
 	}
 
 	gameLoop() {
@@ -81,11 +82,6 @@ class Game extends Script {
 		this.numberKeysUI = this.newObject(numberKeysUI());
 		this.speedProfiler = this.newObject(speedProfiler());
 		this.bar = this.newObject(bar());
-
-		// this.cursorUI = this.newObject(cursorUI());
-
-		// speedProfiler();
-
 
 		// this.numberKeysUI = this.newObject(numberKeysUI());
 		// this.scoreUI = this.newObject(new GameObject('scoreUI'));

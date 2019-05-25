@@ -8,9 +8,6 @@ const speedProfiler = () => {
 
 	obj.addScript(new speedProfilerScript());
 
-	// obj.render = new Render('./speedUI.png');
-	// obj.render.addAnim(niceFlash);
-
 
 	return obj;
 }

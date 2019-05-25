@@ -14,10 +14,15 @@ import cursorUI from './gameObjects/cursorUI/cursorUI';
 import letterAsian from './gameObjects/letterAsian/letterAsian';
 import letterTime from './gameObjects/letterTime/letterTime';
 
+import lettersArray from './gameObjects/lettersArray/lettersArray';
+
+
 class SpawnerScript extends Script {
 
 	constructor() {
 		super();
+
+		console.log("HELLO");
 		this.begin = Date.now();
 		this.nextSpawn = Date.now() + 2000;
 
@@ -47,6 +52,10 @@ class SpawnerScript extends Script {
 		this.speedUI.renderText = new RenderText('./gameFont1.png', this.spawnSpeed.toString() + ' lbm', 15, 46);
 
 		this.cursorUI = this.newObject(cursorUI());
+
+		this.lettersArray = this.newObject(lettersArray());
+
+
 	}
 
 	update() {
@@ -186,23 +195,26 @@ class SpawnerScript extends Script {
 		let letter = this.newObject(new GameObject('letter'));
 		let rand = this.getRandomInt(5);
 		let randomLetter = this.alpha[rand];
-
-		this.boardArray[15] = letter;
-
+		//
+		//
+		this.lettersArray.script.addLetter(letter);
+		//
+		// this.boardArray[15] = letter;
+		//
 		letter.render = new Render('./boutonLetters.png');
-
+		//
 		letter.render.addAnim(anim['anim' + randomLetter.toUpperCase()]);
-		letter.render.addAnim(anim['anim' + randomLetter.toUpperCase() + 'Flash']);
-		letter.render.addAnim(anim['animStone01']);
-		letter.render.addAnim(anim['animStone02']);
-		letter.render.addAnim(anim['animStone03']);
-		letter.render.addAnim(anim['animStone04']);
-		letter.render.addAnim(anim['animStone05']);
-		letter.render.addAnim(anim['animStone06']);
-		letter.render.addAnim(anim['animStone07']);
-		letter.render.addAnim(anim['animStone08']);
-		letter.render.addAnim(anim['animStone09']);
-		letter.setPosition(1340, 252);
+		// letter.render.addAnim(anim['anim' + randomLetter.toUpperCase() + 'Flash']);
+		// letter.render.addAnim(anim['animStone01']);
+		// letter.render.addAnim(anim['animStone02']);
+		// letter.render.addAnim(anim['animStone03']);
+		// letter.render.addAnim(anim['animStone04']);
+		// letter.render.addAnim(anim['animStone05']);
+		// letter.render.addAnim(anim['animStone06']);
+		// letter.render.addAnim(anim['animStone07']);
+		// letter.render.addAnim(anim['animStone08']);
+		// letter.render.addAnim(anim['animStone09']);
+		// letter.setPosition(1340, 252);
 		letter.addScript(new LetterScript(15, randomLetter, letter));
 
 
