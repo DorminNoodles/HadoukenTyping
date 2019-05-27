@@ -15,8 +15,10 @@ import blackDeathUI from './gameObjects/blackDeathUI/blackDeathUI';
 import numberKeysUI from './gameObjects/numberKeysUI/numberKeysUI';
 import speedProfiler from './gameObjects/speedProfiler/speedProfiler';
 import endGameMenu from './gameObjects/endGameMenu/endGameMenu';
-import bar from './gameObjects/bar/bar';
+import spawner from './gameObjects/spawner/spawner';
+import board from './gameObjects/board/board';
 // import cursorUI from './gameObjects/cursorUI/cursorUI';
+
 
 
 class Game extends Script {
@@ -65,15 +67,15 @@ class Game extends Script {
 	initSolo() {
 		this.controller = this.newObject(new GameObject('controller'));
 		this.boardBar = this.newObject(new GameObject('boardBar'));
-		this.spawner = this.newObject(new GameObject('spawner'));
+		// this.spawner = this.newObject(new GameObject('spawner'));
 
 		this.boardBar.setPosition(50, 454);
-		this.spawner.setPosition(1330, 250);
+		// this.spawner.setPosition(1330, 250);
 
 		this.boardBar.render = new Render('./gameBoardBar.gif');
-		this.spawner.render = new Render('./spawner.gif');
+		// this.spawner.render = new Render('./spawner.gif');
 
-		this.spawner.script = new SpawnerScript();
+		// this.spawner.script = new SpawnerScript();
 		this.controller.script = new ControllerScript(this.spawner);
 
 		this.scoreUI = scoreUI();
@@ -81,7 +83,8 @@ class Game extends Script {
 		this.blackDeathUI = this.newObject(blackDeathUI());
 		this.numberKeysUI = this.newObject(numberKeysUI());
 		this.speedProfiler = this.newObject(speedProfiler());
-		this.bar = this.newObject(bar());
+		this.board = this.newObject(board());
+		this.spawner = this.newObject(spawner());
 
 		// this.numberKeysUI = this.newObject(numberKeysUI());
 		// this.scoreUI = this.newObject(new GameObject('scoreUI'));
@@ -103,7 +106,7 @@ class Game extends Script {
 			"username": this.username
 		});
 
-		GameObject.delete(this.spawner);
+		// GameObject.delete(this.spawner);
 		GameObject.delete(this.boardBar);
 		GameObject.delete(this.scoreUI);
 		GameObject.delete(this.numberKeysUI);

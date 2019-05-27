@@ -23,6 +23,13 @@ class GameObject {
 		this.y = y;
 	}
 
+	getPosition() {
+		return ({
+			'x': this.x,
+			'y': this.y
+		});
+	}
+
 	move(x, y) {
 		this.x = this.x + x;
 		this.y = this.y + y;
@@ -30,7 +37,9 @@ class GameObject {
 
 	addScript(script) {
 		script.gameObjectId = this.id;
+		script.gameObject = this;
 		this.script = script;
+		//script.object outdated
 		script.object = this;
 	}
 
