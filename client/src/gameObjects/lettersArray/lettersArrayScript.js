@@ -13,10 +13,15 @@ class LettersArrayScript extends Script {
 
 		this.nextMove = 500;
 
-
 		this.addListener('addBarSection', () => {
 			this.nbSections++;
 		});
+
+		this.addListener('spawnLetter', (data) => {
+
+			this.addLetter(data.letter);
+			// console.log("FICHTRE NEW LETTER");
+		})
 
 	}
 
@@ -39,7 +44,7 @@ class LettersArrayScript extends Script {
 	update() {
 
 		if (this.nextMove < Date.now()) {
-			this.nextMove = Date.now() + 500;
+			this.nextMove = Date.now() + 1800;
 			this.moveAllLetters();
 		}
 
@@ -54,6 +59,7 @@ class LettersArrayScript extends Script {
 						// console.log("from : ", i, "to : ", i - 1);
 						this.array[i - 1] = this.array[i];
 						this.array[i] = null;
+						this.array[i - 1].script.setPosition(i - 1);
 					}
 				}
 			}

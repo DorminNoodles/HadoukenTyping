@@ -17,6 +17,12 @@ import speedProfiler from './gameObjects/speedProfiler/speedProfiler';
 import endGameMenu from './gameObjects/endGameMenu/endGameMenu';
 import spawner from './gameObjects/spawner/spawner';
 import board from './gameObjects/board/board';
+import lettersArray from './gameObjects/lettersArray/lettersArray';
+
+
+
+
+
 // import cursorUI from './gameObjects/cursorUI/cursorUI';
 
 
@@ -85,6 +91,7 @@ class Game extends Script {
 		this.speedProfiler = this.newObject(speedProfiler());
 		this.board = this.newObject(board());
 		this.spawner = this.newObject(spawner());
+		this.lettersArray = this.newObject(lettersArray());
 
 		// this.numberKeysUI = this.newObject(numberKeysUI());
 		// this.scoreUI = this.newObject(new GameObject('scoreUI'));
