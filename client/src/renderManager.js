@@ -42,9 +42,9 @@ class RenderManager extends Script {
 				cloneObjets.push(objet)
 		})
 
-		cloneObjets.sort(function(a, b) {
-			return a.render.zIndex - b.render.zIndex;
-		});
+		// cloneObjets.sort(function(a, b) {
+		// 	return a.render.zIndex - b.render.zIndex;
+		// });
 
 
 		cloneObjets.forEach((objet) => {

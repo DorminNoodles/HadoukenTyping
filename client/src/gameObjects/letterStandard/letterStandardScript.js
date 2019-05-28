@@ -7,8 +7,8 @@ class LetterStandardScript extends Script {
 		super();
 		this.nextMove = Date.now() + 200;
 		this.position = position
-		this.originX = 200;
-		this.originY = 320;
+		this.originX = 260;
+		this.originY = 435;
 
 		this.target = {
 			'x': 800,
@@ -33,7 +33,6 @@ class LetterStandardScript extends Script {
 		}
  		else if (this.gameObject.getPosition().x > this.target.x) {
 			if (this.gameObject.getPosition().x - this.target.x < this.speed)
-				// console.log('f');
 				this.gameObject.setPosition(this.target.x, this.gameObject.getPosition().y);
 			else
 				this.gameObject.move(-this.speed, 0);
@@ -59,7 +58,7 @@ class LetterStandardScript extends Script {
 		let target = {};
 
 		target.x = ((pos % 12) * 96) + this.originX;
-		target.y = ((pos / 12) * 140) + this.originY;
+		target.y = (Math.floor(pos / 12) * 140) + this.originY;
 		// target.y = 300;
 
 		return target;

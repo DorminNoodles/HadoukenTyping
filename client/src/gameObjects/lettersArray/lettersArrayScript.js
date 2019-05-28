@@ -3,13 +3,13 @@ import Script from '../../script';
 
 class LettersArrayScript extends Script {
 
-	constructor() {
+	constructor(length) {
 		super();
 
 		this.width = 96;
 		this.height = 142;
 		this.nbSections = 4;
-		this.array = new Array(8);
+		this.array = Array(8);
 
 		this.nextMove = 500;
 
@@ -18,21 +18,15 @@ class LettersArrayScript extends Script {
 		});
 
 		this.addListener('spawnLetter', (data) => {
-
-			this.addLetter(data.letter);
+			console.log("data :", data);
+			this.addLetter(data.detail.letter);
 			// console.log("FICHTRE NEW LETTER");
 		})
 
 	}
 
 	addLetter(letter) {
-		if (this.array[this.array.length - 1] == null) {
-			this.array[this.array.length - 1] = letter;
-
-			return true;
-		}
-		else
-			return false;
+		this.array.push(letter);
 	}
 
 	getLetterPos(letter) {
@@ -43,19 +37,22 @@ class LettersArrayScript extends Script {
 
 	update() {
 
+		console.log("letter array :", this.array);
+
 		if (this.nextMove < Date.now()) {
 			this.nextMove = Date.now() + 1800;
-			this.moveAllLetters();
+			this.moveLetters();
 		}
 
 	}
 
-	moveAllLetters() {
+	moveLetters() {
 
 		for (let i = 0; i < this.array.length; i++) {
 			if (this.array[i] != null) {
 				if (i > 0) {
 					if (this.array[i - 1] == null) {
+						// console.log()
 						// console.log("from : ", i, "to : ", i - 1);
 						this.array[i - 1] = this.array[i];
 						this.array[i] = null;
