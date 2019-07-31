@@ -1,4 +1,6 @@
-
+/*
+	List of all gameObjects
+*/
 
 class Core {
 

@@ -1,6 +1,6 @@
-import GameObject from './gameObject';
+import GameObject from './core/gameObject';
 import RenderText from './renderText';
-import Script from './script';
+import Script from './core/script';
 import Score from './score';
 
 class DisplayRankingScript extends Script {

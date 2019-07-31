@@ -1,4 +1,4 @@
-import Script from '../../script';
+import Script from '../../core/script';
 
 import letterStandard from '../letterStandard/letterStandard';
 

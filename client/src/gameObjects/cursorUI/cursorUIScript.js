@@ -1,8 +1,8 @@
 import { idle, idleX2 } from '../../anim/animCursorUI';
 
-import GameObject from '../../gameObject';
+import GameObject from '../../core/gameObject';
 import Render from '../../render';
-import Script from '../../script';
+import Script from '../../core/script';
 
 class CursorUIScript extends Script {
 

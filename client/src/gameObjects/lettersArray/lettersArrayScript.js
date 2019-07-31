@@ -1,4 +1,4 @@
-import Script from '../../script';
+import Script from '../../core/script';
 
 
 class LettersArrayScript extends Script {
@@ -37,7 +37,7 @@ class LettersArrayScript extends Script {
 
 	update() {
 
-		console.log("letter array :", this.array);
+		// console.log("letter array :", this.array);
 
 		if (this.nextMove < Date.now()) {
 			this.nextMove = Date.now() + 1800;

@@ -1,5 +1,5 @@
 // import BarScript from './barScript';
-import GameObject from '../../../gameObject';
+import GameObject from '../../../core/gameObject';
 import RenderText from '../../../renderText';
 import Render from '../../../render';
 

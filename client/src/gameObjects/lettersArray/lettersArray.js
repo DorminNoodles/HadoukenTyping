@@ -1,4 +1,4 @@
-import GameObject from '../../gameObject';
+import GameObject from '../../core/gameObject';
 import LettersArrayScript from './lettersArrayScript';
 
 const lettersArray = () => {

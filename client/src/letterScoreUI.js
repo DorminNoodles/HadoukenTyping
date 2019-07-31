@@ -1,4 +1,4 @@
-import Script from './script';
+import Script from './core/script';
 
 class letterScoreUI extends Script {
 

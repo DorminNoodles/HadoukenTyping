@@ -1,9 +1,9 @@
 import { animFlash } from './anim/animFlash';
 import letterScoreUI from './letterScoreUI';
-import GameObject from './gameObject';
+import GameObject from './core/gameObject';
 import RenderText from './renderText';
 import Render from './render';
-import Script from './script';
+import Script from './core/script';
 
 class LetterScript extends Script {
 

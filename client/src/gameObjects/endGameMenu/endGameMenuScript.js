@@ -1,5 +1,5 @@
-import Script from '../../script';
-import GameObject from '../../gameObject';
+import Script from '../../core/script';
+import GameObject from '../../core/gameObject';
 import Render from '../../render';
 import { playAgainSelected, playAgainGrey, menuSelected, menuGrey } from '../../anim/animEndBtn';
 

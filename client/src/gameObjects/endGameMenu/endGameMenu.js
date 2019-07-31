@@ -1,5 +1,5 @@
 import Render from '../../render';
-import GameObject from '../../gameObject';
+import GameObject from '../../core/gameObject';
 import EndGameMenuScript from './endGameMenuScript';
 
 const endGameMenu = () => {

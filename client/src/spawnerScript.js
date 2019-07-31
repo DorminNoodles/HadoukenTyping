@@ -5,10 +5,10 @@ import { animChain } from './anim/animChain';
 import LetterScript from './letterScript.js';
 import ComboScript from './comboScript.js';
 import * as anim from './anim/animLetter';
-import GameObject from './gameObject';
+import GameObject from './core/gameObject';
 import Render from './render';
 import RenderText from './renderText';
-import Script from './script';
+import Script from './core/script';
 
 import cursorUI from './gameObjects/cursorUI/cursorUI';
 import letterAsian from './gameObjects/letterAsian/letterAsian';

@@ -1,4 +1,4 @@
-import Script from '../../script';
+import Script from '../../core/script';
 import beginSection from './sections/beginSection'
 import section from './sections/section'
 import endSection from './sections/endSection'

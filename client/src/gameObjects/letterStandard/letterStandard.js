@@ -1,4 +1,4 @@
-import GameObject from '../../gameObject';
+import GameObject from '../../core/gameObject';
 import * as anim from '../../anim/animLetter';
 import LetterStandardScript from './letterStandardScript';
 import Render from '../../render';

@@ -1,5 +1,5 @@
 // import BlackDeathUIScript from './BlackDeathUIScript';
-import GameObject from '../../gameObject';
+import GameObject from '../../core/gameObject';
 import RenderText from '../../renderText';
 import Render from '../../render';
 import NumberKeysUIScript from './numberKeysUIScript';

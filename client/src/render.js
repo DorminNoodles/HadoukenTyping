@@ -92,7 +92,6 @@ class Render {
 	}
 
 	changeImage(img) {
-		// console.log("HELLO");
 		this.img = new Image();
 		this.img.src = img.src;
 	}

@@ -1,6 +1,6 @@
 import { idle, idleX2 } from '../../anim/animCursorUI';
 import Render from '../../render';
-import GameObject from '../../gameObject';
+import GameObject from '../../core/gameObject';
 import CursorUIScript from './cursorUIScript';
 
 const cursorUI = () => {

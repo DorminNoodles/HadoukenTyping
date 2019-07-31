@@ -1,6 +1,6 @@
 // import { niceFlash } from '../../anim/animSpeedWordUI';
 // import Render from '../../render';
-import GameObject from '../../gameObject';
+import GameObject from '../../core/gameObject';
 import speedProfilerScript from './speedProfilerScript';
 
 const speedProfiler = () => {

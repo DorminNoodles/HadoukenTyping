@@ -1,6 +1,22 @@
 // import Render from './render';
-import Core from './core';
-import Script from './script';
+import Core from './core/core';
+import Script from './core/script';
+
+
+/*
+	Je ne garde pas de list des render mais je get la list des gameObject et je
+	vais voir dans chacun si il y a un render....
+	C est peut etre pas super opti
+
+	recupere un event qui supprime le render avec l id de l objet
+
+	bon vu que je dois render avec la position de l objet..... fuck
+
+	Je garde l ordre des objets leur id (il est en correlation avec la position dans la list)
+
+	Solution : je copie la list et je parse tous les objets, si ils ont un zIndex de 0 ou pas du tout je les delete
+	de la list une fois terminé je reprends la liste de 0 mais pour les zIndex == 1 jusqu' a ce qu elle soit vide.
+*/
 
 class RenderManager extends Script {
 
@@ -12,6 +28,7 @@ class RenderManager extends Script {
 		this.flash = 0;
 		this.pressShake = 0;
 		this.pressShakeForce = 1;
+		this.renderList = [];
 
 		this.addListener('badLetter', () => {
 			this.flash = 100;
@@ -35,19 +52,51 @@ class RenderManager extends Script {
 
 		originY = (this.pressShake > 0) ? this.pressShakeForce : 0;
 
-		let cloneObjets = [];
+
+
+		let cloneObjects = [];
 
 		objects.forEach((objet) => {
 			if (objet.render)
-				cloneObjets.push(objet)
+				cloneObjects.push(objet)
 		})
 
-		// cloneObjets.sort(function(a, b) {
+		// cloneObjects.sort(function(a, b) {
 		// 	return a.render.zIndex - b.render.zIndex;
 		// });
 
 
-		cloneObjets.forEach((objet) => {
+		console.log('update$$$$$$$$$$$$$$$');
+
+
+		let test = [{zindex: 0}, {zindex: 1}, {zindex: 2}];
+
+		// while (test.length > 0) {
+		// 	test.splice(0,1);
+		// }
+		//
+		// console.log('size : ', test.length);
+		//
+		// console.log(test)
+
+		let test = objects;
+
+		let i = 0;
+
+		while (test.length > 0) {
+			test.forEach((elem, index) => {
+				if (!elem.render)
+					test.splice(index, 1);
+				else if (elem.zIndex == i)
+					test.splice(index, 1);
+			})
+			i++;
+		}
+
+
+
+
+		cloneObjects.forEach((objet) => {
 			if (objet.render.opacity != 1.0)
 				this.ctx.globalAlpha = objet.render.opacity;
 			objet.render.draw(this.ctx, objet.x + originX, objet.y + originY);

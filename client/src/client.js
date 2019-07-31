@@ -10,11 +10,11 @@ const io = require('socket.io-client');
 //
 
 import RenderManager from './renderManager';
-import Core from './core';
+import Core from './core/core';
 
 import Game from './game';
 
-import GameObject from './gameObject';
+import GameObject from './core/gameObject';
 
 import Render from './render';
 import Network from './network';

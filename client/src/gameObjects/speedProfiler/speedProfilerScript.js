@@ -1,6 +1,6 @@
 import { niceFlash, goodFlash, greatFlash } from '../../anim/animSpeedWordUI';
-import GameObject from '../../gameObject';
-import Script from '../../script';
+import GameObject from '../../core/gameObject';
+import Script from '../../core/script';
 import Render from '../../render';
 
 import speedWordUIScript from './speedWordUIScript';

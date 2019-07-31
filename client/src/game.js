@@ -4,12 +4,12 @@ import SpawnerScript from './spawnerScript';
 import RenderManager from './renderManager';
 import ControllerScript from './controller';
 import EndMenuScript from './endMenuScript';
-import GameObject from './gameObject';
+import GameObject from './core/gameObject';
 import RenderText from './renderText';
 import Render from './render';
-import Script from './script';
+import Script from './core/script';
 import Score from './score';
-import Core from './core';
+import Core from './core/core';
 import scoreUI from './gameObjects/scoreUI/scoreUI';
 import blackDeathUI from './gameObjects/blackDeathUI/blackDeathUI';
 import numberKeysUI from './gameObjects/numberKeysUI/numberKeysUI';
@@ -21,10 +21,7 @@ import lettersArray from './gameObjects/lettersArray/lettersArray';
 
 
 
-
-
 // import cursorUI from './gameObjects/cursorUI/cursorUI';
-
 
 
 class Game extends Script {

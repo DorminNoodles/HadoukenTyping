@@ -1,4 +1,4 @@
-import GameObject from '../../gameObject';
+import GameObject from '../../core/gameObject';
 // import { a1ShowA, a1ShowKanji }from '../../anim/animLetter';
 import * as anim from '../../anim/animAsianLetters';
 import LetterAsianScript from './letterAsianScript';
