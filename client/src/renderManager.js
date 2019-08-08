@@ -69,7 +69,7 @@ class RenderManager extends Script {
 		console.log('update$$$$$$$$$$$$$$$');
 
 
-		let test = [{zindex: 0}, {zindex: 1}, {zindex: 2}];
+		// let test = [{zindex: 0}, {zindex: 1}, {zindex: 2}];
 
 		// while (test.length > 0) {
 		// 	test.splice(0,1);
@@ -79,7 +79,7 @@ class RenderManager extends Script {
 		//
 		// console.log(test)
 
-		let test = objects;
+		// let test = objects;
 
 		let i = 0;
 
