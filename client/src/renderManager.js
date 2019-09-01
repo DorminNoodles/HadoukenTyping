@@ -65,10 +65,6 @@ class RenderManager extends Script {
 		// 	return a.render.zIndex - b.render.zIndex;
 		// });
 
-
-		console.log('update$$$$$$$$$$$$$$$');
-
-
 		// let test = [{zindex: 0}, {zindex: 1}, {zindex: 2}];
 
 		// while (test.length > 0) {

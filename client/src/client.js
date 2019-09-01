@@ -1,13 +1,4 @@
-// import Render from './render.js';
-// import Character from './character.js';//test
-// import AnimationManager from './animationManager.js';
-// import ryuAnim from './ryuAnim.js';
-// import  from './node_modules/socket.io-client/dist/socket.io.js';
 const io = require('socket.io-client');
-// const checksum = require('checksum');
-// const cs = checksum()
-// const fs = require('fs');
-//
 
 import RenderManager from './renderManager';
 import Core from './core/core';
@@ -64,59 +55,6 @@ let scores;
 let username;
 let gameStateEvent = new CustomEvent("gameState", {detail : { 'username': username}, bubbles: true, cancelable: false});
 
-// let idle = new Animation();
-// let punch = new Animation2();
-// let gameRender = new Render();
-
-// let socket = io('http://e2r12p13:8000/');
-//
-// setInterval(() => {
-// 	window.moveBy(5,5);
-// }, 100);
-
-//
-//
-// socket.on('allPlayersId', (data) => {
-// 	if (gameState != "fight") {
-// 		displayPlayersId(data);
-// 	}
-// 	playersChoice = data;
-// });
-//
-// socket.on('lose', () => {
-// 	console.log("YOU LOSE !");
-// 	gameState = 'finish';
-// 	cleanLetters();
-// 	displayLose();
-// 	displayAgainMenu();
-// });
-//
-// socket.on('win', () => {
-// 	console.log("YOU WIN !");
-// 	gameState = 'finish';
-// 	cleanLetters();
-// 	displayWin();
-// 	displayAgainMenu();
-// });
-//
-// socket.on('fightBegin', () => {
-// 	console.log("FIGHT BEGIN !");
-// 	ryu2 = new Character(-200,0, true);
-// 	ryu2.addAnimation(ryuAnim);
-// 	gameState = "fight";
-// 	current.start = Date.now();
-// 	render();
-// });
-//
-// socket.on('takeDamage', (playerLife) => {
-// 	console.log("TAKE DAMAGE !", playerLife);
-// 	life = playerLife;
-// 	if (ryu2)
-// 		ryu2.changeAnim('punch');
-// 	displayPlayerLife(life);
-// 	shake();
-// 	takeDamageFeedback();
-// });
 
 Network.socket.on('getScores', (data) => {
 	scores = data;
@@ -373,7 +311,6 @@ function render() {
 
 document.addEventListener("SoloGameStart", (e) => {
 
-	// console.log("HERE START");
 	closeMainMenu();
 
 	let gameCanvas = document.getElementById('gameCanvas');
@@ -384,9 +321,6 @@ document.addEventListener("SoloGameStart", (e) => {
 	gameCanvas.height = window.innerHeight;
 	gameCanvas.style.animationName = 'gameCanvasOpen';
 
-	// if (game) {
-	// 	game.deleteGame();
-	// }
 	game = new GameObject('game');
 	game.addScript(new Game(e.detail.username));
 	// game = new gameObject('game', e.detail.username);
@@ -406,74 +340,19 @@ function closeGameCanvas() {
 	gameCanvas.style.animationName = 'gameCanvasClose';
 }
 
-// document.addEventListener("gameState", (e) => {
-//
-//
-// 	if (gameState == 'solo' && username) {
-// 		game = new Game('solo', username);
-// 	}
-// })
-
-// document.addEventListener('openMenu', () => {
-// 	game.deleteGame();
-// });
-
-// document.addEventListener("gameState", (e) => {
-//
-// 	let gameCanvas = document.getElementById('gameCanvas');
-// 	let versus = document.getElementById('versus');
-// 	let solo = document.getElementById('solo');
-//
-// 	gameCanvas.style.display = 'flex';
-//
-// 	versus.style.top = '-400px';
-// 	versus.style.animationName = 'versusClose';
-//
-// 	solo.style.top = '-1000px';
-// 	solo.style.animationName = 'soloClose';
-//
-// 	gameCanvas.style.top = '0px';
-// 	gameCanvas.width = window.innerWidth;
-// 	gameCanvas.height = window.innerHeight;
-// 	gameCanvas.style.animationName = 'gameCanvasOpen';
-// })
-
 function startGame() {
 
 	let gameCanvas = document.getElementById('gameCanvas');
 
 	// game = new Game('solo', username);
-
 }
 
-
-function init() {
-
-	let versus = document.getElementById('versus');
-
-	versus.onclick = () => {
-		gameState = 'versus';
-		document.dispatchEvent(gameStateEvent);
-	}
-
-	let solo = document.getElementById('solo');
-
-	solo.onclick = () => {
-
-		let soloGameStart = new CustomEvent('SoloGameStart', {'detail': {'username': username}});
-		document.dispatchEvent(soloGameStart);
-	}
-
-	document.getElementById("clickPlayBtn").onclick = saveUsername;
-
-	pageLoad = true;
-}
-
+/* Get and sanitize username */
 function saveUsername() {
-
 	let input = document.getElementById("inputUsername");
 	let form = document.getElementById("usernameForm");
 	let blackDrop = document.getElementById("blackDrop");
+
 
 	if (input.value.length > 2 && input.value.length < 30 && input.value.match(/^[A-Za-z]+$/)) {
 		blackDrop.style.display = 'none';
@@ -483,12 +362,42 @@ function saveUsername() {
 	}
 }
 
+function init() {
+	console.log("HEY");
+	// Bouton de Mode de jeux
+	let versus = document.getElementById('versus');
+	let solo = document.getElementById('solo');
+	let saveBtn = document.getElementById("saveUsernameBtn");
+
+	// /!\ Mode de jeu Versus /!\
+	versus.onclick = () => {
+		gameState = 'versus';
+		document.dispatchEvent(gameStateEvent);
+	}
+	// /!\ Mode de jeu Solo /!\
+	solo.onclick = () => {
+		let soloGameStart = new CustomEvent('SoloGameStart', {'detail': {'username': username}});
+		document.dispatchEvent(soloGameStart);
+	}
+
+	saveBtn.onclick = saveUsername;
+	//Enable Press Enter on save username input
+	document.getElementById("inputUsername")
+	.addEventListener("keyup", (event) => {
+		if (event.keyCode === 13) {
+			console.log("ENTER");
+			saveUsername();
+		}
+	});
+
+
+	pageLoad = true;
+}
+
 window.onload = init;
 
-
-
 document.addEventListener('SoloGameStart', () => {
-
+	console.log("code:8745");
 })
 
 //test_1
