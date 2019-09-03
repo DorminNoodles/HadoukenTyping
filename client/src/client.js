@@ -1,17 +1,15 @@
 const io = require('socket.io-client');
 
-import RenderManager from './renderManager';
-import Core from './core/core';
-
 import Game from './game';
-
-import GameObject from './core/gameObject';
-
 import Render from './render';
+import Core from './core/core';
 import Network from './network';
-
 import MainMenu from './mainMenu';
+import CreateGame from './createGame';
+import GameObject from './core/gameObject';
+import RenderManager from './renderManager';
 import {closeMainMenu, openMainMenu} from './mainMenu';
+
 
 const alpha = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
 
@@ -54,6 +52,10 @@ let current = {
 let scores;
 let username;
 let gameStateEvent = new CustomEvent("gameState", {detail : { 'username': username}, bubbles: true, cancelable: false});
+
+let player = {
+	username: ''
+}
 
 
 Network.socket.on('getScores', (data) => {
@@ -284,7 +286,6 @@ function takeDamageFeedback() {
 	ctx.fill();
 }
 
-
 function render() {
 	displayEnemyLife(enemyLife);
 	displayPlayerLife(life);
@@ -313,17 +314,6 @@ document.addEventListener("SoloGameStart", (e) => {
 
 	closeMainMenu();
 
-	let gameCanvas = document.getElementById('gameCanvas');
-
-	gameCanvas.style.display = 'flex';
-	gameCanvas.style.top = '0px';
-	gameCanvas.width = window.innerWidth;
-	gameCanvas.height = window.innerHeight;
-	gameCanvas.style.animationName = 'gameCanvasOpen';
-
-	game = new GameObject('game');
-	game.addScript(new Game(e.detail.username));
-	// game = new gameObject('game', e.detail.username);
 })
 
 document.addEventListener("OpenMainMenu", (e) => {
@@ -344,7 +334,14 @@ function startGame() {
 
 	let gameCanvas = document.getElementById('gameCanvas');
 
-	// game = new Game('solo', username);
+	gameCanvas.style.display = 'flex';
+	gameCanvas.style.top = '0px';
+	gameCanvas.width = window.innerWidth;
+	gameCanvas.height = window.innerHeight;
+	gameCanvas.style.animationName = 'gameCanvasOpen';
+
+	game = new GameObject('game');
+	game.addScript(new Game(e.detail.username));
 }
 
 /* Get and sanitize username */
@@ -376,8 +373,9 @@ function init() {
 	}
 	// /!\ Mode de jeu Solo /!\
 	solo.onclick = () => {
-		let soloGameStart = new CustomEvent('SoloGameStart', {'detail': {'username': username}});
-		document.dispatchEvent(soloGameStart);
+		// let soloGameStart = new CustomEvent('SoloGameStart', {'detail': {'username': username}});
+		// document.dispatchEvent(soloGameStart);
+		startGame();
 	}
 
 	saveBtn.onclick = saveUsername;
