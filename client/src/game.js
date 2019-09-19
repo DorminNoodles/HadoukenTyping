@@ -19,10 +19,7 @@ import spawner from './gameObjects/spawner/spawner';
 import board from './gameObjects/board/board';
 import lettersArray from './gameObjects/lettersArray/lettersArray';
 
-
-
 // import cursorUI from './gameObjects/cursorUI/cursorUI';
-
 
 class Game extends Script {
 
@@ -54,7 +51,6 @@ class Game extends Script {
 		this.addListener('combo', () => {
 			this.scoreManager.addCombo();
 		});
-
 	}
 
 	gameLoop() {
@@ -70,25 +66,26 @@ class Game extends Script {
 	initSolo() {
 		this.controller = this.newObject(new GameObject('controller'));
 		this.boardBar = this.newObject(new GameObject('boardBar'));
+
 		// this.spawner = this.newObject(new GameObject('spawner'));
 
 		this.boardBar.setPosition(50, 454);
 		// this.spawner.setPosition(1330, 250);
 
-		this.boardBar.render = new Render('./gameBoardBar.gif');
+		this.boardBar.render = new Render('./images/gameBoardBar.gif');
 		// this.spawner.render = new Render('./spawner.gif');
 
 		// this.spawner.script = new SpawnerScript();
 		this.controller.script = new ControllerScript(this.spawner);
 
-		this.scoreUI = scoreUI();
+		// this.scoreUI = scoreUI();
 
-		this.blackDeathUI = this.newObject(blackDeathUI());
-		this.numberKeysUI = this.newObject(numberKeysUI());
-		this.speedProfiler = this.newObject(speedProfiler());
-		this.board = this.newObject(board());
-		this.spawner = this.newObject(spawner());
-		this.lettersArray = this.newObject(lettersArray());
+		// this.blackDeathUI = this.newObject(blackDeathUI());
+		// this.numberKeysUI = this.newObject(numberKeysUI());
+		// this.speedProfiler = this.newObject(speedProfiler());
+		// this.board = this.newObject(board());
+		// this.spawner = this.newObject(spawner());
+		// this.lettersArray = this.newObject(lettersArray());
 
 		// this.numberKeysUI = this.newObject(numberKeysUI());
 		// this.scoreUI = this.newObject(new GameObject('scoreUI'));
@@ -111,12 +108,11 @@ class Game extends Script {
 		});
 
 		// GameObject.delete(this.spawner);
-		GameObject.delete(this.boardBar);
-		GameObject.delete(this.scoreUI);
-		GameObject.delete(this.numberKeysUI);
+		// GameObject.delete(this.boardBar);
+		// GameObject.delete(this.scoreUI);
+		// GameObject.delete(this.numberKeysUI);
 		// GameObject.delete(self.scoreUIBackground);
 		// GameObject.delete(self.comboUI);
-
 
 		this.finishScorePanel = this.newObject(new GameObject('finishScorePanel'));
 		this.finishScorePanel.setPosition(420, -1800);
@@ -156,7 +152,6 @@ class Game extends Script {
 		this.scoreManager.addScore(score);
 
 		// let zeros = this.stringZeros(this.score.toString(), 12);
-
 		// this.scoreUI.renderText.changeText(zeros + this.score.toString());
 	}
 

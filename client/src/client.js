@@ -240,14 +240,14 @@ let player = {
 // 	return arr;
 // }
 
-function checkValid(arr) {
-	let valid = true;
-	arr.forEach((elm) => {
-		if (!elm.valid)
-			valid = false
-	})
-	return valid;
-}
+// function checkValid(arr) {
+// 	let valid = true;
+// 	arr.forEach((elm) => {
+// 		if (!elm.valid)
+// 			valid = false
+// 	})
+// 	return valid;
+// }
 
 // current.letters = getLetters(nbLetters);
 

@@ -7,8 +7,7 @@ const scoreUI = () => {
 	let obj = new GameObject('scoreUI');
 	obj.addScript(new ScoreUIScript());
 	obj.setPosition(620, 10);
-	obj.render = new Render('./backgroundScore.png');
-
+	obj.render = new Render('./images/backgroundScore.png');
 
 	// text.addScript()
 	return obj;
