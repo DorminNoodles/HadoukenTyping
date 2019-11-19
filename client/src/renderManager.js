@@ -6,16 +6,15 @@ import Script from './core/script';
 /*
 	Je ne garde pas de list des render mais je get la list des gameObject et je
 	vais voir dans chacun si il y a un render....
-	C est peut etre pas super opti
+	/!\ PAS OPTI /!\
 
-	recupere un event qui supprime le render avec l id de l objet
-
-	bon vu que je dois render avec la position de l objet..... fuck
-
-	Je garde l ordre des objets leur id (il est en correlation avec la position dans la list)
-
-	Solution : je copie la list et je parse tous les objets, si ils ont un zIndex de 0 ou pas du tout je les delete
+	Solution 1 : je copie la list et je parse tous les objets, si ils ont un zIndex de 0 ou pas du tout je les delete
 	de la list une fois terminé je reprends la liste de 0 mais pour les zIndex == 1 jusqu' a ce qu elle soit vide.
+
+	Solution 2 : je trie la liste a chaque fois
+
+	Solution 3 : je fais une nouvelle liste juste pour renderManager, mais j'ai besoin d'un flag pour savoir si il y a eu
+	un nouvel objet
 */
 
 class RenderManager extends Script {

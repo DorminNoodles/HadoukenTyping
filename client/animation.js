@@ -1,9 +1,3 @@
-//
-//
-// let cols = 8;
-//
-//
-// module.exports = cols;
 
 
 class Animation {

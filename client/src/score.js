@@ -22,7 +22,7 @@ class Score extends Script {
 			let s = "100" * this.combo;
 			let score = new GameObject('score');
 			score.setPosition(e.detail.x, e.detail.y);
-			score.renderText = new RenderText('./gameFont1.png', s.toString(), 15, 46);
+			score.renderText = new RenderText('../images/gameFont1.png', s.toString(), 15, 46);
 			score.addScript(new letterScoreUI());
 
 			setTimeout(() => {
