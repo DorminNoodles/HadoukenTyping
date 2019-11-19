@@ -65,11 +65,24 @@ class RenderManager extends Script {
 		// 	return a.render.zIndex - b.render.zIndex;
 		// });
 
+		console.log('length', objects.length);
 
 		console.log('update$$$$$$$$$$$$$$$');
 
 
-		let test = [{zindex: 0}, {zindex: 1}, {zindex: 2}];
+
+		console.log('length', objects.length);
+
+		cloneObjects.forEach((elem, index) => {
+			if (elem.render) {
+				cloneObjects.splice(index, 1);
+
+				console.log('hey >', elem.render.zIndex);
+			}
+
+		});
+
+		console.log('length', objects.length);
 
 		// while (test.length > 0) {
 		// 	test.splice(0,1);
@@ -79,21 +92,19 @@ class RenderManager extends Script {
 		//
 		// console.log(test)
 
-		let test = objects;
-
-		let i = 0;
-
-		while (test.length > 0) {
-			test.forEach((elem, index) => {
-				if (!elem.render)
-					test.splice(index, 1);
-				else if (elem.zIndex == i)
-					test.splice(index, 1);
-			})
-			i++;
-		}
-
-
+		// let test = objects;
+		//
+		// let i = 0;
+		//
+		// while (test.length > 0) {
+		// 	test.forEach((elem, index) => {
+		// 		if (!elem.render)
+		// 			test.splice(index, 1);
+		// 		else if (elem.zIndex == i)
+		// 			test.splice(index, 1);
+		// 	})
+		// 	i++;
+		// }
 
 
 		cloneObjects.forEach((objet) => {

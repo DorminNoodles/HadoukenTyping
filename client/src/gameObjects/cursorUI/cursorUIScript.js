@@ -12,7 +12,6 @@ class CursorUIScript extends Script {
 		this.combo = 0;
 
 		this.addListener('combo', () => {
-			// console.log(this.gameObject);
 			this.combo++;
 			console.log(this.object);
 			if (this.combo > 5) {
