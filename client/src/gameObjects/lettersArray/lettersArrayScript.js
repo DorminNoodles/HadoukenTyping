@@ -20,7 +20,6 @@ class LettersArrayScript extends Script {
 		this.addListener('spawnLetter', (data) => {
 			console.log("data :", data);
 			this.addLetter(data.detail.letter);
-			// console.log("FICHTRE NEW LETTER");
 		})
 
 	}

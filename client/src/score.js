@@ -55,7 +55,7 @@ class Score extends Script {
 	}
 
 	addCombo() {
-		console.log("ADD COMBO");
+		console.log("32334: ADD COMBO");
 		this.combo++;
 	}
 

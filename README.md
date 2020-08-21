@@ -11,11 +11,11 @@
 ```
   mkdir src //for sources
   mkdir dist //for distribution
-  
+
   npx webpack //test from src create main.js to dist
-  
+
   touch webpack.config.js
-  
+
   const path = require('path');
 ```
 
@@ -28,3 +28,9 @@
       }
     };
   ```
+
+  ### Launch ES6 file with NodeJS
+```
+  npm i esm
+  node -r esm yourfile.js
+```

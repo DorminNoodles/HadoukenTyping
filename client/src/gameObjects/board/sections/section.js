@@ -7,7 +7,7 @@ const section = () => {
 	let obj = new GameObject('section');
 	// obj.addScript(new ());
 
-	obj.render = new Render('./section.png');
+	obj.render = new Render('./images/section.png');
 
 	return obj;
 }

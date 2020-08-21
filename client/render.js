@@ -6,7 +6,6 @@ class Render {
 	constructeur () {
 		this.allObjects = [];
 
-		console.log("RENDER")
 	}
 
 	static subscribe(obj){

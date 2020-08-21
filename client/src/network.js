@@ -7,7 +7,7 @@ class Network {
 		this.socket = io('http://localhost:8000');
 
 		this.socket.on('connection', () => {
-			console.log("SOCKET IO");
+			console.log("1397: SOCKET IO");
 		});
 	}
 

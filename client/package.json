@@ -6,6 +6,7 @@
   "dependencies": {
     "checksum": "^0.1.1",
     "clientside-require": "^4.7.2",
+    "esm": "^3.2.25",
     "express": "^4.16.4",
     "fs": "0.0.1-security",
     "nodemon": "^1.18.10",
@@ -18,7 +19,7 @@
   "scripts": {
     "dev": "webpack --mode=development",
     "build": "webpack",
-    "start": "nodemon client.js",
+    "start": "nodemon src/client.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

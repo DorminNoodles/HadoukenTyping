@@ -8,7 +8,6 @@ class EndMenuScript extends Script{
 
 	constructor(username) {
 
-		// console.log("Create end menu");
 		super();
 
 		this.username = username;
@@ -68,7 +67,7 @@ class EndMenuScript extends Script{
 			document.dispatchEvent(soloGameStart);
 		}
 		if (this.pos == 1) {
-			console.log("SOLOGAME START");
+			console.log("3234: SOLOGAME START");
 			let soloGameStart = new CustomEvent('OpenMainMenu', {'detail': {'username': this.username}});
 			document.dispatchEvent(soloGameStart);
 		}

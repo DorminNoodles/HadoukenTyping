@@ -9,7 +9,7 @@ import RenderText from './renderText';
 import Render from './render';
 import Script from './core/script';
 import Score from './score';
-import Core from './core/core';
+import * as Core from './core/core';
 import scoreUI from './gameObjects/scoreUI/scoreUI';
 import blackDeathUI from './gameObjects/blackDeathUI/blackDeathUI';
 import numberKeysUI from './gameObjects/numberKeysUI/numberKeysUI';
@@ -24,59 +24,59 @@ import lettersArray from './gameObjects/lettersArray/lettersArray';
 class Game extends Script {
 
 	constructor(username) {
-		super();
+		// super();
 
-		this.canvas = document.getElementById('canvas');
-		this.ctx = canvas.getContext('2d');
+		// this.canvas = document.getElementById('canvas');
+		// this.ctx = canvas.getContext('2d');
 
-		this.renderManager = new RenderManager();
-		this.scoreManager = new Score();
-		this.username = username;
-		this.score = 0;
+		// this.renderManager = new RenderManager();
+		// this.scoreManager = new Score();
+		// this.username = username;
+		// this.score = 0;
 
-		this.initSolo();
+		// this.initSolo();
 
-		setTimeout(() => {
-			this.gameLoop();
-		}, 25);
+		// setTimeout(() => {
+		// 	this.gameLoop();
+		// }, 25);
 
-		this.addListener('finishGame', () => {
-			this.endSolo();
-		});
+		// this.addListener('finishGame', () => {
+		// 	this.endSolo();
+		// });
 
-		this.addListener('addScore', (e) => {
-			this.addScore(e.detail.score);
-		});
+		// this.addListener('addScore', (e) => {
+		// 	this.addScore(e.detail.score);
+		// });
 
-		this.addListener('combo', () => {
-			this.scoreManager.addCombo();
-		});
+		// this.addListener('combo', () => {
+		// 	this.scoreManager.addCombo();
+		// });
 	}
 
 	gameLoop() {
-		let loop = (e) => {
-			this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-			this.renderManager.update();
-			Core.update();
-			this.reqAnimGameLoop = requestAnimationFrame(loop);
-		}
-		this.reqAnimGameLoop = requestAnimationFrame(loop);
+		// let loop = (e) => {
+		// 	this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+		// 	this.renderManager.update();
+		// 	// Core.update();
+		// 	this.reqAnimGameLoop = requestAnimationFrame(loop);
+		// }
+		// this.reqAnimGameLoop = requestAnimationFrame(loop);
 	}
 
 	initSolo() {
-		this.controller = this.newObject(new GameObject('controller'));
-		this.boardBar = this.newObject(new GameObject('boardBar'));
+		// this.controller = this.newObject(new GameObject('controller'));
+		// this.boardBar = this.newObject(new GameObject('boardBar'));
 
 		// this.spawner = this.newObject(new GameObject('spawner'));
 
-		this.boardBar.setPosition(50, 454);
+		// this.boardBar.setPosition(50, 454);
 		// this.spawner.setPosition(1330, 250);
 
-		this.boardBar.render = new Render('./images/gameBoardBar.gif');
+		// this.boardBar.render = new Render('./images/gameBoardBar.gif');
 		// this.spawner.render = new Render('./spawner.gif');
 
 		// this.spawner.script = new SpawnerScript();
-		this.controller.script = new ControllerScript(this.spawner);
+		// this.controller.script = new ControllerScript(this.spawner);
 
 		// this.scoreUI = scoreUI();
 
@@ -156,7 +156,6 @@ class Game extends Script {
 	}
 
 	// canvasBackground() {
-	// 	console.log("BACKGROUND");
 	//
 	// 	this.canvasBack = document.getElementById('canvasBack');
 	// 	let ctx = this.canvasBack.getContext("2d");
@@ -177,7 +176,6 @@ class Game extends Script {
 //
 // 	constructor(type, username){
 //
-// 		console.log(GameObject.listOfAll());
 //
 // 		this.username = username;
 // 		this.canvasBack;

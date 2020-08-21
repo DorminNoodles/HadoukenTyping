@@ -1,5 +1,4 @@
 import { animCombo, idleCombo } from './anim/animCombo';
-import RenderManager from './renderManager.js';
 import { animFlash } from './anim/animFlash';
 import { animChain } from './anim/animChain';
 import LetterScript from './letterScript.js';
@@ -22,7 +21,6 @@ class SpawnerScript extends Script {
 	constructor() {
 		super();
 
-		console.log("HELLO");
 		this.begin = Date.now();
 		this.nextSpawn = Date.now() + 2000;
 
@@ -124,7 +122,6 @@ class SpawnerScript extends Script {
 
 	deleteLetter(key) {
 		if (this.boardArray[this.currentLetter]) {
-			console.log(this.boardArray[this.currentLetter].script.letter);
 			if (key == this.boardArray[this.currentLetter].script.letter) {
 				if (this.boardArray[this.currentLetter].script.isVulnerable()) {
 					if (!(this.chain % 5))

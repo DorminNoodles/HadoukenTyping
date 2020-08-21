@@ -18,7 +18,6 @@ class SpawnerScript extends Script {
 
 		if (this.nextSpawn < Date.now()) {
 			this.nextSpawn = Date.now() + this.deltaSpawnSpeed;
-			console.log("gnagna");
 			let letter = this.newObject(letterStandard(5));
 			letter.setPosition(1000, 800);
 			letter.render.setZIndex(50);

@@ -7,10 +7,6 @@ class BlackDeathUIScript extends Script {
 
 		this.opacityAsked = 0.0;
 
-		// console.log(this.object);
-		// console.log(this.gameObjectId);
-		// this.object.render.changeOpacity(0.0);
-
 		this.addListener('letterSpawned', (e) => {
 			// console.log("HELLO");
 			if (this.object.render && e.detail.qty > 8) {
@@ -24,7 +20,6 @@ class BlackDeathUIScript extends Script {
 	}
 
 	update() {
-		// console.log(this.opacityAsked);
 		// let n = 0.0;
 		//
 		// if (this.object.render.opacity < this.opacityAsked)

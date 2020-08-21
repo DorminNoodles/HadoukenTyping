@@ -1,15 +1,16 @@
-import Script from './core/script';
+import Script from '../../core/script';
 
 class Controller extends Script{
 
 	constructor(spawner) {
+        console.log("CONTROLLER SCRIPT");
 
 		super();
 
 		this.keyList = [];
 
 		this.addListener('keydown', (e) => {
-			console.log('keydown bad script');
+            console.log(e);
 			// if (!this.keyList[e.keyCode]) {
 			// 	this.keyList[e.keyCode] = true;
 			// 	this.handler(e);
@@ -21,8 +22,8 @@ class Controller extends Script{
 		this.addListener('keyup', (e) => {
 			// if (this.keyList[e.keyCode])
 			// 	delete this.keyList[e.keyCode];
-		});
-		// this.spawner = spawner;
+        });
+		this.spawner = spawner;
 	}
 
 	update() {

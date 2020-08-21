@@ -2,13 +2,14 @@ const io = require('socket.io-client');
 
 import Game from './game';
 import Render from './render';
-import Core from './core/core';
+import * as Core from './core/core';
 import Network from './network';
 import MainMenu from './mainMenu';
 import CreateGame from './createGame';
 import GameObject from './core/gameObject';
 import RenderManager from './renderManager';
 import {closeMainMenu, openMainMenu} from './mainMenu';
+import SoloGame from './gameObjects/soloGame/soloGame';
 
 
 // const alpha = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
@@ -321,20 +322,10 @@ let player = {
 // 	gameCanvas.style.animationName = 'gameCanvasClose';
 // }
 
-function startGame() {
+function startSoloGame() {
 
-	let gameCanvas = document.getElementById('gameCanvas');
-	let game = new GameObject('game');
-
-	gameCanvas.style.display = 'flex';
-	gameCanvas.style.top = '0px';
-	gameCanvas.width = window.innerWidth;
-	gameCanvas.height = window.innerHeight;
-	gameCanvas.style.animationName = 'gameCanvasOpen';
-
-	console.log('player > ', player.username);
-
-	game.addScript(new Game(player.username));
+	console.log("213: Start Game !");
+	let game = new SoloGame('SoloGame');
 }
 
 /* Get and sanitize username */
@@ -343,7 +334,6 @@ function saveUsername() {
 	let form = document.getElementById("usernameForm");
 	let blackDrop = document.getElementById("blackDrop");
 
-	console.log(input.value);
 
 	if (input.value.length > 2 && input.value.length < 30 && input.value.match(/^[A-Za-z]+$/)) {
 		blackDrop.style.display = 'none';
@@ -354,11 +344,12 @@ function saveUsername() {
 }
 
 function init() {
-	console.log("HEY");
 	// Bouton de Mode de jeux
 	let versus = document.getElementById('versus');
 	let solo = document.getElementById('solo');
 	let saveBtn = document.getElementById("saveUsernameBtn");
+
+
 
 	// /!\ Mode de jeu Versus /!\
 	versus.onclick = () => {
@@ -369,7 +360,7 @@ function init() {
 	solo.onclick = () => {
 		// let soloGameStart = new CustomEvent('SoloGameStart', {'detail': {'username': username}});
 		// document.dispatchEvent(soloGameStart);
-		startGame();
+		startSoloGame();
 	}
 
 	saveBtn.onclick = saveUsername;
@@ -377,18 +368,10 @@ function init() {
 	document.getElementById("inputUsername")
 	.addEventListener("keyup", (event) => {
 		if (event.keyCode === 13) {
-			console.log("ENTER");
+			console.log("9203: ENTER");
 			saveUsername();
 		}
 	});
 }
 
 window.onload = init;
-
-//test_1
-// console.log(getLetters(2));
-// console.log(getLetters(32));
-
-//test_2
-// document.addEventListener('keydown', (event) => {
-// });

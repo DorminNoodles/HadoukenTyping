@@ -1,7 +1,8 @@
 
+
 class Render {
 
-	constructor(src) {
+	constructor(src, zIndex = 0) {
 		this.anim = [];
 		this.img = new Image();
 		this.img.src = src;
@@ -12,7 +13,8 @@ class Render {
 
 		this.opacity = 1.0;
 
-		this.zIndex = 0;
+		console.log(zIndex);
+		this.zIndex = zIndex;
 
 		this.offsetX = 0;
 		this.offsetY = 0;

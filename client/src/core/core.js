@@ -2,37 +2,52 @@
 	List of all gameObjects
 */
 
-class Core {
+let gameObjectList = [];
 
-	constructor() {
-		this.nextId = 1;
-		this.gameObjectList = [];
-	}
+// class Core {
 
-	addObject(obj) {
-		let id = this.nextId;
+// 	constructor() {
+// 		this.nextId = 1;
+// 		this.gameObjectList = [];
+// 	}
 
-		this.nextId++;
-		this.gameObjectList[id] = obj;
-		return id;
-	}
+// 	addObject(obj) {
+// 		let id = this.nextId;
 
-	getGameObjectList() {
-		return this.gameObjectList;
-	}
+// 		this.nextId++;
+// 		this.gameObjectList[id] = obj;
+// 		return id;
+// 	}
 
-	update() {
+// 	getGameObjectList() {
+// 		return this.gameObjectList;
+// 	}
 
-		this.gameObjectList.forEach((objet) => {
-			if (objet.script && objet.script.update) {
-				objet.script.update();
-			}
-		});
-	}
+export function	update() {
+	// console.log('core update');
+	gameObjectList.forEach((object) => {
 
-	deleteObject(id) {
-		delete this.gameObjectList[id];
-	}
+		if (object.script && object.script.update) {
+			object.script.update();
+		}
+		object.update();
+	});
 }
 
-export default new Core();
+// 	deleteObject(id) {
+// 		delete this.gameObjectList[id];
+// 	}
+// }
+// export default new Core();
+// export default
+
+export function addObject(obj) {
+	let id = gameObjectList.length;
+
+	gameObjectList[id] = obj;
+	return id;
+}
+
+export function getGameObjectList() {
+	return gameObjectList;
+}

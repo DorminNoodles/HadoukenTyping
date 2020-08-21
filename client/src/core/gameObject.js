@@ -1,17 +1,32 @@
-import Core from './core';
+import * as Core from './core';
 import Script from './script';
+import * as RenderManager from '../renderManager';
+
 
 class GameObject {
 
-	constructor(name) {
+	constructor(name = 'noName') {
+
+		//On garde tous les gameobjects dans une list
 		this.id = Core.addObject(this);
-		// console.log("create > ", this.id, " : ", name);
+		// this.id = 2;
+
 		this.name = name;
 		this.render;
 		this.script;
 		this.x = 0;
 		this.y = 0;
+		this.local = {
+			x: 0,
+			y: 0
+		};
+		this.parent = {
+			x: 0,
+			y: 0,
+		};
 		this.childs = [];
+
+		// RenderManager.addObject(this);
 	}
 
 	static listOfAll() {
@@ -21,6 +36,13 @@ class GameObject {
 	setPosition(x, y) {
 		this.x = x;
 		this.y = y;
+
+		this.childs.forEach((child) => {
+			let localX = child.x - child.parent.x;
+			let localY = child.y - child.parent.y;
+			child.setParentPosition(x, y);
+			child.setPosition(child.parent.x + localX, child.parent.y + localY);
+		})
 	}
 
 	getPosition() {
@@ -45,6 +67,30 @@ class GameObject {
 
 	addChild(obj) {
 		this.childs.push(obj);
+	}
+
+	addGameObject(obj) {
+		this.childs.push(obj);
+
+		//GameObject give position from parent
+		obj.setParentPosition(this.x, this.y);
+		//gameObject set to parent position by default
+		obj.setPosition(this.x, this.y);
+		return obj;
+	}
+
+	setLocalPosition(x, y) {
+		//position from gameobject parent
+		this.local.x = x;
+		this.local.y = y;
+		this.x = x + this.parent.x;
+		this.y = y + this.parent.y;
+	}
+
+	setParentPosition(x, y) {
+		this.parent.x = x;
+		this.parent.y = y;
+		// this.setLocalPosition(this.x, this.y);
 	}
 
 	getChild(obj) {
@@ -86,7 +132,16 @@ class GameObject {
 			}
 		}
 
-		Core.deleteObject(object.id);
+		// Core.deleteObject(object.id);
+	}
+
+	update() {
+
+	}
+
+	addRender(render) {
+		this.render = render;
+		RenderManager.addObject(this);
 	}
 }
 

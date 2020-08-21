@@ -27,8 +27,6 @@ class Character {
 	}
 
 	update() {
-		// console.log("Update Object");
-
 		this.playAnim();
 	}
 
