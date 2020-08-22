@@ -12,7 +12,6 @@ class Board extends GameObject {
 	constructor(name) {
 		console.log("23111: Create Board");
 		super(name);
-		this.addScript(new BoardScript());
 		this.beginSection = this.addGameObject(new BeginSection('beginSection'));
 		this.beginSection.setLocalPosition(0, 0);
 
