@@ -18,6 +18,13 @@ class Render {
 
 		this.offsetX = 0;
 		this.offsetY = 0;
+
+		this.height = null;
+		this.width = null;
+
+		this.sourceX = 0;
+		this.sourceY = 0;
+
 	}
 
 	addAnim(anim) {
@@ -33,10 +40,27 @@ class Render {
 		if (this.img) {
 			if (this.isAnimated)
 				this.drawAnim(ctx, x, y);
-			else
-				ctx.drawImage(this.img, x, y);
+			else {
+				if (!this.width && !this.height) {
+					ctx.drawImage(this.img,
+						x + this.offsetX,
+						y + this.offsetY,
+					);
+				}
+				else { // ok c'est degueulasse
+					ctx.drawImage(this.img,
+						this.sourceX,
+						this.sourceY,
+						this.width,
+						this.height,
+						x + this.offsetX,
+						y + this.offsetY,
+						this.width,
+						this.height
+					);
+				}
+			}
 		}
-
 	}
 
 	setZIndex(zIndex) {

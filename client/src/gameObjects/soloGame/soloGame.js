@@ -4,6 +4,8 @@ import Controller from '../controller/controller';
 import * as Core from '../../core/core';
 import * as RenderManager from '../../renderManager';
 import Board from '../board/board';
+import TextRender from '../textRender';
+import DeathTimer from '../deathTimer';
 
 
 class SoloGame extends GameObject {
@@ -13,12 +15,17 @@ class SoloGame extends GameObject {
         super('SoloGame');
         this.addScript(new SoloGameScript());
 
-        this.controller = new Controller('Controller');
+        // this.controller = new Controller('Controller');
         // console.log("gameloop");
         this.openGameCanvas();
         this.gameLoop();
         let board = this.addGameObject(new Board('MainBoard'));
         board.setPosition(60, 200);
+
+        // let deathTimer = this.addGameObject(new TextRender('DeathTimer'));
+        // deathTimer.setPosition(400, 200);
+        // deathTimer.write(0, '0001');
+        let deathTimer = this.addGameObject(new DeathTimer('DeathTimer', 5));
     }
 
     update() {

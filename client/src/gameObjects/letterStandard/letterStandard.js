@@ -17,7 +17,7 @@ class LetterStd extends GameObject {
 
 	constructor(name, sign = 'A') {
 		super(name);
-		this.addRender(new Render('./images/boutonLetters.png', 80));
+		this.addRender(new Render('./images/boutonLetters.png'));
 		this.render.addAnim(anim['anim'+sign]);
 		this.targetPos = 0;
 		this.speed = 5;
@@ -34,6 +34,12 @@ class LetterStd extends GameObject {
 			// this.setLocalPosition(this.x - this.speed, this.y);
 			// if ()
 		}
+	}
+
+	setTargetPos(pos) {
+		console.log(this.name, 'setTargetPos .... ');
+		console.log(pos);
+		this.targetPos = pos;
 	}
 
 }

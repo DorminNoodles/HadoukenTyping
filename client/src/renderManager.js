@@ -113,7 +113,7 @@ export function update() {
 		// // }
 
 		objects.forEach((object) => {
-						// console.log("render id : ", object.id, "    name : ", object.name);
+			// console.log("render id : ", object.id, "    name : ", object.name);
 			if (object.render)
 				object.render.draw(ctx, object.x + originX, object.y + originY);
 		})
@@ -172,6 +172,15 @@ export function addObject(obj) {
 	}
 
 	// console.log("70942: objects > ", JSON.stringify(objects));
+
+}
+
+export function deleteObject(obj) {
+	console.log(objects);
+
+	const index = objects.findIndex(element => element.id === obj.id);
+	console.log("object id > ", obj.id,  'and  > ', index);
+	objects.splice(index, 1);
 
 }
 

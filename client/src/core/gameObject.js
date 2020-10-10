@@ -25,6 +25,7 @@ class GameObject {
 			y: 0,
 		};
 		this.childs = [];
+		this.eventListeners = [];
 
 		// RenderManager.addObject(this);
 	}
@@ -69,7 +70,15 @@ class GameObject {
 		this.childs.push(obj);
 	}
 
+	deleteAllChilds() {
+		this.childs.forEach((child) => {
+			GameObject.delete(child);
+		})
+		this.childs = [];
+	}
+
 	addGameObject(obj) {
+		console.log("obj > ", obj);
 		this.childs.push(obj);
 
 		//GameObject give position from parent
@@ -132,6 +141,7 @@ class GameObject {
 			}
 		}
 
+		RenderManager.deleteObject(object);
 		// Core.deleteObject(object.id);
 	}
 
@@ -142,6 +152,11 @@ class GameObject {
 	addRender(render) {
 		this.render = render;
 		RenderManager.addObject(this);
+	}
+
+	addListener(name, func) {
+		this.eventListeners.push({'name': name, 'func': func});
+		document.addEventListener(name, func);
 	}
 }
 
