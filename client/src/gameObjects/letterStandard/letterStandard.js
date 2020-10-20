@@ -17,28 +17,54 @@ class LetterStd extends GameObject {
 
 	constructor(name, sign = 'A') {
 		super(name);
-		this.addRender(new Render('./images/boutonLetters.png'));
+		this.addRender(new Render('./images/boutonLetters.png', 40));
 		this.render.addAnim(anim['anim'+sign]);
 		this.targetPos = 0;
-		this.speed = 5;
+		this.speed = 10;
 		this.sign = sign;
-	}
 
-	update() {
-		if (this.targetPos < this.local.x) {
-			if (this.local.x - this.speed < this.targetPos)
-				this.setLocalPosition(this.targetPos, this.local.y);
-			else
-				this.setLocalPosition(this.local.x - this.speed, this.local.y);
+		this.state = null;
 
-			// this.setLocalPosition(this.x - this.speed, this.y);
-			// if ()
+		this.deleteAnimationStart = 0;
+		this.velocity = {
+			x: 0.0,
+			y: 0.0,
 		}
 	}
 
+	update() {
+
+		// console.log("SET LOCAL POS", "target pos : ", this.targetPos, "local x : ", this.local.x, "local y", this.local.y);
+
+		if (!this.state) {
+			if (this.targetPos < this.local.x) {
+				if (this.local.x - this.speed < this.targetPos) {
+					this.setLocalPosition(this.targetPos, this.local.y);
+				}
+				else
+					this.setLocalPosition(this.local.x - this.speed, this.local.y);
+			}
+		}
+
+		if (typeof this.state === 'function') {
+			this.state();
+		}
+	}
+
+	deleteAnimation() {
+		if (Date.now() > this.deleteAnimationStart)
+			GameObject.delete(this);
+		this.setLocalPosition(this.local.x, this.local.y - Math.round(this.velocity.y));
+		this.velocity.y += -6.0;
+	}
+
+	deleteLetter() {
+		this.deleteAnimationStart = Date.now() + 1000;
+		this.state = this.deleteAnimation;
+		this.velocity.y = 20;
+	}
+
 	setTargetPos(pos) {
-		console.log(this.name, 'setTargetPos .... ');
-		console.log(pos);
 		this.targetPos = pos;
 	}
 

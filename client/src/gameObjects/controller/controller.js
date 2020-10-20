@@ -5,7 +5,7 @@ import ControllerScript from './controllerScript';
 class Controller extends GameObject {
 
     constructor(name) {
-        console.log("Controller GAMEOBJECT");
+        console.log("122wcc: Controller GAMEOBJECT");
         super(name);
         this.addScript(new ControllerScript());
     }

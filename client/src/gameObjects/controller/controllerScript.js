@@ -3,7 +3,6 @@ import Script from '../../core/script';
 class Controller extends Script{
 
 	constructor(spawner) {
-        console.log("CONTROLLER SCRIPT");
 
 		super();
 

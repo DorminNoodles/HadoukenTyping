@@ -19,6 +19,7 @@ class TextRender extends GameObject {
       //   alphabet[i].render.height = 45;
       //   alphabet[i].render.sourceX = 30 * i;
       // }
+      this.letters = [];
   }
 
   update() {
@@ -26,12 +27,14 @@ class TextRender extends GameObject {
   }
 
   write(pos, text) {
+
     this.deleteAllChilds();
-    console.log("write");
+
+    console.log("342kewws: local parent pos  > ", this.parent);
+
     text.split('').forEach((letter, index) => {
-      console.log(letter);
       let tmp = this.addGameObject(new GameObject());
-      tmp.setPosition((index*30), 300);
+      tmp.setLocalPosition((index*30), 0);
       tmp.addRender(new Render('../../images/gameFont1.png'));
       tmp.render.width = 36;
       tmp.render.height = 45;

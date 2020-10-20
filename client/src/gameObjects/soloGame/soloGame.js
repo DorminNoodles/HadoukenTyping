@@ -13,19 +13,26 @@ class SoloGame extends GameObject {
     constructor() {
         console.log("SOLO GAME");
         super('SoloGame');
-        this.addScript(new SoloGameScript());
+        // this.addScript(new SoloGameScript());
 
         // this.controller = new Controller('Controller');
         // console.log("gameloop");
         this.openGameCanvas();
         this.gameLoop();
-        let board = this.addGameObject(new Board('MainBoard'));
-        board.setPosition(60, 200);
+        let board = this.addGameObject(new Board('MainBoard', true, false));
+        board.setLocalPosition(60, 500);
+
+        // let board2 = this.addGameObject(new Board('MainBoard2', false, true));
+        // board2.setPosition(60, 120);
 
         // let deathTimer = this.addGameObject(new TextRender('DeathTimer'));
         // deathTimer.setPosition(400, 200);
         // deathTimer.write(0, '0001');
-        let deathTimer = this.addGameObject(new DeathTimer('DeathTimer', 5));
+
+
+        // le timer de mort !
+        // let deathTimer = this.addGameObject(new DeathTimer('DeathTimer', 5));
+        // deathTimer.setPosition(0, 0);
     }
 
     update() {
@@ -43,7 +50,6 @@ class SoloGame extends GameObject {
 
     gameLoop() {
 		let loop = (e) => {
-            // console.log("gameloop .........");
 			// this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
             Core.update();
             RenderManager.update();

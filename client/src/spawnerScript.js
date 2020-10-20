@@ -90,7 +90,6 @@ class SpawnerScript extends Script {
 				this.deadTime = true;
 				setTimeout(() => {
 					if (this.letterQuantity > 15) {
-						console.log("EVENT FINISH");
 						let evt = new Event("finishGame", {"bubbles":true, "cancelable":false});
 						document.dispatchEvent(evt);
 					}

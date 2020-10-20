@@ -13,9 +13,7 @@ class CursorUIScript extends Script {
 
 		this.addListener('combo', () => {
 			this.combo++;
-			console.log(this.object);
 			if (this.combo > 5) {
-				console.log("CHAT-----------------------");
 				this.object.render.changeAnim('idleX2');
 			}
 		});

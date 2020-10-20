@@ -20,10 +20,10 @@ class GameObject {
 			x: 0,
 			y: 0
 		};
-		this.parent = {
-			x: 0,
-			y: 0,
-		};
+		// this.parent = {
+		// 	x: 0,
+		// 	y: 0,
+		// };
 		this.childs = [];
 		this.eventListeners = [];
 
@@ -47,10 +47,16 @@ class GameObject {
 	}
 
 	getPosition() {
-		return ({
-			'x': this.x,
-			'y': this.y
-		});
+		if (this.parent) {
+			return {
+				x: this.parent.getPosition().x + this.local.x,
+				y: this.parent.getPosition().y + this.local.y,
+			};
+		}
+		return {
+			x: 0,
+			y: 0,
+		}
 	}
 
 	move(x, y) {
@@ -77,9 +83,13 @@ class GameObject {
 		this.childs = [];
 	}
 
+	setParent(parent) {
+		this.parent = parent;
+	}
+
 	addGameObject(obj) {
-		console.log("obj > ", obj);
 		this.childs.push(obj);
+		obj.setParent(this);
 
 		//GameObject give position from parent
 		obj.setParentPosition(this.x, this.y);
@@ -142,7 +152,7 @@ class GameObject {
 		}
 
 		RenderManager.deleteObject(object);
-		// Core.deleteObject(object.id);
+		Core.deleteObject(object);
 	}
 
 	update() {
@@ -157,6 +167,10 @@ class GameObject {
 	addListener(name, func) {
 		this.eventListeners.push({'name': name, 'func': func});
 		document.addEventListener(name, func);
+	}
+
+	removeListener(name, func) {
+
 	}
 }
 

@@ -9,7 +9,6 @@ class Controller extends Script{
 		this.keyList = [];
 
 		this.addListener('keydown', (e) => {
-			console.log('keydown bad script');
 			// if (!this.keyList[e.keyCode]) {
 			// 	this.keyList[e.keyCode] = true;
 			// 	this.handler(e);
@@ -43,7 +42,7 @@ class Controller extends Script{
 	}
 
 	handler(e) {
-		// console.log(e.key);
+		console.log("432op2: controller !!! ", e.key);
 		if (e.keyCode >= 65 && e.keyCode <= 90)
 			this.spawner.script.deleteLetter(e.key.toLowerCase());
 	}

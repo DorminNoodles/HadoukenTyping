@@ -114,8 +114,11 @@ export function update() {
 
 		objects.forEach((object) => {
 			// console.log("render id : ", object.id, "    name : ", object.name);
-			if (object.render)
-				object.render.draw(ctx, object.x + originX, object.y + originY);
+			if (object && object.render) {
+				// console.log("322rfevv: ", object);
+				let pos = object.getPosition();
+				object.render.draw(ctx, pos.x + originX, pos.y + originY);
+			}
 		})
 
 		// objects.forEach((object) => {
@@ -161,27 +164,18 @@ export function addObject(obj) {
 		}
 		position = i;
 	}
-	// console.log("34253: find position ", position, "   > ", obj);
 	if (!position) {
-		// console.log("9847: just push ", obj.name);
 		objects.push(obj);
 	}
 	else {
-		// console.log("32421: splice ", obj.name, '    position > ', position);
 		objects.splice(position, 0, obj);
 	}
-
-	// console.log("70942: objects > ", JSON.stringify(objects));
 
 }
 
 export function deleteObject(obj) {
-	console.log(objects);
-
 	const index = objects.findIndex(element => element.id === obj.id);
-	console.log("object id > ", obj.id,  'and  > ', index);
 	objects.splice(index, 1);
-
 }
 
 // export default RenderManager;

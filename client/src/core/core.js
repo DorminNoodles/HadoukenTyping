@@ -34,10 +34,9 @@ export function	update() {
 	});
 }
 
-// 	deleteObject(id) {
-// 		delete this.gameObjectList[id];
-// 	}
-// }
+export function deleteObject(object) {
+	delete gameObjectList[object.id];
+}
 // export default new Core();
 // export default
 

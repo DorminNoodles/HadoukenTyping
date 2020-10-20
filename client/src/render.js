@@ -13,7 +13,6 @@ class Render {
 
 		this.opacity = 1.0;
 
-		console.log(zIndex);
 		this.zIndex = zIndex;
 
 		this.offsetX = 0;
@@ -48,6 +47,7 @@ class Render {
 					);
 				}
 				else { // ok c'est degueulasse
+					// console.log('5673lk: draw ctx');
 					ctx.drawImage(this.img,
 						this.sourceX,
 						this.sourceY,
