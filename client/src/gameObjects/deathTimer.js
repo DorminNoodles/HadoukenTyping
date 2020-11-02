@@ -11,6 +11,10 @@ class DeathTimer extends GameObject {
     this.endTime = Date.now() + (seconds * 1000);
     this.stop = false;
     this.nextWrite = Date.now();
+    this.velocity = {
+      x: 0,
+      y: 10.0,
+    }
   }
 
   update() {
@@ -22,11 +26,25 @@ class DeathTimer extends GameObject {
     }
 
     if (!this.stop && this.nextWrite < Date.now()) {
-      // console.log("432111k: write !");
       this.text.write(null, (this.endTime - Date.now()) + '');
-      // this.endTime -= Date.now();
-      this.nextWrite = Date.now() + 200;
+      this.nextWrite = Date.now() + 120;
     }
+
+
+    this.move();
+  }
+
+  move() {
+    this.setLocalPosition(this.local.x, this.local.y - Math.round(this.velocity.y));
+    this.velocity.y = (this.velocity.y - 1.2) > 0 ? this.velocity.y - 1.2 : 0.0;
+  }
+
+  forceStop() {
+    this.stop = true;
+  }
+
+  isFinish() {
+    return this.stop;
   }
 }
 

@@ -1,5 +1,3 @@
-
-
 class Render {
 
 	constructor(src, zIndex = 0) {

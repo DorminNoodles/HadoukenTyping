@@ -19,16 +19,35 @@ class SoloGame extends GameObject {
         // console.log("gameloop");
         this.openGameCanvas();
         this.gameLoop();
-        let board = this.addGameObject(new Board('MainBoard', true, false));
-        board.setLocalPosition(60, 500);
 
-        // let board2 = this.addGameObject(new Board('MainBoard2', false, true));
-        // board2.setPosition(60, 120);
+        // setTimeout(() => {
+        //     this.board = this.addGameObject(new Board('MainBoard', true, false));
+        //     this.board.setLocalPosition(60, 400);
+        // }, 2000);
+
+        // setTimeout(() => {
+        //     this.board3 = this.addGameObject(new Board('MainBoard3', true, false));
+        //     this.board3.setLocalPosition(60, 580);
+        // }, 9000);
+
+        this.board2 = this.addGameObject(new Board('MainBoard2', false, false));
+        this.board2.setLocalPosition(60, 150);
+
+        this.board3 = this.addGameObject(new Board('MainBoard3', false, false));
+        this.board3.setLocalPosition(60, 240);
 
         // let deathTimer = this.addGameObject(new TextRender('DeathTimer'));
         // deathTimer.setPosition(400, 200);
         // deathTimer.write(0, '0001');
 
+        setTimeout(() => {
+            GameObject.delete(this.board2);
+        }, 7000);
+
+
+        setTimeout(() => {
+            GameObject.delete(this.board3);
+        }, 12000);
 
         // le timer de mort !
         // let deathTimer = this.addGameObject(new DeathTimer('DeathTimer', 5));
@@ -37,6 +56,12 @@ class SoloGame extends GameObject {
 
     update() {
         // console.log("Hello !!!");
+        // if (this.board && this.board.isLose()) {
+        //     console.log("322nm42n: Lose Game !");
+        //     GameObject.delete(this.board);
+        //     this.board = null;
+        // }
+        // console.log("32kjenc: childs >> ", this.board.childs);
     }
 
     openGameCanvas() {

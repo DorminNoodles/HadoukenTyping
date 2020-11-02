@@ -30,8 +30,6 @@ class TextRender extends GameObject {
 
     this.deleteAllChilds();
 
-    console.log("342kewws: local parent pos  > ", this.parent);
-
     text.split('').forEach((letter, index) => {
       let tmp = this.addGameObject(new GameObject());
       tmp.setLocalPosition((index*30), 0);

@@ -43,13 +43,17 @@ class Board extends GameObject {
 			nextPlayTime: Date.now() + 2000,
 			playInterval: 2000,
 		}
+
+		this.lose = false;
 	}
 
 
 	takeDamage(e, self) {
-		console.log("32111d: take damage ", e);
-		if (e.detail != self.id)
+		if (e.detail != self.id) {
+			console.log("32111d: take damage ", self.id);
+			console.log("32111d: take damage ", e);
 			this.nextSpawnLetterTime = 1;
+		}
 
 	}
 
@@ -86,7 +90,6 @@ class Board extends GameObject {
 			delete this.lettersSlot[this.currentLetter - 1];
 			this.currentLetter--;
 		}
-		// if (this.letter)
 	}
 
 
@@ -102,29 +105,24 @@ class Board extends GameObject {
 			this.playIA();
 
 		// console.log("313hhz: ", this.lettersNb);
-		if ( !this.deathTimer) {
+		if (this.lettersNb >= 11 && !this.deathTimer) {
 			console.log("ere32: Hello DEATH !");
-			this.deathTimer = this.addGameObject(new DeathTimer('DeathTimer', 5));
-			this.deathTimer.setLocalPosition(600, -60);
+			this.deathTimer = this.addGameObject(new DeathTimer('DeathTimer', 10));
+			this.deathTimer.setLocalPosition(1000, -40);
 			// this.deathTimer.setPosition(0,100);
 		}
 
-		// this.lettersSlot.forEach((slot, index) => {
-		// 	// console.log("324231: index slot > ", slot);
-		// 	if (index > 0) {
-		// 	console.log("324231: index slot > ", index);
-		// 		if (slot.letter && this.lettersSlot[index - 1].letter === null) {
-		// 			console.log("342342: go left");
-		// 			this.lettersSlot[index - 1].letter = this.lettersSlot[index].letter;
-		// 			this.lettersSlot[index].letter = null;
-		// 			//new position where letter must to go
-		// 			this.lettersSlot[index - 1].letter.setTargetPos(140 + (92*(index - 1)));
-		// 		}
-		// 	}
-		// 	else if (index === 0) {
-		// 		this.lettersSlot[index].letter.setTargetPos(140 + (92*(index)));
-		// 	}
-		// })
+		if (this.deathTimer && this.deathTimer.isFinish()) {
+			if (this.lettersReachLimit())
+				this.lose = true;
+
+			GameObject.delete(this.deathTimer);
+			this.deathTimer = null;
+		}
+	}
+
+	lettersReachLimit() {
+		return this.lettersNb >= 11;
 	}
 
 	playIA() {
@@ -186,7 +184,11 @@ class Board extends GameObject {
 		min = Math.ceil(min);
 		max = Math.floor(max);
 		return Math.floor(Math.random() * (max - min + 1)) + min;
-	  }
+		}
+
+	isLose() {
+		return this.lose;
+	}
 }
 
 export default Board;

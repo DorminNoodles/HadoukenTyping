@@ -59,7 +59,7 @@ class LetterStd extends GameObject {
 	}
 
 	deleteLetter() {
-		this.deleteAnimationStart = Date.now() + 1000;
+		this.deleteAnimationStart = Date.now() + 200;
 		this.state = this.deleteAnimation;
 		this.velocity.y = 20;
 	}

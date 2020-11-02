@@ -17,38 +17,21 @@ import Script from './core/script';
 	un nouvel objet
 */
 
-// class RenderManager extends Script {
-
-// 	constructor() {
-// 		super();
-// 		this.canvas = document.getElementById("canvas");
-// 		this.shake = 0;
-// 		this.flash = 0;
-// 		this.pressShake = 0;
-// 		this.pressShakeForce = 1;
-// 		this.objects = [];
-
-// 		this.addListener('badLetter', () => {
-// 			this.flash = 100;
-// 			this.shake = 10;
-// 		});
-
-// 		this.addListener('pressShake', (e) => {
-// 			this.pressShake = 3;
-// 			this.pressShakeForce = e.detail.force;
-// 			this.pressShakeForce = (this.pressShakeForce > 25) ? 25 : this.pressShakeForce;
-// 		});
-// 	}
 let originX = 0;
 let originY = 0;
 
 let objects = [];
 
-// const canvas = document.getElementById("canvas");
-// const ctx = canvas.getContext("2d");
 
+let timeTest = Date.now() + 1000;
 
 export function update() {
+	if (timeTest < Date.now()) {
+		timeTest = Date.now() + 1000;
+		console.log("renderManager !!!!!!!!!!!!!!!!!!");
+		console.log("objects > ", objects);
+		console.log("core >> ", Core.getGameObjectList());
+	}
 		const canvas = document.getElementById("canvas");
 		const ctx = canvas.getContext("2d");
 
@@ -149,33 +132,33 @@ export function update() {
 		// if (this.pressShake > 0)
 		// 	this.pressShake--;
 }
-	// flashScreen(self) {
-
-	// }
-// }
 
 export function addObject(obj) {
 	let position = 0;
 
-	for (let i = 0; i <= objects.length; i++) {
-		if (objects[i] && objects[i].render.zIndex > obj.render.zIndex) {
-			position = i;
-			break;
-		}
-		position = i;
-	}
-	if (!position) {
-		objects.push(obj);
-	}
-	else {
-		objects.splice(position, 0, obj);
-	}
+	objects.push(obj);
+	// for (let i = 0; i <= objects.length; i++) {
+	// 	if (objects[i] && objects[i].render.zIndex > obj.render.zIndex) {
+	// 		position = i;
+	// 		break;
+	// 	}
+	// 	position = i;
+	// }
+	// if (!position) {
+	// 	objects.push(obj);
+	// }
+	// else {
+	// 	objects.splice(position, 0, obj);
+	// }
 
 }
 
 export function deleteObject(obj) {
+
+	console.log("delete object > ", obj.id);
 	const index = objects.findIndex(element => element.id === obj.id);
+	console.log("index >>> ", index);
+	if (index == -1)
+		return;
 	objects.splice(index, 1);
 }
-
-// export default RenderManager;

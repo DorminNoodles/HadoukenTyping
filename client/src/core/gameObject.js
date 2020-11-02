@@ -90,11 +90,7 @@ class GameObject {
 	addGameObject(obj) {
 		this.childs.push(obj);
 		obj.setParent(this);
-
-		//GameObject give position from parent
-		obj.setParentPosition(this.x, this.y);
-		//gameObject set to parent position by default
-		obj.setPosition(this.x, this.y);
+		obj.setLocalPosition(this.x, this.y);
 		return obj;
 	}
 
@@ -132,16 +128,16 @@ class GameObject {
 
 	static delete(object) {
 
-		if (object.script) {
-			Script.delete(object.script);
-		}
+		// if (object.script) {
+		// 	Script.delete(object.script);
+		// }
 
-		if (object.script && object.script.childs) {
-			let childs = object.script.childs;
-			for( var el in childs ) {
-				GameObject.delete(childs[el]);
-			}
-		}
+		// if (object.script && object.script.childs) {
+		// 	let childs = object.script.childs;
+		// 	for( var el in childs ) {
+		// 		GameObject.delete(childs[el]);
+		// 	}
+		// }
 
 		if (object && object.childs) {
 			let childs = object.childs;
@@ -151,7 +147,15 @@ class GameObject {
 			}
 		}
 
-		RenderManager.deleteObject(object);
+		if (object.eventListeners) {
+			object.eventListeners.forEach((elem) => {
+				console.log("efe320: ", elem.name);
+				document.removeEventListener(elem.name, elem.func);
+			});
+		}
+
+		if (object.render)
+			RenderManager.deleteObject(object);
 		Core.deleteObject(object);
 	}
 
@@ -167,6 +171,10 @@ class GameObject {
 	addListener(name, func) {
 		this.eventListeners.push({'name': name, 'func': func});
 		document.addEventListener(name, func);
+
+		if (this.name == "MainBoard")  {
+			console.log("312ddw: add event listeners > ", this.eventListeners);
+		}
 	}
 
 	removeListener(name, func) {
