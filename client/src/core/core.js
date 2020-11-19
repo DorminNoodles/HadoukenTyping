@@ -30,7 +30,8 @@ export function	update() {
 		if (object.script && object.script.update) {
 			object.script.update();
 		}
-		object.update();
+		if (object.isEnabled)
+			object.update();
 	});
 }
 

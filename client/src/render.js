@@ -8,6 +8,7 @@ class Render {
 		this.isAnimated = false;
 		this.currentFrame = 0;
 		this.nextFrameTime = 0;
+		this.currentAnim = null;
 
 		this.opacity = 1.0;
 
@@ -22,8 +23,11 @@ class Render {
 		this.sourceX = 0;
 		this.sourceY = 0;
 
+		this.pause = false;
+
 	}
 
+	//Permet d'ajouter une animation a utiliser quand on veut (si le render n'a pas d'animation on lui ajoute la premiere)
 	addAnim(anim) {
 		this.isAnimated = true;
 		this.anim[anim.name] = anim;
@@ -34,6 +38,7 @@ class Render {
 	}
 
 	draw(ctx, x, y) {
+		ctx.globalAlpha = this.opacity;
 		if (this.img) {
 			if (this.isAnimated)
 				this.drawAnim(ctx, x, y);
@@ -68,7 +73,7 @@ class Render {
 	drawAnim(ctx, x, y) {
 		if (this.currentAnim && this.anim[this.currentAnim]) {
 			let anim = this.anim[this.currentAnim];
-			let sX = anim.width * (this.currentFrame + this.anim[this.currentAnim].col) ;
+			let sX = anim.width * (this.currentFrame + this.anim[this.currentAnim].col);
 			let sY = anim.height * anim.row;
 			let width = anim.width;
 			let height = anim.height;
@@ -86,10 +91,10 @@ class Render {
 				height
 			);
 
-			if (this.nextFrameTime < Date.now()) {
+			if (this.nextFrameTime < Date.now() && !this.pause) {
 				if (!this.anim[this.currentAnim].loop && this.currentFrame == frameNb - 1)
 					this.currentAnim = this.anim[this.currentAnim].nextAnim;
-				this.currentFrame = (this.currentFrame + 1) % frameNb;
+				this.currentFrame = (this.currentFrame + 1) % frameNb; //le modulo permet de boucler
 				this.nextFrameTime = Date.now() + speed;
 			}
 		}
@@ -115,9 +120,23 @@ class Render {
 		this.offsetY = y;
 	}
 
+	setSource(x, y) {
+		this.sourceX = x;
+		this.sourceY = y;
+	}
+
+	setSize(width, height) {
+		this.width = width;
+		this.height = height;
+	}
+
 	changeImage(img) {
 		this.img = new Image();
 		this.img.src = img.src;
+	}
+
+	stop() {
+		this.pause = true;
 	}
 
 }

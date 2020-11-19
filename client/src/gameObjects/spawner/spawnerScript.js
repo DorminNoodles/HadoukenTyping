@@ -27,7 +27,6 @@ class SpawnerScript extends Script {
 					'letter': letter
 				}
 			});
-			console.log("HERE");
 			document.dispatchEvent(spawnLetter);
 		}
 	}

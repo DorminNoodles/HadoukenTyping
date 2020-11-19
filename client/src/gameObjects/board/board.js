@@ -10,27 +10,28 @@ import DeathTimer from '../deathTimer';
 
 class Board extends GameObject {
 
-	constructor(name, playerControl = true, iaControl = true) {
+	constructor(name, playerControl = true, iaControl = false) {
 		console.log("23111: Create Board");
 		super(name);
 		this.beginSection = this.addGameObject(new BeginSection('beginSection'));
 		this.beginSection.setLocalPosition(0, 0);
 
 		this.sections = [];
-		for (let i = 0; i < 10; i++) {
+		for (let i = 0; i < 13; i++) {
 			this.sections[i] = this.addGameObject(new Section('section'+i));
 			this.sections[i].setLocalPosition(134 + (i * 92), 0);
 		}
 
 		this.endSection = this.addGameObject(new EndSection('endSection'));
-		this.endSection.setLocalPosition(134+(10*92), 0);
+		this.endSection.setLocalPosition(134+(13*92), 0);
 
 		this.startTime = Date.now();
-		this.spawnLetterInterval = 1600;
+		this.spawnLetterInterval = 500;
 		this.nextSpawnLetterTime = this.startTime;
 		this.letters = [];
 		this.lettersNb = 0;
-		this.lettersSlot = new Array(24);
+		this.lettersStack = new Array(14);
+
 		if (playerControl)
 			this.addListener('keydown', (e) => this.deleteLetter(e, this));
 		this.maxLetters = 10;
@@ -45,15 +46,20 @@ class Board extends GameObject {
 		}
 
 		this.lose = false;
+		this.lettersLimit = 13;
+		this.isFreeze = false;
+
+		this.moveLeftTimer = Date.now();
+		this.state = 'idle';
+		this.lettersTotal = 40;
+		this.lettersDelete = 0;
 	}
 
 
 	takeDamage(e, self) {
-		if (e.detail != self.id) {
-			console.log("32111d: take damage ", self.id);
-			console.log("32111d: take damage ", e);
-			this.nextSpawnLetterTime = 1;
-		}
+		// if (e.detail != self.id) {
+		// 	this.nextSpawnLetterTime = 1;
+		// }
 
 	}
 
@@ -64,121 +70,162 @@ class Board extends GameObject {
 	}
 
 	deleteLetter(e, self) {
-		console.log("321fe: Delete Letter");
-		if (e.key && self.lettersSlot[self.currentLetter]) {
-			console.log("4j44j: >>>>>>>>> ", self.lettersSlot);
-			// console.log('letter slot ', self.lettersSlot[0].sign);
-			if (e.key.toUpperCase() === self.lettersSlot[self.currentLetter].sign) {
-				self.lettersSlot[self.currentLetter].deleteLetter();
-				delete self.lettersSlot[self.currentLetter];
-				this.lettersNb--;
+		// console.log("321fe: Delete Letter");
 
-				this.launchAttack();
-				this.breakDisableLetter();
+		for (let i = 0; i < self.lettersStack.length && i <= 11; i++) {
+
+			// on boucle jusqu a trouver une lettre a delete
+			//on saute les lettres lock et les NULL
+
+			if (self.lettersStack[i] && !self.lettersStack[i].lock) {
+
+				// console.log("32jeb: ", e.key, "  ", );
+				if (e.key.toUpperCase() === self.lettersStack[i].sign) {
+					this.lettersDelete++;
+
+					var event = new CustomEvent('updateProgression', {'detail': {
+						lettersDelete: this.lettersDelete,
+						lettersTotal: this.lettersTotal,
+						player: !this.iaControl,
+					}});
+					document.dispatchEvent(event);
+
+					self.lettersStack[i].deleteLetter();
+					delete self.lettersStack[i];
+					self.moveLeftTimer = Date.now() + 300;
+					self.reduceLettersNb();
+					this.leftAttackLock(i);
+					break;
+				}
+				else {
+					self.lettersStack[i].setLock();
+					break;
+				}
 			}
-			else {
-				this.currentLetter++;
-			}
+
 		}
 	}
 
-	breakDisableLetter() {
-		console.log("342eed: ", this.lettersSlot[this.currentLetter - 1]);
+	leftAttackLock(index) {
 
-		if (this.lettersSlot[this.currentLetter - 1] && this.currentLetter - 1 >= 0) {
-			this.lettersSlot[this.currentLetter - 1].deleteLetter();
-			delete this.lettersSlot[this.currentLetter - 1];
-			this.currentLetter--;
+		for (let i = index-1; i >= 0; i--) {
+			if (this.lettersStack[i] && this.lettersStack[i].lock == true) {
+				console.log('3321iek : letter lock on left');
+				this.lettersStack[i].takeDamage();
+				if (this.lettersStack[i].isBroken()) {
+					console.log("DELETE LETTER !")
+					this.lettersStack[i].deleteLetter();
+					delete this.lettersStack[i];
+				}
+				break;
+			}
 		}
+
 	}
+
+	// breakDisableLetter() {
+	// 	console.log("342eed: ", this.lettersStack[this.currentLetter - 1]);
+
+	// 	if (this.lettersStack[this.currentLetter - 1] && this.currentLetter - 1 >= 0) {
+	// 		this.lettersStack[this.currentLetter - 1].deleteLetter();
+	// 		delete this.lettersStack[this.currentLetter - 1];
+	// 		this.currentLetter--;
+	// 	}
+	// }
 
 
 
 	update() {
-		this.spawnLetter(this.spawnLetterInterval);
+		if (!this.isFreeze) {
+			this.spawnLetter(this.spawnLetterInterval);
 
-		//move letter in left slot if it's possible
+			//move letter in left slot if it's possible
+			this.moveLettersToLeft();
 
-		this.moveLettersToLeft();
+			if (this.iaControl)
+				this.playIA();
 
-		if (this.iaControl)
-			this.playIA();
+			// if (this.lettersNb >= 11 && !this.deathTimer) {
+			// 	console.log("ere32: Hello DEATH !");
+			// 	this.deathTimer = this.addGameObject(new DeathTimer('DeathTimer', 5));
+			// 	this.deathTimer.setLocalPosition(1000, -40);
+			// 	// this.deathTimer.setPosition(0,100);
+			// }
 
-		// console.log("313hhz: ", this.lettersNb);
-		if (this.lettersNb >= 11 && !this.deathTimer) {
-			console.log("ere32: Hello DEATH !");
-			this.deathTimer = this.addGameObject(new DeathTimer('DeathTimer', 10));
-			this.deathTimer.setLocalPosition(1000, -40);
-			// this.deathTimer.setPosition(0,100);
-		}
-
-		if (this.deathTimer && this.deathTimer.isFinish()) {
-			if (this.lettersReachLimit())
-				this.lose = true;
-
-			GameObject.delete(this.deathTimer);
-			this.deathTimer = null;
+			// if (this.deathTimer && this.deathTimer.isFinish()) {
+			// 	if (this.lettersReachLimit())
+			// 	this.lose = true;
 		}
 	}
 
 	lettersReachLimit() {
-		return this.lettersNb >= 11;
+		return this.lettersNb >= this.lettersLimit;
 	}
 
 	playIA() {
 
-		if (this.ia.nextPlayTime < Date.now()) {
+		if (this.ia.nextPlayTime < Date.now() && this.lettersStack[0]) {
 			this.ia.nextPlayTime = Date.now() + this.ia.playInterval;
-			this.deleteLetter({key: this.lettersSlot[0].sign}, this);
+			this.deleteLetter({key: this.lettersStack[0].sign}, this);
 		}
 	}
 
 	moveLettersToLeft() {
-		this.lettersSlot.forEach((slot, index) => {
 
-			if (index != 0) {
-				if (!this.lettersSlot[index - 1]) {
-					this.lettersSlot[index - 1] = this.lettersSlot[index];
-					delete this.lettersSlot[index];
+		// if (this.moveLeftTimer < Date.now()) {
+			this.lettersStack.forEach((slot, index) => {
 
-					if (index - 1 <= 10) {
-						// console.log("4367ll: ", this.lettersSlot);
-						this.lettersSlot[index - 1].local.y = 35;
-						this.lettersSlot[index - 1].setTargetPos(140 + (92*(index - 1)));
+				if (index != 0) {
+					if (!this.lettersStack[index - 1]) {
+						this.lettersStack[index - 1] = this.lettersStack[index];
+						delete this.lettersStack[index];
+
+						if (index - 1 <= 13) {
+							this.lettersStack[index - 1].local.y = 35;
+							this.lettersStack[index - 1].setTargetPos(140 + (92*(index - 1)));
+						}
 					}
 				}
-			}
-		})
+			})
+		// }
 	}
 
 	spawnLetter(interval) {
 		let lettersSign = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
-		let sign = this.getRandomIntBetween(0,6);
+		let sign = this.getRandomIntBetween(0,lettersSign.length);
 
-		if (this.nextSpawnLetterTime < Date.now()) {
+		if (this.nextSpawnLetterTime < Date.now() && this.lettersStack[13]) {
+			console.log("YOU LOSE");
+			this.disable();
+			this.nextSpawnLetterTime = Date.now() + 999999999;
+			var event = new CustomEvent('endGame', {'detail': {winner: 'player'}});
+			document.dispatchEvent(event);
+		}
+
+		if (this.nextSpawnLetterTime < Date.now() && !this.lettersStack[13]) {
+			console.log("efwo3: spawn letter");
 			this.nextSpawnLetterTime = Date.now() + interval;
 
-			let l = this.addGameObject(new LetterStd('letter' + this.lettersNb, lettersSign[sign]))
-			l.setLocalPosition(1062, -3000);
-			l.targetPos = 1062;
-			this.letters.push(l);
+			let l = this.addGameObject(new LetterStd('letter' + sign, lettersSign[sign]))
+			// l.setLocalPosition(1342, -3000);
+			l.setLocalPosition(140 + (92*13), 35);
 
-			this.lettersNb++;
-			this.insertNewLetter(l);
+			l.targetPos = 140 + (92*13);
+			// this.letters.push(l);
+
+			this.lettersStack[13] = l;
+
+			// this.addLettersNb();
+			// this.insertNewLetter(l);
 		}
 	}
 
 	//When letter spawn it push in free slot
-	insertNewLetter(letter) {
-
-
-		// console.log("test undefined > ", this.lettersSlot[23]);
-
-		// letter.setTargetPos(2);
-		if (!this.lettersSlot[23]) {
-			this.lettersSlot[23] = letter;
-		}
-	}
+	// insertNewLetter(letter) {
+	// 	if (!this.lettersStack[13]) {
+	// 		this.lettersStack.push(letter);
+	// 	}
+	// }
 
 	getRandomIntBetween(min, max) {
 		min = Math.ceil(min);
@@ -188,6 +235,24 @@ class Board extends GameObject {
 
 	isLose() {
 		return this.lose;
+	}
+
+	freeze() {
+		this.isFreeze = true;
+		this.letters.forEach((letter) => {
+			letter.freeze();
+		});
+	}
+
+	addLettersNb() {
+		this.lettersNb++;
+		if (this.name == "MainBoard")
+			console.log("3232keo: add letter " + this.lettersNb);
+	}
+	reduceLettersNb() {
+		this.lettersNb--;
+		if (this.name == "MainBoard")
+			console.log("32oeo2eo: reduce letter " + this.lettersNb);
 	}
 }
 

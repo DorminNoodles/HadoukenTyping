@@ -1,8 +1,6 @@
 import pushByZIndex from '../helpers/pushByZIndex';
 import { emit } from 'nodemon';
 
-console.log("Test Helpers: Push Orders");
-
 let objArr = [
     {
         id: 1,

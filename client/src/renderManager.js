@@ -23,15 +23,8 @@ let originY = 0;
 let objects = [];
 
 
-let timeTest = Date.now() + 1000;
-
 export function update() {
-	if (timeTest < Date.now()) {
-		timeTest = Date.now() + 1000;
-		console.log("renderManager !!!!!!!!!!!!!!!!!!");
-		console.log("objects > ", objects);
-		console.log("core >> ", Core.getGameObjectList());
-	}
+
 		const canvas = document.getElementById("canvas");
 		const ctx = canvas.getContext("2d");
 
@@ -63,18 +56,6 @@ export function update() {
 
 
 
-
-
-
-		// cloneObjects.forEach((elem, index) => {
-		// 	if (elem.render) {
-		// 		cloneObjects.splice(index, 1);
-
-		// 	}
-
-		// });
-
-
 		// // while (test.length > 0) {
 		// // 	test.splice(0,1);
 		// // }
@@ -96,9 +77,7 @@ export function update() {
 		// // }
 
 		objects.forEach((object) => {
-			// console.log("render id : ", object.id, "    name : ", object.name);
 			if (object && object.render) {
-				// console.log("322rfevv: ", object);
 				let pos = object.getPosition();
 				object.render.draw(ctx, pos.x + originX, pos.y + originY);
 			}
@@ -108,15 +87,9 @@ export function update() {
 		// 	// if (objet.render.opacity != 1.0)
 		// 	// 	this.ctx.globalAlpha = objet.render.opacity;
 		// 	if (object.render) {
-		// 		// console.log("render id : ", object.id, "    name : ", object.name);
 		// 		object.render.draw(ctx, object.x + originX, object.y + originY);
 		// 	}
 		// 	// this.ctx.globalAlpha = 1.0;
-		// })
-
-		// objects.forEach((object) => {
-		// 	if (object.renderText)
-		// 		object.renderText.draw(this.ctx, object.x + originX, object.y + originY);
 		// })
 
 		// if (this.flash > 0) {
@@ -136,28 +109,24 @@ export function update() {
 export function addObject(obj) {
 	let position = 0;
 
-	objects.push(obj);
-	// for (let i = 0; i <= objects.length; i++) {
-	// 	if (objects[i] && objects[i].render.zIndex > obj.render.zIndex) {
-	// 		position = i;
-	// 		break;
-	// 	}
-	// 	position = i;
-	// }
-	// if (!position) {
-	// 	objects.push(obj);
-	// }
-	// else {
-	// 	objects.splice(position, 0, obj);
-	// }
-
+	// objects.push(obj);
+	for (let i = 0; i <= objects.length; i++) {
+		if (objects[i] && objects[i].render.zIndex > obj.render.zIndex) {
+			position = i;
+			break;
+		}
+		position = i;
+	}
+	if (!position) {
+		objects.push(obj);
+	}
+	else {
+		objects.splice(position, 0, obj);
+	}
 }
 
 export function deleteObject(obj) {
-
-	console.log("delete object > ", obj.id);
 	const index = objects.findIndex(element => element.id === obj.id);
-	console.log("index >>> ", index);
 	if (index == -1)
 		return;
 	objects.splice(index, 1);

@@ -36,7 +36,6 @@ class LettersArrayScript extends Script {
 
 	update() {
 
-		// console.log("letter array :", this.array);
 
 		if (this.nextMove < Date.now()) {
 			this.nextMove = Date.now() + 1800;
@@ -51,8 +50,6 @@ class LettersArrayScript extends Script {
 			if (this.array[i] != null) {
 				if (i > 0) {
 					if (this.array[i - 1] == null) {
-						// console.log()
-						// console.log("from : ", i, "to : ", i - 1);
 						this.array[i - 1] = this.array[i];
 						this.array[i] = null;
 						this.array[i - 1].script.setPosition(i - 1);

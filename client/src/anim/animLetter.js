@@ -348,3 +348,17 @@ export const a1ShowKanji = {
 	duration: 15,
 	nextAnim: 'a1ShowA'
 }
+
+export const lockFlash = {
+	name: "lockFlash",
+	img: './letterLockFlash.png',
+	width: 80,
+	height: 370,
+	frameNb: 3,
+	row: 0,
+	col: 0,
+	speed: 100,
+	loop: false,
+	duration: 15,
+	nextAnim: ''
+}

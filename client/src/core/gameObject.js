@@ -26,6 +26,7 @@ class GameObject {
 		// };
 		this.childs = [];
 		this.eventListeners = [];
+		this.isEnabled = true;
 
 		// RenderManager.addObject(this);
 	}
@@ -37,13 +38,15 @@ class GameObject {
 	setPosition(x, y) {
 		this.x = x;
 		this.y = y;
+		this.local.x = x;
+		this.local.y = y;
 
-		this.childs.forEach((child) => {
-			let localX = child.x - child.parent.x;
-			let localY = child.y - child.parent.y;
-			child.setParentPosition(x, y);
-			child.setPosition(child.parent.x + localX, child.parent.y + localY);
-		})
+		// this.childs.forEach((child) => {
+		// 	let localX = child.x - child.parent.x;
+		// 	let localY = child.y - child.parent.y;
+		// 	child.setParentPosition(x, y);
+		// 	child.setPosition(child.parent.x + localX, child.parent.y + localY);
+		// })
 	}
 
 	getPosition() {
@@ -54,8 +57,8 @@ class GameObject {
 			};
 		}
 		return {
-			x: 0,
-			y: 0,
+			x: this.local.x,
+			y: this.local.y,
 		}
 	}
 
@@ -98,8 +101,8 @@ class GameObject {
 		//position from gameobject parent
 		this.local.x = x;
 		this.local.y = y;
-		this.x = x + this.parent.x;
-		this.y = y + this.parent.y;
+		// this.x = x + this.parent.getPosition().x;
+		// this.y = y + this.parent.getPosition().y;
 	}
 
 	setParentPosition(x, y) {
@@ -154,8 +157,9 @@ class GameObject {
 			});
 		}
 
-		if (object.render)
+		if (object.render) {
 			RenderManager.deleteObject(object);
+		}
 		Core.deleteObject(object);
 	}
 
@@ -166,6 +170,13 @@ class GameObject {
 	addRender(render) {
 		this.render = render;
 		RenderManager.addObject(this);
+		return render;
+	}
+
+	deleteRender() {
+		if (this.render) {
+			RenderManager.deleteObject(this);
+		}
 	}
 
 	addListener(name, func) {
@@ -179,6 +190,15 @@ class GameObject {
 
 	removeListener(name, func) {
 
+	}
+
+	disable() {
+		this.isEnabled = false;
+		if (this.render)
+			this.render.stop();
+		this.childs.forEach(child => {
+			child.disable();
+		});
 	}
 }
 
