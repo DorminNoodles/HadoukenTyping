@@ -1,7 +1,20 @@
 # HadoukenTyping
 
+### For launch project
 
-  ### ADD Webpack
+```
+cd client/
+npm i
+npm run build
+
+
+cd server/
+npm i
+npm start
+```
+
+
+  ### Create Webpack Folder
 
 ```
   npm init -y
