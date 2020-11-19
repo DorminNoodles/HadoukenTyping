@@ -28,6 +28,13 @@ class GameObject {
 		this.eventListeners = [];
 		this.isEnabled = true;
 
+		// let save = document.dispatchEvent;
+
+		// document.dispatchEvent = (param) => {
+		// 	console.log(param);
+		// 	save(param);
+		// }
+
 		// RenderManager.addObject(this);
 	}
 
@@ -181,7 +188,13 @@ class GameObject {
 
 	addListener(name, func) {
 		this.eventListeners.push({'name': name, 'func': func});
-		document.addEventListener(name, func);
+		document.addEventListener(name, (e) => {
+			let find = this.eventListeners.find((elem) => {
+				return elem.type ===  e.name;
+			});
+			if (find && this.isEnabled)
+				find.func(e);
+		});
 
 		if (this.name == "MainBoard")  {
 			console.log("312ddw: add event listeners > ", this.eventListeners);
